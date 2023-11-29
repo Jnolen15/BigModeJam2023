@@ -2,15 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damage : MonoBehaviour
+public class Damage : Interactable
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private ParticleSystem _sparks;
 
+    // ====================== Override Functions ======================
+    public override void OnPlayerInteact()
+    {
+        RepairDamage();
+    }
+
+    public override void OnPlayerLookAt()
+    {
+        //Debug.Log("Looking at " + gameObject.name);
+    }
+
+    public override void OnPlayerLookAway()
+    {
+        //Debug.Log("Looking away " + gameObject.name);
+    }
+
     // ====================== Function ======================
     public void ActiavteDamage()
     {
-        Debug.Log("Activating damage " + this.name);
+        //Debug.Log("Activating damage " + this.name);
         _sparks.Play();
     }
 
@@ -18,10 +34,5 @@ public class Damage : MonoBehaviour
     {
         Debug.Log("Repairing damage " + this.name);
         _sparks.Stop();
-    }
-
-    private void OnMouseDown()
-    {
-        RepairDamage();
     }
 }

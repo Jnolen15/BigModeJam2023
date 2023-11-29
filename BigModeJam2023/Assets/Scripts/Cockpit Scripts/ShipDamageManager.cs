@@ -21,7 +21,7 @@ public class ShipDamageManager : MonoBehaviour
     // ====================== Function ======================
     private void OnTakeDamage()
     {
-        Debug.Log("Ship taking damage!");
+        //Debug.Log("Ship taking damage!");
         int rand = Random.Range(0, _damageObjectList.Count);
         _damageObjectList[rand].ActiavteDamage();
     }
