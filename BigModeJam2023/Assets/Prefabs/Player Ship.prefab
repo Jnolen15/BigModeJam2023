@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 0.01
-  _gunCoolDown: 0.1
-  _projectileSpeed: 0.1
+  _gunCoolDown: 0.2
+  _projectileSpeed: 0.015
   _xLimit: 10
   _yLimit: 10
   _xOffset: 0

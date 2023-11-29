@@ -5,17 +5,20 @@ using UnityEngine;
 public class PlayerProjectileScript : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
+    [SerializeField] private float _range = 20;
 
-    [SerializeField] private float _speed = 0.001f;
-    [SerializeField] private float _lifeSpan = 3;
-    private GameplayManager _gameplayManager;
+    private float _speed = 0.001f;
     private float _lifeTimeStamp = 0;
+    private float _yPosition;
+    private float _distanceTraveled = 0;
+
+    private GameplayManager _gameplayManager;
 
     // ====================== Setup ======================
     void Start()
     {
         _gameplayManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
-        _lifeTimeStamp = Time.time + _lifeSpan;
+        _yPosition = transform.position.y;
     }
 
     // ====================== Function ======================
@@ -24,11 +27,12 @@ public class PlayerProjectileScript : MonoBehaviour
     {
         if (!_gameplayManager.GamePaused)  // moving
             transform.Translate(new Vector3(0, _speed * Time.timeScale, 0));
-        if (Time.time > _lifeTimeStamp) // destroying
+
+        _distanceTraveled += transform.position.y - _yPosition;
+        _yPosition = transform.position.y;
+        if (_distanceTraveled > _range) // destroying
             Destroy(gameObject);
 
-        if (_gameplayManager.GamePaused) // extending timestamp on pause
-            _lifeTimeStamp += Time.deltaTime;
     }
 
     public void SetSpeed(float speed)
