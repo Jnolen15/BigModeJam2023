@@ -5,10 +5,10 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     // =================== Base Functions ===================
-    private void OnMouseDown()
+    /*private void OnMouseDown()
     {
         OnPlayerInteact();
-    }
+    }*/
 
     private void OnMouseEnter()
     {
@@ -23,7 +23,7 @@ public abstract class Interactable : MonoBehaviour
     // =================== Virtual Functions ===================
 
     // =================== Abstract Functions ===================
-    public abstract void OnPlayerInteact();
+    public abstract void OnPlayerInteact(string heldItem, CockpitController cockpitController);
 
     public abstract void OnPlayerLookAt();
 

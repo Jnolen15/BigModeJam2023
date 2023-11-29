@@ -8,9 +8,10 @@ public class Damage : Interactable
     [SerializeField] private ParticleSystem _sparks;
 
     // ====================== Override Functions ======================
-    public override void OnPlayerInteact()
+    public override void OnPlayerInteact(string heldItem, CockpitController cockpitController)
     {
-        RepairDamage();
+        if(heldItem == "blowtorch")
+            RepairDamage();
     }
 
     public override void OnPlayerLookAt()

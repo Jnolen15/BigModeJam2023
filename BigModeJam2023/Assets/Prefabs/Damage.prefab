@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3071728301903985233}
   - component: {fileID: 5774965454158551568}
   - component: {fileID: 4031905310297769423}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SparkParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4842,7 +4842,7 @@ GameObject:
   - component: {fileID: 2714394265015782063}
   - component: {fileID: 892364823726024642}
   - component: {fileID: 6936010605941931906}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

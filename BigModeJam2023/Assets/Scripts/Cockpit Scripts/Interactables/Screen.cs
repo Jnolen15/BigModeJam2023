@@ -9,7 +9,7 @@ public class Screen : Interactable
     public static event ScreenEvent OnInteractWithScreen;
 
     // ====================== Override Functions ======================
-    public override void OnPlayerInteact()
+    public override void OnPlayerInteact(string heldItem, CockpitController cockpitController)
     {
         OnInteractWithScreen?.Invoke();
     }
