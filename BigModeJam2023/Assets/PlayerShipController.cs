@@ -7,6 +7,7 @@ public class PlayerShipController : MonoBehaviour
     // ====================== Refrences / Variables ======================
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _gunCoolDown = 0.1f;
+    [SerializeField] private float _projectileSpeed = 0.01f;
     // Boundries
     [SerializeField] private float _xLimit = 10;
     [SerializeField] private float _yLimit = 10;
@@ -15,7 +16,10 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _yOffset = 0;
 
 
+    [SerializeField] private GameObject Projectile;
+
     private GameplayManager _gameplayManager;
+    private float _shotTimeStamp = 0;
 
 
     // ====================== Setup ======================
@@ -38,7 +42,7 @@ public class PlayerShipController : MonoBehaviour
 
         // Applying Boundries
         Vector3 currentPos = transform.position;
-        float xLim = _xLimit + _xOffset;
+        float xLim = _xLimit + _xOffset; // adjusting for offset
         float yLim = _yLimit + _yOffset;
         if (transform.position.x > xLim) currentPos.x = xLim;
         if (transform.position.x < -xLim) currentPos.x = -xLim;
@@ -46,6 +50,14 @@ public class PlayerShipController : MonoBehaviour
         if (transform.position.y < -yLim) currentPos.y = -yLim;
         transform.position = currentPos;
 
+        // Shooting
+        if (Input.GetMouseButton(0))
+            Shoot();
+
+
+        // adjusting time stamped variables
+        if (_gameplayManager.GamePaused) 
+            _shotTimeStamp += Time.deltaTime;
     }
 
     public void TakeDamage()
@@ -53,13 +65,14 @@ public class PlayerShipController : MonoBehaviour
         _gameplayManager.CurrentHealth -= 1;
     }
 
-    private void ApplyBoundries()
+    private void Shoot()
     {
-
-    }
-    private void MoveShip()
-    {
-        
+        if (_shotTimeStamp < Time.time)
+        {
+            GameObject laser = Instantiate(Projectile, transform);
+            laser.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
+            _shotTimeStamp = Time.time + _gunCoolDown;
+        }
     }
 
     // ====================== Collisions ======================
@@ -68,7 +81,10 @@ public class PlayerShipController : MonoBehaviour
     {
         GameObject other = collision.gameObject;
         Debug.Log("Ship Collided with: " + other.name);
- 
+        if (true)
+        {
+            TakeDamage();
+        }
     }
 
 }
