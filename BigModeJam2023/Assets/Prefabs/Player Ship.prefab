@@ -125,3 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89fec3187ee2974eb0fd6f3d695e336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 0.01
+  _gunCoolDown: 0.1
+  _xLimit: 10
+  _yLimit: 10
+  _xOffset: 0
+  _yOffset: 0
