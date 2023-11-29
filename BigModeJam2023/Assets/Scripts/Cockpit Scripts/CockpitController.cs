@@ -11,13 +11,21 @@ public class CockpitController : MonoBehaviour
     [SerializeField] private float _mouseSensitivity;
     [SerializeField] private LayerMask _interactableLayer;
     [SerializeField] private GameObject _blowtorch;
-    [SerializeField] private string _heldItemName = "none";
+    [SerializeField] private GameObject _extinguisher;
+    [SerializeField] private Tool _heldItem;
 
     private bool _cockpitControls = true;
     private float _verticalRotation = 0;
     private float _horizontalRotation = 0;
 
     private Camera cam;
+
+    public enum Tool
+    {
+        None,
+        Blowtorch,
+        Extinguisher
+    }
 
     // ====================== Setup ======================
     void Start()
@@ -83,7 +91,7 @@ public class CockpitController : MonoBehaviour
             Interactable interactable = objectHit.gameObject.GetComponent<Interactable>();
 
             if (interactable != null)
-                interactable.OnPlayerInteact(_heldItemName, this);
+                interactable.OnPlayerInteact(_heldItem, this);
             else
                 Debug.LogWarning("Clicked object does not have Interactable script " + objectHit.gameObject, objectHit.gameObject);
         }
@@ -116,25 +124,33 @@ public class CockpitController : MonoBehaviour
         transform.DORotate(_playerCamPos.rotation.eulerAngles, 0.5f).SetEase(Ease.OutSine).OnComplete( () => SetCockpitControls(true) );
     }
 
-    public void PickupTool(string toolName)
+    public void PickupTool(Tool toolName)
     {
         switch (toolName)
         {
-            case "blowtorch":
+            case Tool.None:
+                _heldItem = Tool.None;
+                break;
+            case Tool.Blowtorch:
                 _blowtorch.SetActive(true);
-                _heldItemName = "blowtorch";
+                _heldItem = Tool.Blowtorch;
+                break;
+            case Tool.Extinguisher:
+                _extinguisher.SetActive(true);
+                _heldItem = Tool.Extinguisher;
                 break;
             default:
                 Debug.LogWarning("Pickup tool did not recognze tool name. " + toolName);
-                _heldItemName = "none";
+                _heldItem = Tool.None;
                 break;
         }
     }
 
     public void SetdownTool()
     {
-        _heldItemName = "none";
+        _heldItem = Tool.None;
 
         _blowtorch.SetActive(false);
+        _extinguisher.SetActive(false);
     }
 }

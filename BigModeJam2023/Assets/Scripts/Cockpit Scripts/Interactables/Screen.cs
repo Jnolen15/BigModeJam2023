@@ -9,18 +9,19 @@ public class Screen : Interactable
     public static event ScreenEvent OnInteractWithScreen;
 
     // ====================== Override Functions ======================
-    public override void OnPlayerInteact(string heldItem, CockpitController cockpitController)
+    public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
-        OnInteractWithScreen?.Invoke();
+        if (heldItem == _requiredTool)
+            OnInteractWithScreen?.Invoke();
     }
 
     public override void OnPlayerLookAt()
     {
-        Debug.Log("Looking at " + gameObject.name);
+        //Debug.Log("Looking at " + gameObject.name);
     }
 
     public override void OnPlayerLookAway()
     {
-        Debug.Log("Looking away " + gameObject.name);
+        //Debug.Log("Looking away " + gameObject.name);
     }
 }

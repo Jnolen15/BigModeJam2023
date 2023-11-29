@@ -5,12 +5,12 @@ using UnityEngine;
 public class Damage : Interactable
 {
     // ====================== Refrences / Variables ======================
-    [SerializeField] private ParticleSystem _sparks;
+    [SerializeField] private ParticleSystem _vfx;
 
     // ====================== Override Functions ======================
-    public override void OnPlayerInteact(string heldItem, CockpitController cockpitController)
+    public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
-        if(heldItem == "blowtorch")
+        if(heldItem == _requiredTool)
             RepairDamage();
     }
 
@@ -27,13 +27,12 @@ public class Damage : Interactable
     // ====================== Function ======================
     public void ActiavteDamage()
     {
-        //Debug.Log("Activating damage " + this.name);
-        _sparks.Play();
+        _vfx.Play();
     }
 
     private void RepairDamage()
     {
         Debug.Log("Repairing damage " + this.name);
-        _sparks.Stop();
+        _vfx.Stop();
     }
 }

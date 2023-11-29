@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
+    // =================== Variables / Refrences ===================
+    [SerializeField] private protected CockpitController.Tool _requiredTool;
+
     // =================== Base Functions ===================
     /*private void OnMouseDown()
     {
@@ -23,7 +26,7 @@ public abstract class Interactable : MonoBehaviour
     // =================== Virtual Functions ===================
 
     // =================== Abstract Functions ===================
-    public abstract void OnPlayerInteact(string heldItem, CockpitController cockpitController);
+    public abstract void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController);
 
     public abstract void OnPlayerLookAt();
 
