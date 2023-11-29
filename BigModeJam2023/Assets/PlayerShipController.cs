@@ -60,12 +60,10 @@ public class PlayerShipController : MonoBehaviour
 
         // Applying Boundries
         Vector3 currentPos = transform.position;
-        float xLim = _xLimit + _xOffset; // adjusting for offset
-        float yLim = _yLimit + _yOffset;
-        if (transform.position.x > xLim) currentPos.x = xLim;
-        if (transform.position.x < -xLim) currentPos.x = -xLim;
-        if (transform.position.y > yLim) currentPos.y = yLim;
-        if (transform.position.y < -yLim) currentPos.y = -yLim;
+        if (transform.position.x > _xLimit + _xOffset) currentPos.x = _xLimit + _xOffset;
+        if (transform.position.x < -_xLimit + _xOffset) currentPos.x = -_xLimit + _xOffset;
+        if (transform.position.y > _yLimit + _yOffset) currentPos.y = _yLimit + _yOffset;
+        if (transform.position.y < -_yLimit + _yOffset) currentPos.y = -_yLimit + _yOffset;
         transform.position = currentPos;
 
         // Shooting
