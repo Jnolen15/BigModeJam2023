@@ -10,6 +10,7 @@ public class ShipEventManager : MonoBehaviour
 
     public delegate void ShipEvent();
     public static event ShipEvent OnTakeDamage;
+    public static event ShipEvent OnGetUpgrade;
 
     // ====================== Setup ======================
     void Start()
@@ -25,6 +26,7 @@ public class ShipEventManager : MonoBehaviour
         else
         {
             OnTakeDamage?.Invoke();
+            OnGetUpgrade?.Invoke();
             _testDamageTimer = _testDamageTimerMax;
         }
     }

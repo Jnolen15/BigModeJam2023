@@ -12,6 +12,7 @@ public class CockpitController : MonoBehaviour
     [SerializeField] private LayerMask _interactableLayer;
     [SerializeField] private GameObject _blowtorch;
     [SerializeField] private GameObject _extinguisher;
+    [SerializeField] private GameObject _upgrade;
     [SerializeField] private Tool _heldItem;
 
     private bool _cockpitControls = true;
@@ -24,7 +25,8 @@ public class CockpitController : MonoBehaviour
     {
         None,
         Blowtorch,
-        Extinguisher
+        Extinguisher,
+        Upgrade
     }
 
     // ====================== Setup ======================
@@ -139,6 +141,10 @@ public class CockpitController : MonoBehaviour
                 _extinguisher.SetActive(true);
                 _heldItem = Tool.Extinguisher;
                 break;
+            case Tool.Upgrade:
+                _upgrade.SetActive(true);
+                _heldItem = Tool.Upgrade;
+                break;
             default:
                 Debug.LogWarning("Pickup tool did not recognze tool name. " + toolName);
                 _heldItem = Tool.None;
@@ -152,5 +158,6 @@ public class CockpitController : MonoBehaviour
 
         _blowtorch.SetActive(false);
         _extinguisher.SetActive(false);
+        _upgrade.SetActive(false);
     }
 }
