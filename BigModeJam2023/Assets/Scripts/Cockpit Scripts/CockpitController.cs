@@ -34,14 +34,14 @@ public class CockpitController : MonoBehaviour
     {
         cam = this.GetComponent<Camera>();
 
-        Screen.OnInteractWithScreen += ChangePerspective;
+        ShipScreen.OnInteractWithScreen += ChangePerspective;
 
         LockCursor();
     }
 
     private void OnDestroy()
     {
-        Screen.OnInteractWithScreen -= ChangePerspective;
+        ShipScreen.OnInteractWithScreen -= ChangePerspective;
     }
 
     // ====================== Update ======================

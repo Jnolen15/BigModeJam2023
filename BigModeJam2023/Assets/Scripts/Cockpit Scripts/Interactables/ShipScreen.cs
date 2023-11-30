@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Screen : Interactable
+public class ShipScreen : Interactable
 {
     // ====================== Refrences / Variables ======================
     public delegate void ScreenEvent();

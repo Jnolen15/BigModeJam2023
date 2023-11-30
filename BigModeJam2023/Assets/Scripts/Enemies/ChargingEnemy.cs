@@ -26,12 +26,16 @@ public class ChargingEnemy : MonoBehaviour
         //Will stop once is going to launch
         if (!_stopLooking)
         {
-            transform.LookAt(Player.transform);
+            //transform.LookAt(Player.transform);
+
+            Quaternion rotation = Quaternion.LookRotation
+            (Player.transform.position - transform.position, transform.TransformDirection(Vector3.forward));
+            transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
         }
-        //When enemy charges it will use transform.forward to keep going in the direction the player was
+        //When enemy charges it will use transform.up * -1 to make it move towards the player instead of flying off to the opposite side to keep going in the direction the player was
         if (_startCharging)
         {
-            transform.position += transform.forward * _MovingSpeed;
+            transform.position += (transform.up * -1) * _MovingSpeed;
         }
         
 
