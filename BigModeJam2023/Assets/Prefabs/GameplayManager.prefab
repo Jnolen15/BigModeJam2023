@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3899b62aff9b5d244938a2728d2bb265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHealth: 100
+  MaximumHealth: 100
+  GamePaused: 0
+  GameOver: 0
+  FlyingTheShip: 1

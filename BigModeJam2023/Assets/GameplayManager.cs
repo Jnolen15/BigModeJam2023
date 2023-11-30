@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameplayManager : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
-    public float CurrentHealth = 3;
-    public float MaximumHealth = 3;
+    public float CurrentHealth = 100;
+    public float MaximumHealth = 100;
 
     public bool GamePaused = false;
     public bool GameOver = false;
