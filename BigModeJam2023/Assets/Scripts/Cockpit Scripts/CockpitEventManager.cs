@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipEventManager : MonoBehaviour
+public class CockpitEventManager : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private float _testDamageTimerMax;
     private float _testDamageTimer;
 
-    public delegate void ShipEvent();
-    public static event ShipEvent OnTakeDamage;
-    public static event ShipEvent OnGetUpgrade;
+    public delegate void CockpitEvent();
+    public static event CockpitEvent OnTakeDamage;
+    public static event CockpitEvent OnGetUpgrade;
 
     // ====================== Setup ======================
     void Start()

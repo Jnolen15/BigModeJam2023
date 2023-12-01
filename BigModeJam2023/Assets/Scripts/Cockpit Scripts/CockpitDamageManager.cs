@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipDamageManager : MonoBehaviour
+public class CockpitDamageManager : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private List<Damage> _damageObjectList;
@@ -10,12 +10,12 @@ public class ShipDamageManager : MonoBehaviour
     // ====================== Setup ======================
     private void Awake()
     {
-        ShipEventManager.OnTakeDamage += OnTakeDamage;
+        CockpitEventManager.OnTakeDamage += OnTakeDamage;
     }
 
     private void OnDestroy()
     {
-        ShipEventManager.OnTakeDamage -= OnTakeDamage;
+        CockpitEventManager.OnTakeDamage -= OnTakeDamage;
     }
 
     // ====================== Function ======================

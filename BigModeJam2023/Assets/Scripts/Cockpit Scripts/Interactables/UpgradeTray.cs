@@ -12,12 +12,12 @@ public class UpgradeTray : Interactable
     // ====================== Setup ======================
     private void Awake()
     {
-        ShipEventManager.OnGetUpgrade += GetUpgrade;
+        CockpitEventManager.OnGetUpgrade += GetUpgrade;
     }
 
     private void OnDestroy()
     {
-        ShipEventManager.OnGetUpgrade -= GetUpgrade;
+        CockpitEventManager.OnGetUpgrade -= GetUpgrade;
     }
 
     // ====================== Override Functions ======================
