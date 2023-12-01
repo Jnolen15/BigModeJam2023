@@ -38,6 +38,7 @@ public class PlayerShipController : MonoBehaviour
     // Events
     public delegate void ShipControllerEvent();
     public static event ShipControllerEvent OnUpgradePickUp;
+    public static event ShipControllerEvent OnGameOver;
 
 
 
@@ -122,6 +123,7 @@ public class PlayerShipController : MonoBehaviour
         } else
         {
             _currentHealth -= damageNum;
+            if (_currentHealth <= 0) OnGameOver?.Invoke();
         }
 
         if (_currentShield < 0) _currentShield = 0;
