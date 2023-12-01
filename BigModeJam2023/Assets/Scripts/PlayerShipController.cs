@@ -5,24 +5,37 @@ using UnityEngine;
 public class PlayerShipController : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
+    // base stats
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
-    // Boundries
-    [SerializeField] private float _xLimit = 10;
-    [SerializeField] private float _yLimit = 10;
-    // Offset for play area
-    [SerializeField] private float _xOffset = 0; 
-    [SerializeField] private float _yOffset = 0;
+
+    // powerups
+    [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
+    [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
+    [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
+
+    // Events
+    public delegate void ShipControllerEvent();
+    public static event ShipControllerEvent OnUpgradePickUp;
 
     // play area
     [SerializeField] private RectTransform _moveSpaceRect;
 
-
+    // Prefabs 
     [SerializeField] private GameObject Projectile;
+
+
+    // Boundries
+    private float _xLimit = 10;
+    private float _yLimit = 10;
+    // Offset for play area
+    private float _xOffset = 0;
+    private float _yOffset = 0;
 
     private GameplayManager _gameplayManager;
     private float _shotTimeStamp = 0;
+
 
 
     // ====================== Setup ======================
@@ -42,6 +55,11 @@ public class PlayerShipController : MonoBehaviour
         {
             Debug.LogFormat("Movement Area not set");
         }
+
+        // subscribing to upgrade events
+        UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
+        UpgradeSlot.OnEndUpgrade += EndUpgrade;
+
     }
 
     // ====================== Function ======================
@@ -83,6 +101,10 @@ public class PlayerShipController : MonoBehaviour
         // temp fun with timescales
         if (Input.GetKeyDown(KeyCode.F)) Time.timeScale = 0.5f;
         if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
+
+        // testing for upgrades
+        if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
+        if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
     }
 
     public void TakeDamage()
@@ -99,16 +121,74 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
+    // Event Functions
+    public void ActivateUpgrade(string upgradeName)
+    {
+        switch (upgradeName)
+        {
+            case "FireRate":
+                _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
+                break;
+            case "MoveSpeed":
+                _moveSpeed *= _moveSpeedUpgradeMultiplier;
+                break;
+            case "ProjectileSpeed":
+                _projectileSpeed *= _projectileSpeedUpgradeMultiplier;
+                break;
+            case "shield":
+                // whatever the shield upgrade does here
+                break;
+
+            default:
+                Debug.Log("Invalid upgrade name");
+                break;
+        }
+    }
+
+    public void EndUpgrade(string upgradeName)
+    {
+        switch (upgradeName)
+        {
+            case "FireRate":
+                _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
+                break;
+            case "MoveSpeed":
+                _moveSpeed /= _moveSpeedUpgradeMultiplier;
+                break;
+            case "ProjectileSpeed":
+                _projectileSpeed /= _projectileSpeedUpgradeMultiplier;
+                break;
+            case "Shield":
+                // whatever the shield upgrade does here
+                break;
+
+            default:
+                Debug.Log("Invalid upgrade name");
+                break;
+        }
+    }
+
     // ====================== Collisions ======================
     // TODO make sure this works
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject other = collision.gameObject;
         Debug.Log("Ship Collided with: " + other.name);
-        if (true)
+        if (collision.tag == "Enemy")
         {
             TakeDamage();
         }
+
+        if (collision.tag == "Upgrade")
+        {
+            OnUpgradePickUp?.Invoke();
+            Destroy(other.gameObject);
+        }
     }
 
+    private void OnDestroy()
+    {
+        UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
+        UpgradeSlot.OnEndUpgrade -= EndUpgrade;
+    }
 }
