@@ -58,7 +58,7 @@ public class UpgradeSlot : Interactable
 
     public void SlotUpgrade(CockpitController cockpitController)
     {
-        if (_upgradeActive)
+        if (_hasUpgrade)
             return;
 
         _upgradeBattery = Instantiate(_upgradePref).GetComponent<UpgradeBattery>();
