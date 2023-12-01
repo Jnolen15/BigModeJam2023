@@ -95,7 +95,10 @@ public class CockpitController : MonoBehaviour
             Interactable interactable = objectHit.gameObject.GetComponent<Interactable>();
 
             if (interactable != null)
+            {
+                Debug.Log("Clicked on " + interactable.gameObject.name);
                 interactable.OnPlayerInteact(_heldItem, this);
+            }
             else
                 Debug.LogWarning("Clicked object does not have Interactable script " + objectHit.gameObject, objectHit.gameObject);
         }

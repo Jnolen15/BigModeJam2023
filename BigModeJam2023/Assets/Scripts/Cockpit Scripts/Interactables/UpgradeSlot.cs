@@ -7,10 +7,12 @@ public class UpgradeSlot : Interactable
     // ====================== Refrences / Variables ======================
     [SerializeField] private GameObject _upgradePref;
     [SerializeField] private Transform _upgradePos;
-    [SerializeField] private float _upgradeTimerMax;
-    [SerializeField] private float _upgradeTimer;
+    [SerializeField] private string _upgradeName;
+    [SerializeField] private float _upgradeDuration;
+    private float _upgradeTimer;
     private GameObject _upgrade;
-    [SerializeField] private bool _upgradeActive;
+    private bool _upgradeActive;
+    private bool _hasUpgrade;
 
     public delegate void UpgradeEvent(string upgradeName);
     public static event UpgradeEvent OnStartUpgrade;
@@ -46,7 +48,7 @@ public class UpgradeSlot : Interactable
         else
         {
             _upgradeActive = false;
-            OnEndUpgrade?.Invoke("FireRate");
+            OnEndUpgrade?.Invoke(_upgradeName);
         }
     }
 
@@ -63,18 +65,20 @@ public class UpgradeSlot : Interactable
 
         cockpitController.SetdownTool();
 
-        OnStartUpgrade?.Invoke("FireRate");
+        OnStartUpgrade?.Invoke(_upgradeName);
         _upgradeActive = true;
-        _upgradeTimer = _upgradeTimerMax;
+        _hasUpgrade = true;
+        _upgradeTimer = _upgradeDuration;
     }
 
     public void UnslotUpgrade(CockpitController cockpitController)
     {
-        if(_upgradeActive)
+        if(_upgradeActive || !_hasUpgrade)
             return;
         
         cockpitController.PickupTool(CockpitController.Tool.DeadUpgrade);
 
+        _hasUpgrade = false;
         Destroy(_upgrade);
     }
 }

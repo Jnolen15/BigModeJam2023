@@ -10,7 +10,6 @@ public class CockpitEventManager : MonoBehaviour
 
     public delegate void CockpitEvent();
     public static event CockpitEvent OnTakeDamage;
-    public static event CockpitEvent OnGetUpgrade;
 
     // ====================== Setup ======================
     void Start()
@@ -26,7 +25,6 @@ public class CockpitEventManager : MonoBehaviour
         else
         {
             OnTakeDamage?.Invoke();
-            OnGetUpgrade?.Invoke();
             _testDamageTimer = _testDamageTimerMax;
         }
     }
