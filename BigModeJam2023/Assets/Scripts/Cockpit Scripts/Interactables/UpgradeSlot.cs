@@ -10,7 +10,7 @@ public class UpgradeSlot : Interactable
     [SerializeField] private string _upgradeName;
     [SerializeField] private float _upgradeDuration;
     private float _upgradeTimer;
-    private GameObject _upgrade;
+    private UpgradeBattery _upgradeBattery;
     private bool _upgradeActive;
     private bool _hasUpgrade;
 
@@ -44,10 +44,14 @@ public class UpgradeSlot : Interactable
             return;
 
         if (_upgradeTimer > 0)
+        {
             _upgradeTimer -= Time.deltaTime;
+            _upgradeBattery.UpdateTimer(_upgradeTimer);
+        }
         else
         {
             _upgradeActive = false;
+            _upgradeBattery.Killbattery();
             OnEndUpgrade?.Invoke(_upgradeName);
         }
     }
@@ -57,11 +61,11 @@ public class UpgradeSlot : Interactable
         if (_upgradeActive)
             return;
 
-        _upgrade = Instantiate(_upgradePref);
+        _upgradeBattery = Instantiate(_upgradePref).GetComponent<UpgradeBattery>();
 
         //upgrade.transform.SetParent(transform);
-        _upgrade.transform.position = _upgradePos.position;
-        _upgrade.transform.rotation = _upgradePos.rotation;
+        _upgradeBattery.transform.position = _upgradePos.position;
+        _upgradeBattery.transform.rotation = _upgradePos.rotation;
 
         cockpitController.SetdownTool();
 
@@ -79,6 +83,6 @@ public class UpgradeSlot : Interactable
         cockpitController.PickupTool(CockpitController.Tool.DeadUpgrade);
 
         _hasUpgrade = false;
-        Destroy(_upgrade);
+        Destroy(_upgradeBattery.gameObject);
     }
 }

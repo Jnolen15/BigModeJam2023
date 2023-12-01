@@ -20,6 +20,13 @@ public class UpgradeTray : Interactable
         PlayerShipController.OnUpgradePickUp -= GetUpgrade;
     }
 
+    // FOR TESTING
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+            GetUpgrade();
+    }
+
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
