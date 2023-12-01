@@ -10,11 +10,13 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
     [SerializeField] private float _currentShield = 0;
+    [SerializeField] private float _currentHealth = 100;
 
     // powerups
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
+    [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _maxShield = 100;
     [SerializeField] private float _shieldDecayRate = 0.1f;
     [SerializeField] private float _shieldDecayAmount = 1;
@@ -119,8 +121,10 @@ public class PlayerShipController : MonoBehaviour
             _currentShield -= damageNum;
         } else
         {
-            _gameplayManager.CurrentHealth -= damageNum;
+            _currentHealth -= damageNum;
         }
+
+        if (_currentShield < 0) _currentShield = 0;
         
     }
     private void Shoot()
@@ -205,6 +209,17 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
+    // functions for UI elements
+    public float GetHealthRatio()
+    {
+        return _currentHealth / _maxHealth;
+    }
+
+    public float GetShieldRatio()
+    {
+        return _currentShield / _maxShield;
+    }
+
     // ====================== Collisions ======================
     // TODO make sure this works
     private void OnTriggerEnter2D(Collider2D collision)
@@ -227,7 +242,7 @@ public class PlayerShipController : MonoBehaviour
     {
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
-        CockpitController.OnGoToGame -= ActivateShield;
+        CockpitController.OnGoToCockpit -= ActivateShield;
         CockpitController.OnGoToGame -= InterruptShield;
     }
 }

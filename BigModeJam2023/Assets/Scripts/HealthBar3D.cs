@@ -6,13 +6,13 @@ public class HealthBar3D : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
 
-    private GameplayManager _gameplayManager;
+    private PlayerShipController _shipController;
 
 
     // ====================== Setup ======================
     void Start()
     {
-        _gameplayManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
+        _shipController = GameObject.Find("Player Ship").GetComponent<PlayerShipController>();
     }
 
     // ====================== Function ======================
@@ -20,7 +20,7 @@ public class HealthBar3D : MonoBehaviour
     void Update()
     {
         Vector3 scale = transform.localScale;
-        scale.y = _gameplayManager.CurrentHealth / _gameplayManager.MaximumHealth;
+        scale.y = _shipController.GetHealthRatio();
         transform.localScale = scale;
     }
 }
