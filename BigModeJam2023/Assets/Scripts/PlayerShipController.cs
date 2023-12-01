@@ -9,22 +9,20 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
+    [SerializeField] private float _currentShield = 0;
 
     // powerups
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
+    [SerializeField] private float _maxShield = 100;
+    [SerializeField] private float _shieldDecayRate = 0.1f;
+    [SerializeField] private float _shieldDecayAmount = 1;
 
-    // Events
-    public delegate void ShipControllerEvent();
-    public static event ShipControllerEvent OnUpgradePickUp;
-
-    // play area
+    // GameObjects
     [SerializeField] private RectTransform _moveSpaceRect;
-
-    // Prefabs 
     [SerializeField] private GameObject Projectile;
-
+    private GameplayManager _gameplayManager;
 
     // Boundries
     private float _xLimit = 10;
@@ -33,8 +31,11 @@ public class PlayerShipController : MonoBehaviour
     private float _xOffset = 0;
     private float _yOffset = 0;
 
-    private GameplayManager _gameplayManager;
     private float _shotTimeStamp = 0;
+
+    // Events
+    public delegate void ShipControllerEvent();
+    public static event ShipControllerEvent OnUpgradePickUp;
 
 
 
@@ -59,7 +60,8 @@ public class PlayerShipController : MonoBehaviour
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
-
+        CockpitController.OnGoToCockpit += ActivateShield;
+        CockpitController.OnGoToGame += InterruptShield;
     }
 
     // ====================== Function ======================
@@ -105,11 +107,21 @@ public class PlayerShipController : MonoBehaviour
         // testing for upgrades
         if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
         if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
+
+        if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
     }
 
-    public void TakeDamage()
+    // Makes player take damage, using shield before health, with no "carry over" between shield and health
+    public void TakeDamage(float damageNum)
     {
-        _gameplayManager.CurrentHealth -= 1;
+        if (_currentShield > 0)
+        {
+            _currentShield -= damageNum;
+        } else
+        {
+            _gameplayManager.CurrentHealth -= damageNum;
+        }
+        
     }
     private void Shoot()
     {
@@ -119,6 +131,31 @@ public class PlayerShipController : MonoBehaviour
             laser.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
             _shotTimeStamp = Time.time + _gunCoolDown;
         }
+    }
+
+    private void ActivateShield()
+    {
+        _currentShield = _maxShield;
+        StartCoroutine(ShieldDecay(_shieldDecayAmount, _shieldDecayRate));
+    }
+
+    private void InterruptShield()
+    {
+        _currentShield = 0;
+    }
+
+
+    // decays the shield at decayrate for decayamount
+    IEnumerator ShieldDecay(float decayamount, float decayRate)
+    {
+        yield return new WaitForSeconds(decayRate);
+        while (_currentShield > 0)
+        {
+            _currentShield -= decayamount;
+            yield return new WaitForSeconds(decayRate);
+        }
+
+        yield return null;
     }
 
     // Event Functions
@@ -176,7 +213,7 @@ public class PlayerShipController : MonoBehaviour
         Debug.Log("Ship Collided with: " + other.name);
         if (collision.tag == "Enemy")
         {
-            TakeDamage();
+            TakeDamage(20);
         }
 
         if (collision.tag == "Upgrade")
@@ -190,5 +227,7 @@ public class PlayerShipController : MonoBehaviour
     {
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
+        CockpitController.OnGoToGame -= ActivateShield;
+        CockpitController.OnGoToGame -= InterruptShield;
     }
 }
