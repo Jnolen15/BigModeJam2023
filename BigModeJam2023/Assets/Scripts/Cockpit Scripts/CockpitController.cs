@@ -31,6 +31,10 @@ public class CockpitController : MonoBehaviour
         DeadUpgrade
     }
 
+    public delegate void CockpitEvent();
+    public static event CockpitEvent OnGoToGame;
+    public static event CockpitEvent OnGoToCockpit;
+
     // ====================== Setup ======================
     void Start()
     {
@@ -119,6 +123,8 @@ public class CockpitController : MonoBehaviour
 
     private void TransitionToGame()
     {
+        OnGoToGame?.Invoke();
+
         SetCockpitControls(false);
 
         transform.DOMove(_screenCamPos.position, 0.5f).SetEase(Ease.OutSine);
@@ -127,6 +133,8 @@ public class CockpitController : MonoBehaviour
 
     private void TransitionToCockpit()
     {
+        OnGoToCockpit?.Invoke();
+
         transform.DOMove(_playerCamPos.position, 0.5f).SetEase(Ease.OutSine);
         transform.DORotate(_playerCamPos.rotation.eulerAngles, 0.5f).SetEase(Ease.OutSine).OnComplete( () => SetCockpitControls(true) );
     }
