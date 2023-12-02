@@ -66,6 +66,7 @@ public class PlayerShipController : MonoBehaviour
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
         CockpitController.OnGoToCockpit += ActivateShield;
         CockpitController.OnGoToGame += InterruptShield;
+        CockpitDamageManager.OnRepairDamage += Repair;
     }
 
     // ====================== Function ======================
@@ -150,6 +151,12 @@ public class PlayerShipController : MonoBehaviour
     private void InterruptShield()
     {
         _currentShield = 0;
+    }
+
+    private void Repair()
+    {
+        _currentHealth += 20;
+        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
     }
 
 
@@ -248,5 +255,6 @@ public class PlayerShipController : MonoBehaviour
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
         CockpitController.OnGoToCockpit -= ActivateShield;
         CockpitController.OnGoToGame -= InterruptShield;
+        CockpitDamageManager.OnRepairDamage -= Repair;
     }
 }
