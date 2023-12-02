@@ -178,7 +178,7 @@ public class PlayerShipController : MonoBehaviour
             case "ProjectileSpeed":
                 _projectileSpeed *= _projectileSpeedUpgradeMultiplier;
                 break;
-            case "shield":
+            case "Shield":
                 ActivateShield();
                 break;
 
