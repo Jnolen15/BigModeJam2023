@@ -12,12 +12,9 @@ public class PlayerProjectileScript : MonoBehaviour
     private float _yPosition;
     private float _distanceTraveled = 0;
 
-    private GameplayManager _gameplayManager;
-
     // ====================== Setup ======================
     void Start()
     {
-        _gameplayManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
         _yPosition = transform.position.y;
     }
 
@@ -25,8 +22,7 @@ public class PlayerProjectileScript : MonoBehaviour
 
     void Update()
     {
-        if (!_gameplayManager.GamePaused)  // moving
-            transform.Translate(new Vector3(0, _speed * Time.timeScale, 0));
+        transform.Translate(new Vector3(0, _speed * Time.timeScale, 0));
 
         _distanceTraveled += transform.position.y - _yPosition;
         _yPosition = transform.position.y;
