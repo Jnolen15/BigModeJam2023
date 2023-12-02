@@ -126,7 +126,12 @@ public class PlayerShipController : MonoBehaviour
         } else
         {
             _currentHealth -= damageNum;
-            if (_currentHealth <= 0) OnGameOver?.Invoke();
+            if (_currentHealth <= 0)
+            {
+                OnGameOver?.Invoke();
+                Time.timeScale = 0;
+                _gameplayManager.GameOver = true;
+            }     
         }
 
         if (_currentShield < 0) _currentShield = 0;
