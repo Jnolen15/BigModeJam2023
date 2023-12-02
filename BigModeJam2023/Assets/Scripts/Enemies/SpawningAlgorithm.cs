@@ -5,9 +5,11 @@ using UnityEngine;
 public class SpawningAlgorithm : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject Enemies;
+    public GameObject[] Enemies;
+
     public int SpawnAmount = 0;
     public float SpawnCooldown = 1f;
+    
 
 
     [SerializeField] private RectTransform _moveSpaceRect;
@@ -53,7 +55,8 @@ public class SpawningAlgorithm : MonoBehaviour
             int i = 0;
             while(i < SpawnAmount)
             {
-                Enemies = Instantiate(Enemies, Vector3.Lerp(_leftPoint.transform.position, _rightPoint.transform.position, (i + 1f) / (SpawnAmount + 1f)), Quaternion.identity);
+                int choseEnemy = Random.Range(0, 2);
+                GameObject enemyToSpawn = Instantiate(Enemies[choseEnemy], Vector3.Lerp(_leftPoint.transform.position, _rightPoint.transform.position, (i + 1f) / (SpawnAmount + 1f)), new Quaternion (0,0,180,0));
                 i++;
                 yield return null;
             }

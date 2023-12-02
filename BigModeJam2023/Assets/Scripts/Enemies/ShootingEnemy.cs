@@ -5,9 +5,10 @@ using UnityEngine;
 public class ShootingEnemy : MonoBehaviour
 {
 
+    public GameObject upgrade;
 
 
-    [SerializeField] private RectTransform _moveSpaceRect;
+    [SerializeField] public RectTransform _moveSpaceRect;
     // Boundries
     [SerializeField] private float _xLimit = 10;
     [SerializeField] private float _yLimit = 10;
@@ -23,6 +24,7 @@ public class ShootingEnemy : MonoBehaviour
     void Start()
     {
         _screenBoundaries = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        //_moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
         // setting offsets and limits
         if (_moveSpaceRect != null)
         {
@@ -82,14 +84,18 @@ public class ShootingEnemy : MonoBehaviour
                 
                 break;
         }
-        Debug.Log(_screenBoundaries.x);
+
+        if (transform.position.y < -(_yLimit + _xOffset))
+        {
+            Destroy(gameObject);
+        }
 
 
     }
 
     private IEnumerator _waitDownRight()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.6f);
         _waitToGoDown = true;
         _typeOfMovement = "GoLeft";
 
@@ -97,9 +103,26 @@ public class ShootingEnemy : MonoBehaviour
 
     private IEnumerator _waitDownLeft()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.6f);
         _waitToGoDown = true;
         _typeOfMovement = "GoRight";
 
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("we going in here at all in charging enemy");
+        if (other.gameObject.tag == "PlayerBullet")
+        {
+            spawnUpgrade();
+            Destroy(gameObject);
+        }
+    }
+
+    private void spawnUpgrade()
+    {
+        if (Random.Range(0, 10) == 1)
+        {
+            Instantiate(upgrade, transform.position, Quaternion.identity);
+        }
     }
 }

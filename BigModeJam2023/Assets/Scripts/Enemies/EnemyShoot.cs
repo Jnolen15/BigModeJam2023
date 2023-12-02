@@ -25,7 +25,7 @@ public class EnemyShoot : MonoBehaviour
     private void Shoot()
     {
             GameObject laser = Instantiate(Projectile, transform.position, Quaternion.identity); // spawn projectile
-            laser.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
+            //laser.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
     }
     private void OnTriggerEnter(Collider other)
     {

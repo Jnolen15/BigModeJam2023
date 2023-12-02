@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8218278211607981024}
   m_Layer: 0
   m_Name: PlayerProjectile
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,3 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92267cd702287b34597aafa532c004d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _range: 20
