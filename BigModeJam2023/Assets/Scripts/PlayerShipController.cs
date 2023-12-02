@@ -242,9 +242,10 @@ public class PlayerShipController : MonoBehaviour
     {
         GameObject other = collision.gameObject;
         Debug.Log("Ship Collided with: " + other.name);
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Hostile")
         {
             TakeDamage(20);
+            Destroy(other.gameObject);
         }
 
         if (collision.tag == "Upgrade")
