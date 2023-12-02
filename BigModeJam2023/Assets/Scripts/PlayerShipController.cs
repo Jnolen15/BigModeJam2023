@@ -39,6 +39,7 @@ public class PlayerShipController : MonoBehaviour
     public delegate void ShipControllerEvent();
     public static event ShipControllerEvent OnUpgradePickUp;
     public static event ShipControllerEvent OnGameOver;
+    public static event ShipControllerEvent OnTakeDamage;
 
 
 
@@ -63,8 +64,6 @@ public class PlayerShipController : MonoBehaviour
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
-        CockpitController.OnGoToCockpit += ActivateShield;
-        CockpitController.OnGoToGame += InterruptShield;
     }
 
     // ====================== Function ======================
@@ -117,6 +116,7 @@ public class PlayerShipController : MonoBehaviour
     // Makes player take damage, using shield before health, with no "carry over" between shield and health
     public void TakeDamage(float damageNum)
     {
+        OnTakeDamage?.Invoke();
         if (_currentShield > 0)
         {
             _currentShield -= damageNum;
@@ -179,7 +179,7 @@ public class PlayerShipController : MonoBehaviour
                 _projectileSpeed *= _projectileSpeedUpgradeMultiplier;
                 break;
             case "shield":
-                // whatever the shield upgrade does here
+                ActivateShield();
                 break;
 
             default:
@@ -244,7 +244,5 @@ public class PlayerShipController : MonoBehaviour
     {
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
-        CockpitController.OnGoToCockpit -= ActivateShield;
-        CockpitController.OnGoToGame -= InterruptShield;
     }
 }
