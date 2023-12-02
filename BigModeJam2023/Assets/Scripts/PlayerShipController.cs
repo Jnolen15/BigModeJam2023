@@ -64,6 +64,8 @@ public class PlayerShipController : MonoBehaviour
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
+        CockpitController.OnGoToCockpit += ActivateShield;
+        CockpitController.OnGoToGame += InterruptShield;
     }
 
     // ====================== Function ======================
@@ -179,7 +181,7 @@ public class PlayerShipController : MonoBehaviour
                 _projectileSpeed *= _projectileSpeedUpgradeMultiplier;
                 break;
             case "Shield":
-                ActivateShield();
+                // whatever the shield upgrade does here
                 break;
 
             default:
@@ -244,5 +246,7 @@ public class PlayerShipController : MonoBehaviour
     {
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
+        CockpitController.OnGoToCockpit -= ActivateShield;
+        CockpitController.OnGoToGame -= InterruptShield;
     }
 }
