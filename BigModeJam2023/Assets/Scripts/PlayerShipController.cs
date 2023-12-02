@@ -12,6 +12,7 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _currentShield = 0;
     [SerializeField] private float _currentHealth = 100;
 
+
     // powerups
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
@@ -20,6 +21,9 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _maxShield = 100;
     [SerializeField] private float _shieldDecayRate = 0.1f;
     [SerializeField] private float _shieldDecayAmount = 1;
+
+    [SerializeField] private float _InvincibilityDuration = 0.5f;
+    private bool invincible = false;
 
     // GameObjects
     [SerializeField] private RectTransform _moveSpaceRect;
@@ -119,22 +123,27 @@ public class PlayerShipController : MonoBehaviour
     // Makes player take damage, using shield before health, with no "carry over" between shield and health
     public void TakeDamage(float damageNum)
     {
-        OnTakeDamage?.Invoke();
-        if (_currentShield > 0)
-        {
-            _currentShield -= damageNum;
-        } else
-        {
-            _currentHealth -= damageNum;
-            if (_currentHealth <= 0)
-            {
-                OnGameOver?.Invoke();
-                Time.timeScale = 0;
-                _gameplayManager.GameOver = true;
-            }     
-        }
 
-        if (_currentShield < 0) _currentShield = 0;
+        if (!invincible)
+        {
+            StartCoroutine(Invincibility(_InvincibilityDuration));
+            OnTakeDamage?.Invoke();
+            if (_currentShield > 0)
+            {
+                _currentShield -= damageNum;
+            } else
+            {
+                _currentHealth -= damageNum;
+                if (_currentHealth <= 0)
+                {
+                    OnGameOver?.Invoke();
+                    Time.timeScale = 0;
+                    _gameplayManager.GameOver = true;
+                }
+            }
+
+            if (_currentShield < 0) _currentShield = 0;
+        } 
         
     }
     private void Shoot()
@@ -175,6 +184,13 @@ public class PlayerShipController : MonoBehaviour
             yield return new WaitForSeconds(decayRate);
         }
 
+        yield return null;
+    }
+
+    IEnumerator Invincibility(float time)
+    {
+        invincible = true;
+        yield return new WaitForSeconds(time);
         yield return null;
     }
 
