@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 4511488547853317312}
   - component: {fileID: 6767333787919403932}
   - component: {fileID: 5768226370096629593}
-  - component: {fileID: 8218278211607981024}
+  - component: {fileID: -6883533879076478005}
+  - component: {fileID: -9019471341903431264}
   m_Layer: 0
   m_Name: 2D Upgrade
-  m_TagString: Untagged
+  m_TagString: Upgrade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +122,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.19999999, y: 0.20000003}
   m_Direction: 0
---- !u!114 &8218278211607981024
+--- !u!114 &-6883533879076478005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +131,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1091817720086394234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92267cd702287b34597aafa532c004d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 749b004cb74de1e4b9f10538572df900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 18.5
+  _range: 10
+  _speed: -0.003
+  _drift: -0.0001
+--- !u!50 &-9019471341903431264
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091817720086394234}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
