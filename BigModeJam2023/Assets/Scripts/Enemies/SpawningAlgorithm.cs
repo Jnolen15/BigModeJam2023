@@ -35,10 +35,10 @@ public class SpawningAlgorithm : MonoBehaviour
             Debug.LogFormat("Movement Area not set");
         }
         _leftPoint = new GameObject("LeftPoint");
-        _leftPoint.transform.position = new Vector3(-(_xLimit + _xOffset), (_yLimit + _yOffset) + 5, 0);
+        _leftPoint.transform.position = new Vector3(-_xLimit + _xOffset, _yLimit + _yOffset + 5, 0);
 
         _rightPoint = new GameObject("RightPoint");
-        _rightPoint.transform.position = new Vector3(_xLimit + _xOffset, (_yLimit + _yOffset) + 5, 0);
+        _rightPoint.transform.position = new Vector3(_xLimit + _xOffset, _yLimit + _yOffset + 5, 0);
 
         StartCoroutine("spawn");
     }

@@ -62,7 +62,7 @@ public class ChargingEnemy : MonoBehaviour
             StartCoroutine("Charge");
         }
 
-        if(transform.position.y < -(_yLimit + _xOffset) + 3 || transform.position.x < -(_xLimit + _xOffset) || transform.position.x > (_xLimit + _xOffset))
+        if(transform.position.y < -_yLimit + _xOffset + 3 || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
         {
             Destroy(gameObject);
         }

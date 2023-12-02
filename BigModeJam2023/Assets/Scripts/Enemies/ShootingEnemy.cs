@@ -46,7 +46,7 @@ public class ShootingEnemy : MonoBehaviour
         switch (_typeOfMovement)
         {
             case "GoRight":
-                if (this.transform.position.x < (_xLimit + _xOffset))
+                if (this.transform.position.x < _xLimit + _xOffset)
                 {
                     transform.Translate(Vector3.left * _movespeed * Time.deltaTime);
                 }
@@ -64,7 +64,7 @@ public class ShootingEnemy : MonoBehaviour
                 }
                 break;
             case "GoLeft":
-                if (this.transform.position.x > -(_xLimit + _xOffset))
+                if (this.transform.position.x > -_xLimit + _xOffset)
                 { 
                     transform.Translate(-Vector3.left * _movespeed * Time.deltaTime);
                 }
@@ -85,7 +85,7 @@ public class ShootingEnemy : MonoBehaviour
                 break;
         }
 
-        if (transform.position.y < -(_yLimit + _xOffset))
+        if (transform.position.y < -_yLimit + _xOffset)
         {
             Destroy(gameObject);
         }
