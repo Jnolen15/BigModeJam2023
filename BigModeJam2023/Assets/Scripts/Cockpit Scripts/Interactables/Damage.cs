@@ -6,6 +6,12 @@ public class Damage : Interactable
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private ParticleSystem _vfx;
+    private CockpitDamageManager _damageManager;
+
+    private void Start()
+    {
+        _damageManager = this.GetComponentInParent<CockpitDamageManager>();
+    }
 
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
@@ -34,5 +40,7 @@ public class Damage : Interactable
     {
         Debug.Log("Repairing damage " + this.name);
         _vfx.Stop();
+
+        _damageManager.OnRepair();
     }
 }

@@ -20,13 +20,13 @@ public class CockpitEventManager : MonoBehaviour
     // ====================== Update ======================
     private void Update()
     {
-        if (_testDamageTimer > 0)
+        /*if (_testDamageTimer > 0)
             _testDamageTimer -= Time.deltaTime;
         else
         {
             OnTakeDamage?.Invoke();
             _testDamageTimer = _testDamageTimerMax;
-        }
+        }*/
     }
 
     // ====================== Function ======================
