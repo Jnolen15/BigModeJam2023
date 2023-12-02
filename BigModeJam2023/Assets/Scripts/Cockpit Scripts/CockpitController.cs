@@ -41,6 +41,7 @@ public class CockpitController : MonoBehaviour
         cam = this.GetComponent<Camera>();
 
         ShipScreen.OnInteractWithScreen += ChangePerspective;
+        PlayerShipController.OnGameOver += UnlockCursor;
 
         LockCursor();
     }
@@ -48,6 +49,7 @@ public class CockpitController : MonoBehaviour
     private void OnDestroy()
     {
         ShipScreen.OnInteractWithScreen -= ChangePerspective;
+        PlayerShipController.OnGameOver -= UnlockCursor;
     }
 
     // ====================== Update ======================
@@ -114,6 +116,14 @@ public class CockpitController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        SetCockpitControls(false);
     }
 
     private void SetCockpitControls(bool canLook)
