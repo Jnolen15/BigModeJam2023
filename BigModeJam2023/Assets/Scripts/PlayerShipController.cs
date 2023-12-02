@@ -70,7 +70,7 @@ public class PlayerShipController : MonoBehaviour
     }
 
     // ====================== Function ======================
-    void Update()
+    void FixedUpdate()
     {
         // Movement
         float speed = _moveSpeed * Time.timeScale; // adjusting for slow-mo

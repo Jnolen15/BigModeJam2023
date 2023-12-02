@@ -1324,7 +1324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 10
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1364,7 +1364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 9.4
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3101,9 +3101,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: _moveSpeed
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _moveSpaceRect
       value: 
       objectReference: {fileID: 444584141}
+    - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: _projectileSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 6684327394188025021, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: m_RootOrder
       value: 16
