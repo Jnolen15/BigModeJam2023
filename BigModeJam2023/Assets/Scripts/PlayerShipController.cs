@@ -124,12 +124,12 @@ public class PlayerShipController : MonoBehaviour
         if (!invincible)
         {
             StartCoroutine(Invincibility(_InvincibilityDuration));
-            OnTakeDamage?.Invoke();
             if (_currentShield > 0)
             {
                 _currentShield -= damageNum;
             } else
             {
+                OnTakeDamage?.Invoke();
                 _currentHealth -= damageNum;
                 if (_currentHealth <= 0)
                 {

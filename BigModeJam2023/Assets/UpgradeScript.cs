@@ -20,7 +20,7 @@ public class UpgradeScript : MonoBehaviour
 
     // ====================== Function ======================
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(new Vector3(_drift * Time.timeScale, _speed * Time.timeScale, 0));
 

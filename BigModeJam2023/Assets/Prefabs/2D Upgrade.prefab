@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _range: 10
-  _speed: -0.003
+  _speed: -0.1
   _drift: -0.0001
 --- !u!50 &-9019471341903431264
 Rigidbody2D:
