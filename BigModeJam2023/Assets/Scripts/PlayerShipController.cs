@@ -188,6 +188,7 @@ public class PlayerShipController : MonoBehaviour
     {
         invincible = true;
         yield return new WaitForSeconds(time);
+        invincible = false;
         yield return null;
     }
 
