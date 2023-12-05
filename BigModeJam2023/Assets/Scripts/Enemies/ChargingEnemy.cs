@@ -26,6 +26,19 @@ public class ChargingEnemy : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("Player Ship");
+        _moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
+
+        if (_moveSpaceRect != null)
+        {
+            _xOffset = _moveSpaceRect.position.x;
+            _yOffset = _moveSpaceRect.position.y;
+            _xLimit = _moveSpaceRect.rect.width / 2;
+            _yLimit = _moveSpaceRect.rect.height / 2;
+        }
+        else
+        {
+            Debug.LogFormat("Movement Area not set");
+        }
         //StartCoroutine("Charge");
     }
 
@@ -57,12 +70,12 @@ public class ChargingEnemy : MonoBehaviour
             transform.position += transform.up  * _MovingSpeed;
         }
 
-        if(transform.position.y < (_yLimit + _yOffset) - 7 && !_reachDestination){
+        if(transform.position.y < (_yLimit + _yOffset) + 4 && !_reachDestination){
             _reachDestination = true;
             StartCoroutine("Charge");
         }
 
-        if(transform.position.y < -_yLimit + _xOffset + 3 || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
+        if(transform.position.y < -(_yLimit + _yOffset) || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
         {
             Destroy(gameObject);
         }

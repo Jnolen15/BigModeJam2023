@@ -24,6 +24,7 @@ public class ShootingEnemy : MonoBehaviour
     void Start()
     {
         _screenBoundaries = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        _moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
         //_moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
         // setting offsets and limits
         if (_moveSpaceRect != null)
