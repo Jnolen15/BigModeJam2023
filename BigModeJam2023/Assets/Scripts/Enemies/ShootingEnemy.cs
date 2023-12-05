@@ -121,7 +121,7 @@ public class ShootingEnemy : MonoBehaviour
 
     private void spawnUpgrade()
     {
-        if (Random.Range(0, 10) == 1)
+        if (Random.Range(0, 50) == 1)
         {
             Instantiate(upgrade, transform.position, Quaternion.identity);
         }
