@@ -12,7 +12,6 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _currentShield = 0;
     [SerializeField] private float _currentHealth = 100;
 
-
     // powerups
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
@@ -44,8 +43,6 @@ public class PlayerShipController : MonoBehaviour
     public static event ShipControllerEvent OnUpgradePickUp;
     public static event ShipControllerEvent OnGameOver;
     public static event ShipControllerEvent OnTakeDamage;
-
-
 
     // ====================== Setup ======================
     void Start()

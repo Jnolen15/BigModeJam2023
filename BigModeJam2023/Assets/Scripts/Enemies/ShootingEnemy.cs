@@ -111,11 +111,11 @@ public class ShootingEnemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("we going in here at all in charging enemy");
         if (other.gameObject.tag == "PlayerBullet")
         {
             spawnUpgrade();
             Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 

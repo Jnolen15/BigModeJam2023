@@ -75,7 +75,7 @@ public class ChargingEnemy : MonoBehaviour
             StartCoroutine("Charge");
         }
 
-        if(transform.position.y < -(_yLimit + _yOffset) || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
+        if(transform.position.y < -_yLimit + _yOffset || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
         {
             Destroy(gameObject);
         }
@@ -100,6 +100,7 @@ public class ChargingEnemy : MonoBehaviour
         {
             spawnUpgrade();
             Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 

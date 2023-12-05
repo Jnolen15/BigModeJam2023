@@ -19,11 +19,11 @@ public class PlayerProjectileScript : MonoBehaviour
 
     // ====================== Function ======================
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(new Vector3(0, _speed * Time.timeScale, 0));
 
-        _distanceTraveled += transform.position.y - _yPosition;
+        _distanceTraveled += Mathf.Abs(transform.position.y - _yPosition);
         _yPosition = transform.position.y;
         if (_distanceTraveled > _range) // destroying
             Destroy(gameObject);
