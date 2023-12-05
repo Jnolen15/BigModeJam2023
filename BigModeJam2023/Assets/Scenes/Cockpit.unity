@@ -3102,7 +3102,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _moveSpeed
-      value: 0.8
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _moveSpaceRect
