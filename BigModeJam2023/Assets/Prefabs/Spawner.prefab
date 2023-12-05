@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5117870500006362626
 MonoBehaviour:
@@ -47,8 +47,8 @@ MonoBehaviour:
   Enemies:
   - {fileID: 2839158116787054440, guid: a02ad6c33b8366c49bf904d98a9f9986, type: 3}
   - {fileID: 597031016705459132, guid: 0d1425b72c9fd37478ada0281329cd85, type: 3}
-  SpawnAmount: 10
-  SpawnCooldown: 10
+  SpawnAmount: 20
+  SpawnCooldown: 5
   _moveSpaceRect: {fileID: 0}
   _xLimit: 10
   _yLimit: 10

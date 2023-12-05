@@ -7,7 +7,8 @@ public class ChargingEnemy : MonoBehaviour
     // Start is called before the first frame update
     public GameObject Player;
     public GameObject upgrade;
-    public float TimeBeforeLaunching = 2;
+    public float TimeBeforeLaunchingMin = 2;
+    public float TimeBeforeLaunchingMax = 5;
     public float ChargeSpeed = 1f;
 
 
@@ -87,7 +88,8 @@ public class ChargingEnemy : MonoBehaviour
         //Before launching enemy will stop looking at ship by turning _stopLooking true
         //Enemy will then charge by turning _startCharging true
         //After a couple of seconds enemy will be destroyed out of camera view
-        yield return new WaitForSeconds(TimeBeforeLaunching);
+        float randTime = Random.Range(TimeBeforeLaunchingMin, TimeBeforeLaunchingMax);
+        yield return new WaitForSeconds(randTime);
         _stopLooking = true;
         _startCharging = true;
         
