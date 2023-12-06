@@ -1077,6 +1077,14 @@ PrefabInstance:
       value: Move Speed
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
+      propertyPath: _drains
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
+      propertyPath: _drainRate
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _upgradeName
       value: MoveSpeed
       objectReference: {fileID: 0}
@@ -3348,6 +3356,10 @@ PrefabInstance:
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _InvincibilityDuration
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606288736438084422, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6684327394188025021, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: m_RootOrder

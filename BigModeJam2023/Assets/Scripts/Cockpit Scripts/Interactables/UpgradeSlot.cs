@@ -8,8 +8,9 @@ public class UpgradeSlot : Interactable
     [SerializeField] private GameObject _upgradePref;
     [SerializeField] private Transform _upgradePos;
     [SerializeField] private string _upgradeName;
-    [SerializeField] private float _upgradeDuration;
-    private float _upgradeTimer;
+    [SerializeField] private bool _drains;
+    [SerializeField] private float _drainRate;
+    private float _upgradeCharge;
     private UpgradeBattery _upgradeBattery;
     private bool _upgradeActive;
     private bool _hasUpgrade;
@@ -40,20 +41,41 @@ public class UpgradeSlot : Interactable
     // ====================== Function ======================
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.V) && !_drains)
+            ReduceCharge(20);
+
+        if (!_upgradeActive || !_drains)
+            return;
+
+        if (_upgradeCharge > 0)
+        {
+            _upgradeCharge -= Time.deltaTime * _drainRate;
+            _upgradeBattery.UpdateCharge(_upgradeCharge);
+        }
+        else
+            TestForDead();
+    }
+
+    public void ReduceCharge(int ammount)
+    {
         if (!_upgradeActive)
             return;
 
-        if (_upgradeTimer > 0)
-        {
-            _upgradeTimer -= Time.deltaTime;
-            _upgradeBattery.UpdateTimer(_upgradeTimer);
-        }
-        else
-        {
-            _upgradeActive = false;
-            _upgradeBattery.Killbattery();
-            OnEndUpgrade?.Invoke(_upgradeName);
-        }
+        _upgradeCharge -= ammount;
+        _upgradeBattery.UpdateCharge(_upgradeCharge);
+        TestForDead();
+    }
+
+    private void TestForDead()
+    {
+        if (_upgradeCharge > 0)
+            return;
+
+        Debug.Log($"Battery in slot {_upgradeName} has died!");
+
+        _upgradeActive = false;
+        _upgradeBattery.Killbattery();
+        OnEndUpgrade?.Invoke(_upgradeName);
     }
 
     public void SlotUpgrade(CockpitController cockpitController)
@@ -72,7 +94,7 @@ public class UpgradeSlot : Interactable
         OnStartUpgrade?.Invoke(_upgradeName);
         _upgradeActive = true;
         _hasUpgrade = true;
-        _upgradeTimer = _upgradeDuration;
+        _upgradeCharge = 100;
     }
 
     public void UnslotUpgrade(CockpitController cockpitController)
