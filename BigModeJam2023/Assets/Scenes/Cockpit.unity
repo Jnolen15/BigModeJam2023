@@ -1420,19 +1420,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 555507410554501650, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 648328651960619381, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 826612480620726530, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 826612480620726530, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3143501973646116878, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3868550151127073605, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3868550151127073605, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -32,6 +32,8 @@ public class UpgradeTray : Interactable
     {
         if (heldItem == _requiredTool)
             GrabUpgrade(cockpitController);
+        else if (heldItem == CockpitController.Tool.Upgrade)
+            PlaceUpgrade(cockpitController);
     }
 
     public override void OnPlayerLookAt()
@@ -55,6 +57,16 @@ public class UpgradeTray : Interactable
         Destroy(_upgradeList[index]);
         _upgradeList.RemoveAt(index);
         cockpitController.PickupTool(CockpitController.Tool.Upgrade);
+    }
+
+    public void PlaceUpgrade(CockpitController cockpitController)
+    {
+        if (_upgradeList.Count >= _upgradeSlots.Count)
+            return;
+
+
+        cockpitController.SetdownTool();
+        GetUpgrade();
     }
 
     public void GetUpgrade()

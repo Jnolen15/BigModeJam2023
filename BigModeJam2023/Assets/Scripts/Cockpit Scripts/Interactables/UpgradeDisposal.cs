@@ -7,7 +7,7 @@ public class UpgradeDisposal : Interactable
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
-        if (heldItem == _requiredTool)
+        if (heldItem == _requiredTool || heldItem == CockpitController.Tool.Upgrade)
             Dispose(cockpitController);
     }
 

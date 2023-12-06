@@ -24,6 +24,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _InvincibilityDuration = 0.5f;
     private bool invincible = false;
 
+    private bool _canControl;
+
     // GameObjects
     [SerializeField] private RectTransform _moveSpaceRect;
     [SerializeField] private GameObject Projectile;
@@ -68,12 +70,40 @@ public class PlayerShipController : MonoBehaviour
         CockpitController.OnGoToCockpit += ActivateShield;
         CockpitController.OnGoToGame += InterruptShield;
         CockpitDamageManager.OnRepairDamage += Repair;
+        CockpitController.OnGoToCockpit += SetMovemetFalse;
+        CockpitController.OnGoToGame += SetMovemetTrue;
     }
 
     // ====================== Function ======================
     void FixedUpdate()
     {
-        // Movement
+        if (_canControl)
+        {
+            // Movement
+            DoMovement();
+
+            // Shooting
+            if (Input.GetMouseButton(0))
+                Shoot();
+        }
+
+        // adjusting time stamped variables
+        if (_gameplayManager.GamePaused) 
+            _shotTimeStamp += Time.deltaTime;
+
+        // temp fun with timescales
+        if (Input.GetKeyDown(KeyCode.F)) Time.timeScale = 0.5f;
+        if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
+
+        // testing for upgrades
+        if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
+        if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
+
+        if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
+    }
+
+    private void DoMovement()
+    {
         float speed = _moveSpeed * Time.timeScale; // adjusting for slow-mo
         Vector3 translation = Vector3.zero;
 
@@ -96,25 +126,16 @@ public class PlayerShipController : MonoBehaviour
         if (transform.position.y > _yLimit + _yOffset) currentPos.y = _yLimit + _yOffset;
         if (transform.position.y < -_yLimit + _yOffset) currentPos.y = -_yLimit + _yOffset;
         transform.position = currentPos;
+    }
 
-        // Shooting
-        if (Input.GetMouseButton(0))
-            Shoot();
+    private void SetMovemetFalse()
+    {
+        _canControl = false;
+    }
 
-
-        // adjusting time stamped variables
-        if (_gameplayManager.GamePaused) 
-            _shotTimeStamp += Time.deltaTime;
-
-        // temp fun with timescales
-        if (Input.GetKeyDown(KeyCode.F)) Time.timeScale = 0.5f;
-        if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
-
-        // testing for upgrades
-        if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
-        if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
-
-        if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
+    private void SetMovemetTrue()
+    {
+        _canControl = true;
     }
 
     // Makes player take damage, using shield before health, with no "carry over" between shield and health
@@ -134,7 +155,7 @@ public class PlayerShipController : MonoBehaviour
                 if (_currentHealth <= 0)
                 {
                     OnGameOver?.Invoke();
-                    Time.timeScale = 0;
+                    //Time.timeScale = 0;
                     _gameplayManager.GameOver = true;
                 }
             }
@@ -276,5 +297,7 @@ public class PlayerShipController : MonoBehaviour
         CockpitController.OnGoToCockpit -= ActivateShield;
         CockpitController.OnGoToGame -= InterruptShield;
         CockpitDamageManager.OnRepairDamage -= Repair;
+        CockpitController.OnGoToCockpit -= SetMovemetFalse;
+        CockpitController.OnGoToGame -= SetMovemetTrue;
     }
 }
