@@ -91,6 +91,14 @@ public class CockpitController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(_verticalRotation, _horizontalRotation, 0);
     }
 
+    private void SetMouseLook(Vector2 pos)
+    {
+        _verticalRotation = pos.y;
+        _horizontalRotation = pos.x;
+
+        transform.localRotation = Quaternion.Euler(_verticalRotation, _horizontalRotation, 0);
+    }
+
     private void MouseRaycast()
     {
         RaycastHit hit;
@@ -137,16 +145,18 @@ public class CockpitController : MonoBehaviour
 
         SetCockpitControls(false);
 
-        transform.DOMove(_screenCamPos.position, 0.5f).SetEase(Ease.OutSine);
-        transform.DORotate(_screenCamPos.rotation.eulerAngles, 0.5f).SetEase(Ease.OutSine);
+        transform.DOMove(_screenCamPos.position, 0.2f).SetEase(Ease.OutSine);
+        transform.DORotate(_screenCamPos.rotation.eulerAngles, 0.2f).SetEase(Ease.OutSine);
     }
 
     private void TransitionToCockpit()
     {
         OnGoToCockpit?.Invoke();
 
-        transform.DOMove(_playerCamPos.position, 0.5f).SetEase(Ease.OutSine);
-        transform.DORotate(_playerCamPos.rotation.eulerAngles, 0.5f).SetEase(Ease.OutSine).OnComplete( () => SetCockpitControls(true) );
+        SetMouseLook(Vector2.zero);
+
+        transform.DOMove(_playerCamPos.position, 0.2f).SetEase(Ease.OutSine);
+        transform.DORotate(_playerCamPos.rotation.eulerAngles, 0.2f).SetEase(Ease.OutSine).OnComplete( () => SetCockpitControls(true) );
     }
 
     public void PickupTool(Tool toolName)
