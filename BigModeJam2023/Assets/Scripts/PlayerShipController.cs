@@ -5,26 +5,29 @@ using UnityEngine;
 public class PlayerShipController : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
-    // base stats
+    // Base Stats
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
-    [SerializeField] private float _currentShield = 0;
+    [SerializeField] private float _maxHealth = 100;
+    [SerializeField] private float _shieldDuration = 8;
+    [SerializeField] private float _shieldRegenDelay = 3;
+    [SerializeField] private float _shieldGracePeriod = 0.5f; // time shield is active after being disabled
+    [SerializeField] private float _InvincibilityDuration = 0.5f;
+
+    // Active Stats
     [SerializeField] private float _currentHealth = 100;
+    [SerializeField] private float _currentShield;
+
 
     // powerups
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
-    [SerializeField] private float _maxHealth = 100;
-    [SerializeField] private float _maxShield = 100;
-    [SerializeField] private float _shieldDecayRate = 0.1f;
-    [SerializeField] private float _shieldDecayAmount = 1;
 
-    [SerializeField] private float _InvincibilityDuration = 0.5f;
     private bool invincible = false;
-
     private bool _canControl;
+
 
     // GameObjects
     [SerializeField] private RectTransform _moveSpaceRect;
@@ -50,6 +53,7 @@ public class PlayerShipController : MonoBehaviour
     void Start()
     {
         _gameplayManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
+        _currentShield = _shieldDuration;
 
         // setting offsets and limits
         if (_moveSpaceRect != null)
@@ -67,14 +71,25 @@ public class PlayerShipController : MonoBehaviour
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
-        CockpitController.OnGoToCockpit += ActivateShield;
-        CockpitController.OnGoToGame += InterruptShield;
         CockpitDamageManager.OnRepairDamage += Repair;
         CockpitController.OnGoToCockpit += SetMovemetFalse;
         CockpitController.OnGoToGame += SetMovemetTrue;
     }
 
     // ====================== Function ======================
+
+    private void Update()
+    {
+        // temp fun with timescales
+        if (Input.GetKeyDown(KeyCode.F)) Time.timeScale = 0.5f;
+        if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
+
+        // testing for upgrades
+        if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
+        if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
+
+        if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
+    }
     void FixedUpdate()
     {
         if (_canControl)
@@ -91,15 +106,15 @@ public class PlayerShipController : MonoBehaviour
         if (_gameplayManager.GamePaused) 
             _shotTimeStamp += Time.deltaTime;
 
-        // temp fun with timescales
-        if (Input.GetKeyDown(KeyCode.F)) Time.timeScale = 0.5f;
-        if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
-
-        // testing for upgrades
-        if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
-        if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
-
-        if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
+        // recharging and using shield
+        if (_canControl)
+        {
+            if (_currentShield < _shieldDuration) _currentShield += Time.deltaTime;
+            
+        } else
+        {
+            if (_currentShield > 0) _currentShield -= Time.deltaTime;
+        }            
     }
 
     private void DoMovement()
@@ -141,28 +156,18 @@ public class PlayerShipController : MonoBehaviour
     // Makes player take damage, using shield before health, with no "carry over" between shield and health
     public void TakeDamage(float damageNum)
     {
-
-        if (!invincible)
+        if (!(invincible || (_currentShield > 0 && !_canControl)))
         {
             StartCoroutine(Invincibility(_InvincibilityDuration));
-            if (_currentShield > 0)
+            OnTakeDamage?.Invoke();
+            _currentHealth -= damageNum;
+            if (_currentHealth <= 0)
             {
-                _currentShield -= damageNum;
-            } else
-            {
-                OnTakeDamage?.Invoke();
-                _currentHealth -= damageNum;
-                if (_currentHealth <= 0)
-                {
-                    OnGameOver?.Invoke();
-                    //Time.timeScale = 0;
-                    _gameplayManager.GameOver = true;
-                }
+                OnGameOver?.Invoke();
+                //Time.timeScale = 0;
+                _gameplayManager.GameOver = true;
             }
-
-            if (_currentShield < 0) _currentShield = 0;
-        } 
-        
+        }
     }
     private void Shoot()
     {
@@ -174,36 +179,12 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
-    private void ActivateShield()
-    {
-        _currentShield = _maxShield;
-        StartCoroutine(ShieldDecay(_shieldDecayAmount, _shieldDecayRate));
-    }
-
-    private void InterruptShield()
-    {
-        _currentShield = 0;
-    }
-
     private void Repair()
     {
         _currentHealth += 20;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
     }
 
-
-    // decays the shield at decayrate for decayamount
-    IEnumerator ShieldDecay(float decayamount, float decayRate)
-    {
-        yield return new WaitForSeconds(decayRate);
-        while (_currentShield > 0)
-        {
-            _currentShield -= decayamount;
-            yield return new WaitForSeconds(decayRate);
-        }
-
-        yield return null;
-    }
 
     IEnumerator Invincibility(float time)
     {
@@ -268,7 +249,7 @@ public class PlayerShipController : MonoBehaviour
 
     public float GetShieldRatio()
     {
-        return _currentShield / _maxShield;
+        return _currentShield / _shieldDuration;
     }
 
     // ====================== Collisions ======================
@@ -294,8 +275,6 @@ public class PlayerShipController : MonoBehaviour
     {
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
-        CockpitController.OnGoToCockpit -= ActivateShield;
-        CockpitController.OnGoToGame -= InterruptShield;
         CockpitDamageManager.OnRepairDamage -= Repair;
         CockpitController.OnGoToCockpit -= SetMovemetFalse;
         CockpitController.OnGoToGame -= SetMovemetTrue;
