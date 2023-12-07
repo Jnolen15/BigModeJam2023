@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class UpgradeDisposal : Interactable
 {
+    // ====================== Refrences / Variables ======================
+    [SerializeField] private Transform _doorHinge;
+
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
@@ -25,5 +29,9 @@ public class UpgradeDisposal : Interactable
     private void Dispose(CockpitController cockpitController)
     {
         cockpitController.SetdownTool();
+
+        _doorHinge.localRotation = Quaternion.Euler(20, 0, 0);
+
+        _doorHinge.DOLocalRotate(Vector3.zero, 1f).SetEase(Ease.OutBounce);
     }
 }

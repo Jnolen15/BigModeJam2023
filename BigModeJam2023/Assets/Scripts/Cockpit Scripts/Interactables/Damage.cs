@@ -6,6 +6,8 @@ public class Damage : Interactable
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private ParticleSystem _vfx;
+    [SerializeField] private GameObject _fixed;
+    [SerializeField] private GameObject _broken;
     private CockpitDamageManager _damageManager;
 
     private void Start()
@@ -34,12 +36,24 @@ public class Damage : Interactable
     public void ActiavteDamage()
     {
         _vfx.Play();
+
+        if (_broken)
+        {
+            _fixed.SetActive(false);
+            _broken.SetActive(true);
+        }
     }
 
     private void RepairDamage()
     {
         Debug.Log("Repairing damage " + this.name);
         _vfx.Stop();
+
+        if (_broken)
+        {
+            _fixed.SetActive(true);
+            _broken.SetActive(false);
+        }
 
         _damageManager.OnRepair();
     }
