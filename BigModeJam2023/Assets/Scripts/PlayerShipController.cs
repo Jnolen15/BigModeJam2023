@@ -241,7 +241,7 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
-    // functions for UI elements
+    // Floats and Bools
     public float GetHealthRatio()
     {
         return _currentHealth / _maxHealth;
@@ -250,6 +250,17 @@ public class PlayerShipController : MonoBehaviour
     public float GetShieldRatio()
     {
         return _currentShield / _shieldDuration;
+    }
+
+    public bool ShieldActive()
+    {
+        if (!_canControl && _currentShield > 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     // ====================== Collisions ======================

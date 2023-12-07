@@ -6,13 +6,17 @@ public class ShieldBar : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
 
-    private PlayerShipController _shipController;
+    [SerializeField] private Material Active;
+    [SerializeField] private Material Inactive;
 
+    private PlayerShipController _shipController;
+    private MeshRenderer _mesh;
 
     // ====================== Setup ======================
     void Start()
     {
         _shipController = GameObject.Find("Player Ship").GetComponent<PlayerShipController>();
+        _mesh = GetComponent<MeshRenderer>();
     }
 
     // ====================== Function ======================
@@ -22,5 +26,13 @@ public class ShieldBar : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.y = _shipController.GetShieldRatio();
         transform.localScale = scale;
+
+        if (_shipController.ShieldActive())
+        {
+            if (_mesh.material != Active) _mesh.material = Active;
+        } else
+        {
+            if (_mesh.material != Inactive) _mesh.material = Inactive;
+        }
     }
 }
