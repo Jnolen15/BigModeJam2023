@@ -73,9 +73,8 @@ public class PlayerShipController : MonoBehaviour
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
         CockpitDamageManager.OnRepairDamage += Repair;
-        CockpitController.OnGoToCockpit += SetMovemetFalse;
-        CockpitController.OnGoToGame += SetMovemetTrue;
-        CockpitController.OnGoToGame += ShieldCooldown;
+        CockpitController.OnGoToCockpit += ExitScreen;
+        CockpitController.OnGoToGame += EnterScreen;
     }
 
     // ====================== Function ======================
@@ -145,14 +144,16 @@ public class PlayerShipController : MonoBehaviour
         transform.position = currentPos;
     }
 
-    private void SetMovemetFalse()
+    private void ExitScreen()
     {
         _canControl = false;
     }
 
-    private void SetMovemetTrue()
+    private void EnterScreen()
     {
         _canControl = true;
+        _shieldRechargeTimeStamp = Time.time + _shieldRegenDelay;
+        StartCoroutine(Invincibility(_shieldGracePeriod));
     }
 
     // Makes player take damage, using shield before health, with no "carry over" between shield and health
@@ -186,12 +187,6 @@ public class PlayerShipController : MonoBehaviour
         _currentHealth += 20;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
     }
-
-    private void ShieldCooldown()
-    {
-        _shieldRechargeTimeStamp = Time.time + _shieldRegenDelay;
-    }
-
 
     IEnumerator Invincibility(float time)
     {
@@ -294,7 +289,8 @@ public class PlayerShipController : MonoBehaviour
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
         CockpitDamageManager.OnRepairDamage -= Repair;
-        CockpitController.OnGoToCockpit -= SetMovemetFalse;
-        CockpitController.OnGoToGame -= SetMovemetTrue;
+        CockpitController.OnGoToCockpit -= ExitScreen;
+        CockpitController.OnGoToGame -= EnterScreen;
+
     }
 }
