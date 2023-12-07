@@ -25,7 +25,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
 
-    private bool invincible = false;
+    private float _shieldRechargeTimeStamp = 0;
+    private bool _invincible = false;
     private bool _canControl;
 
 
@@ -74,6 +75,7 @@ public class PlayerShipController : MonoBehaviour
         CockpitDamageManager.OnRepairDamage += Repair;
         CockpitController.OnGoToCockpit += SetMovemetFalse;
         CockpitController.OnGoToGame += SetMovemetTrue;
+        CockpitController.OnGoToGame += ShieldCooldown;
     }
 
     // ====================== Function ======================
@@ -109,7 +111,7 @@ public class PlayerShipController : MonoBehaviour
         // recharging and using shield
         if (_canControl)
         {
-            if (_currentShield < _shieldDuration) _currentShield += Time.deltaTime;
+            if (_currentShield < _shieldDuration && Time.time > _shieldRechargeTimeStamp) _currentShield += Time.deltaTime;
             
         } else
         {
@@ -156,7 +158,7 @@ public class PlayerShipController : MonoBehaviour
     // Makes player take damage, using shield before health, with no "carry over" between shield and health
     public void TakeDamage(float damageNum)
     {
-        if (!(invincible || (_currentShield > 0 && !_canControl)))
+        if (!(_invincible || ShieldActive()))
         {
             StartCoroutine(Invincibility(_InvincibilityDuration));
             OnTakeDamage?.Invoke();
@@ -185,12 +187,17 @@ public class PlayerShipController : MonoBehaviour
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
     }
 
+    private void ShieldCooldown()
+    {
+        _shieldRechargeTimeStamp = Time.time + _shieldRegenDelay;
+    }
+
 
     IEnumerator Invincibility(float time)
     {
-        invincible = true;
+        _invincible = true;
         yield return new WaitForSeconds(time);
-        invincible = false;
+        _invincible = false;
         yield return null;
     }
 
