@@ -36,8 +36,5 @@ public class EnemyBulletScrip : MonoBehaviour
         _speed = speed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
+    
 }

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargingEnemy : MonoBehaviour
+public class ChargeForwardEnemy : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject Player;
     public float TimeBeforeLaunchingMin = 2;
     public float TimeBeforeLaunchingMax = 5;
@@ -51,31 +50,24 @@ public class ChargingEnemy : MonoBehaviour
         //Will stop once is going to launch
         if (_reachDestination)
         {
-            if (!_stopLooking)
-            {
-                //transform.LookAt(Player.transform);
-                _MovingSpeed = 0;
-                Quaternion rotation = Quaternion.LookRotation
-                (Player.transform.position - transform.position, transform.TransformDirection(Vector3.forward));
-                transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
-            }
             //When enemy charges it will use transform.up * -1 to make it move towards the player instead of flying off to the opposite side to keep going in the direction the player was
             if (_startCharging)
             {
-                transform.position += (transform.up * -1) * _MovingSpeed;
+                transform.position += (transform.up) * _MovingSpeed;
             }
         }
         else
         {
-            transform.position += transform.up  * _MovingSpeed;
+            transform.position += transform.up * _MovingSpeed;
         }
 
-        if(transform.position.y < (_yLimit + _yOffset) + 4 && !_reachDestination){
+        if (transform.position.y < (_yLimit + _yOffset) + 4 && !_reachDestination)
+        {
             _reachDestination = true;
             StartCoroutine("Charge");
         }
 
-        if(transform.position.y < -_yLimit + _yOffset || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
+        if (transform.position.y < -_yLimit + _yOffset || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
         {
             Destroy(gameObject);
         }
@@ -91,11 +83,6 @@ public class ChargingEnemy : MonoBehaviour
         yield return new WaitForSeconds(randTime);
         _stopLooking = true;
         _startCharging = true;
-        
+
     }
-
-    
-
-    
-
 }

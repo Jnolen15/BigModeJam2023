@@ -274,7 +274,10 @@ public class PlayerShipController : MonoBehaviour
         if (collision.tag == "Hostile")
         {
             TakeDamage(20);
-            Destroy(other.gameObject);
+            if (other.GetComponent<SeekerEnemy>() == null)
+            {
+                Destroy(other.gameObject);
+            }
         }
 
         if (collision.tag == "Upgrade")
