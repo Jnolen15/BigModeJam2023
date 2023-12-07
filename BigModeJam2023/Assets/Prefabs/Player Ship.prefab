@@ -102,16 +102,19 @@ MonoBehaviour:
   _moveSpeed: 0.1
   _gunCoolDown: 0.2
   _projectileSpeed: 0.2
-  _currentShield: 0
+  _maxHealth: 100
+  _shieldDuration: 8
+  _shieldRegenDelay: 3
+  _shieldGracePeriod: 0.5
+  _invincibilityDuration: 0.6
+  _invincibilityFlashRate: 0.2
+  _screenShakeDuration: 0.2
+  _screenShakeMagnitude: 0.1
   _currentHealth: 100
+  _currentShield: 0
   _GunCoolDownUpgradeMultiplier: 0.5
   _moveSpeedUpgradeMultiplier: 1.5
   _projectileSpeedUpgradeMultiplier: 1.5
-  _maxHealth: 100
-  _maxShield: 100
-  _shieldDecayRate: 0.1
-  _shieldDecayAmount: 1
-  _InvincibilityDuration: 1
   _moveSpaceRect: {fileID: 0}
   Projectile: {fileID: 1091817720086394234, guid: 7bd9e04b963254d458c051d3295abb2f, type: 3}
 --- !u!61 &5606288736438084422

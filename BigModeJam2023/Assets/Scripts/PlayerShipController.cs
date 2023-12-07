@@ -13,7 +13,12 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _shieldDuration = 8;
     [SerializeField] private float _shieldRegenDelay = 3;
     [SerializeField] private float _shieldGracePeriod = 0.5f; // time shield is active after being disabled
-    [SerializeField] private float _InvincibilityDuration = 0.5f;
+    [SerializeField] private float _invincibilityDuration = 0.6f;
+    [SerializeField] private float _invincibilityFlashRate = 0.2f;
+    [SerializeField] private float _screenShakeDuration = 1;
+    [SerializeField] private float _screenShakeMagnitude = 0.001f;
+
+
 
     // Active Stats
     [SerializeField] private float _currentHealth = 100;
@@ -161,7 +166,8 @@ public class PlayerShipController : MonoBehaviour
     {
         if (!(_invincible || ShieldActive()))
         {
-            StartCoroutine(Invincibility(_InvincibilityDuration));
+            StartCoroutine(TempInvincibility(_invincibilityDuration, _invincibilityFlashRate));
+            StartCoroutine(ScreenShake(_screenShakeDuration, _screenShakeMagnitude));
             OnTakeDamage?.Invoke();
             _currentHealth -= damageNum;
             if (_currentHealth <= 0)
@@ -188,13 +194,61 @@ public class PlayerShipController : MonoBehaviour
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
     }
 
-    IEnumerator Invincibility(float time)
+    #region Coroutines
+    IEnumerator Invincibility(float time) // obselete
     {
         _invincible = true;
         yield return new WaitForSeconds(time);
         _invincible = false;
         yield return null;
     }
+
+    // Cooroutine for invincibility, takes in invincibility time and causes sprite to flash every 0.5 seconds
+    // may result in longer invincibility if flash timer is not divisible by invincibility timer
+    IEnumerator TempInvincibility(float time, float flashTime)
+    {
+        SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
+        Color baseColor = sprite.color;
+        Color transparentColor = new Color(baseColor.r, baseColor.g, baseColor.b, 0.5f);
+        float t = time;
+        bool Opaque = true;
+        while (t >= 0)
+        {
+            Opaque = !Opaque;
+            t -= flashTime;
+            if (Opaque)
+            {
+                sprite.color = baseColor;
+            }
+            else
+            {
+                sprite.color = transparentColor;
+            }
+            yield return new WaitForSeconds(flashTime);
+        }
+        sprite.color = baseColor;
+        _invincible = false;
+    }
+
+    IEnumerator ScreenShake(float time, float magnitude)
+    {
+        Transform t = Camera.main.transform;
+        Vector3 lastPos = Vector3.zero;
+        float TimeStamp = Time.time + time;
+        while (TimeStamp > Time.time)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+            float z = Random.Range(-1f, 1f) * magnitude;
+            // undo last transform, add new transform, save new transform as old
+            t.position -= lastPos;
+            t.position += new Vector3(x, y, z);
+            lastPos = new Vector3(x, y, z);
+            yield return null;
+        }
+        t.position -= lastPos;
+    }
+    #endregion
 
     // Event Functions
     public void ActivateUpgrade(string upgradeName)
