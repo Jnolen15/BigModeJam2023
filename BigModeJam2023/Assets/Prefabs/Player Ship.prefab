@@ -110,18 +110,17 @@ MonoBehaviour:
   _screenShakeMagnitude: 0.1
   _gunCoolDown: 0.2
   _projectileSpeed: 0.2
-  _gunDamage: 5
   _shotWidth: 0.1
-  _rocketDamage: 50
-  _rocketAOE: 3
-  _laserDamage: 20
+  _altFireCoolDown: 1
   _currentHealth: 100
   _currentShield: 0
   _GunCoolDownUpgradeMultiplier: 0.5
   _moveSpeedUpgradeMultiplier: 1.5
   _projectileSpeedUpgradeMultiplier: 1.5
   _moveSpaceRect: {fileID: 0}
-  Projectile: {fileID: 1091817720086394234, guid: 7bd9e04b963254d458c051d3295abb2f, type: 3}
+  _projectile: {fileID: 1091817720086394234, guid: 7bd9e04b963254d458c051d3295abb2f, type: 3}
+  _rocket: {fileID: 0}
+  _laser: {fileID: 0}
 --- !u!61 &5606288736438084422
 BoxCollider2D:
   m_ObjectHideFlags: 0

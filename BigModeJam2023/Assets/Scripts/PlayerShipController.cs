@@ -46,7 +46,9 @@ public class PlayerShipController : MonoBehaviour
 
     // GameObjects
     [SerializeField] private RectTransform _moveSpaceRect;
-    [SerializeField] private GameObject Projectile;
+    [SerializeField] private GameObject _projectile;
+    [SerializeField] private GameObject _rocket;
+    [SerializeField] private GameObject _laser;
     private GameplayManager _gameplayManager;
 
     // Boundries
@@ -117,7 +119,7 @@ public class PlayerShipController : MonoBehaviour
             if (Input.GetMouseButton(0))
                 Shoot();
             if (Input.GetMouseButton(1))
-                Shoot();
+                AltFire();
         }
 
         // adjusting time stamped variables
@@ -196,8 +198,8 @@ public class PlayerShipController : MonoBehaviour
     {
         if (_shotTimeStamp < Time.time)
         {
-            GameObject laser1 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
-            GameObject laser2 = Instantiate(Projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
+            GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
+            GameObject laser2 = Instantiate(_projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
             laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
             laser2.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
             _shotTimeStamp = Time.time + _gunCoolDown;
@@ -208,26 +210,23 @@ public class PlayerShipController : MonoBehaviour
     {
         if (_altFireTimeStamp < Time.time)
         {
-            OnAltFire?.Invoke();
             if (_shotgunEquipped) Shotgun();
             if (_laserEquipped) Laser();
             if (_rocketEquipped) Rocket();
+            OnAltFire?.Invoke();
             _altFireTimeStamp = Time.time + _altFireCoolDown;
         }
     }
 
     private void Shotgun() // messy, should be cleaned up with smaller functions
     {
-        GameObject laser1 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
-        GameObject laser2 = Instantiate(Projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
-        GameObject laser3 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
-        GameObject laser4 = Instantiate(Projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
-        GameObject laser5 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
-        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+        float x = -0.2f;
+        float y = 0;
+        for (x = -0.2f; x < 0.2f; x+= 0.1f)
+        {
+            GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
+            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(x, _projectileSpeed);
+        }
     }
 
     private void Laser()
@@ -307,7 +306,15 @@ public class PlayerShipController : MonoBehaviour
     {
         switch (upgradeName)
         {
-
+            case "Shotgun":
+                _shotgunEquipped = true;
+                break;
+            case "Laser":
+                _laserEquipped = true;
+                   break;
+            case "Rocket":
+                _rocketEquipped = true;
+                break;
 
             //old upgrades
             case "FireRate":
@@ -333,8 +340,15 @@ public class PlayerShipController : MonoBehaviour
     {
         switch (upgradeName)
         {
-
-
+            case "Shotgun":
+                _shotgunEquipped = false;
+                break;
+            case "Laser":
+                _laserEquipped = false;
+                break;
+            case "Rocket":
+                _rocketEquipped = false;
+                break;
 
             //old upgrades
             case "FireRate":
