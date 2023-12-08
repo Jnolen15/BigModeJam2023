@@ -22,6 +22,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _projectileSpeed = 0.01f;
     [SerializeField] private float _shotWidth = 0.1f;
     [SerializeField] private float _altFireCoolDown = 1f;
+    [SerializeField] private float _shotgunShots = 20;
+    [SerializeField] private float _shotgunSpread = 0.01f;
     private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
@@ -218,14 +220,13 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
-    private void Shotgun() // messy, should be cleaned up with smaller functions
+    private void Shotgun()
     {
-        float x = -0.2f;
-        float y = 0;
-        for (x = -0.2f; x < 0.2f; x+= 0.1f)
+        for (float i = 0; i < _shotgunShots; i++)
         {
-            GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
-            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(x, _projectileSpeed);
+            float drift = Random.Range(-_shotgunSpread, _shotgunSpread);
+            GameObject laser1 = Instantiate(_projectile, transform.position, Quaternion.identity);
+            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(drift, _projectileSpeed - Mathf.Abs(drift)/2);
         }
     }
 
