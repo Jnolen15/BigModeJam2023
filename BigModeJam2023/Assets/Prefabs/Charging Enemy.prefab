@@ -103,6 +103,7 @@ MonoBehaviour:
   _enemyHealth: 10
   _enemySpeed: 1
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
+  gameAreaCamera: {fileID: 0}
 --- !u!114 &1677778851687429495
 MonoBehaviour:
   m_ObjectHideFlags: 0

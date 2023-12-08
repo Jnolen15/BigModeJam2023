@@ -5,34 +5,42 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int _enemyHealth = 10;
+    public float _enemyHealth = 10;
     public float _enemySpeed = 1;
     public GameObject upgrade;
+    public Camera gameAreaCamera;
+
+    private Vector3 screenBoundaries;
     void Start()
     {
-        
+        gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
+        screenBoundaries = gameAreaCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, gameAreaCamera.transform.position.z));
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (_enemyHealth <= 0)
-            Destroy(gameObject);
 
-
-    }
-
-    public void _enemyTakeDamage(int damageTaken)
+    public void _enemyTakeDamage(float damageTaken)
     {
         _enemyHealth -= damageTaken;
+        if (_enemyHealth <= 0)
+        {
+            spawnUpgrade();
+            Destroy(gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "PlayerBullet")
         {
-            spawnUpgrade();
-            Destroy(gameObject);
             Destroy(other.gameObject);
+            _enemyTakeDamage(other.GetComponent<PlayerProjectileScript>().GetDamage());
+        }
+        if(other.gameObject.tag == "PlayerRocket")
+        {
+            _enemyTakeDamage(5);
+        }
+        if (other.gameObject.tag == "PlayerLaser")
+        {
+            _enemyTakeDamage(5);
         }
     }
     private void spawnUpgrade()
