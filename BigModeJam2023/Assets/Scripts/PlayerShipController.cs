@@ -21,6 +21,7 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
     [SerializeField] private float _shotWidth = 0.1f;
+    [SerializeField] private float _altFireCoolDown = 1f;
     private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
@@ -36,6 +37,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
 
+    private float _shotTimeStamp = 0;
+    private float _altFireTimeStamp = 0;
     private float _shieldRechargeTimeStamp = 0;
     private bool _invincible = false;
     private bool _canControl;
@@ -53,13 +56,14 @@ public class PlayerShipController : MonoBehaviour
     private float _xOffset = 0;
     private float _yOffset = 0;
 
-    private float _shotTimeStamp = 0;
+
 
     // Events
     public delegate void ShipControllerEvent();
     public static event ShipControllerEvent OnUpgradePickUp;
     public static event ShipControllerEvent OnGameOver;
     public static event ShipControllerEvent OnTakeDamage;
+    public static event ShipControllerEvent OnAltFire;
 
     // ====================== Setup ======================
     void Start()
@@ -111,6 +115,8 @@ public class PlayerShipController : MonoBehaviour
 
             // Shooting
             if (Input.GetMouseButton(0))
+                Shoot();
+            if (Input.GetMouseButton(1))
                 Shoot();
         }
 
@@ -184,6 +190,8 @@ public class PlayerShipController : MonoBehaviour
             }
         }
     }
+
+    #region Weapons
     private void Shoot()
     {
         if (_shotTimeStamp < Time.time)
@@ -196,6 +204,42 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
+    private void AltFire()
+    {
+        if (_altFireTimeStamp < Time.time)
+        {
+            OnAltFire?.Invoke();
+            if (_shotgunEquipped) Shotgun();
+            if (_laserEquipped) Laser();
+            if (_rocketEquipped) Rocket();
+            _altFireTimeStamp = Time.time + _altFireCoolDown;
+        }
+    }
+
+    private void Shotgun() // messy, should be cleaned up with smaller functions
+    {
+        GameObject laser1 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
+        GameObject laser2 = Instantiate(Projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
+        GameObject laser3 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
+        GameObject laser4 = Instantiate(Projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
+        GameObject laser5 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
+        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+        laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+    }
+
+    private void Laser()
+    {
+
+    }
+    private void Rocket()
+    {
+
+    }
+
+    #endregion
     private void Repair()
     {
         _currentHealth += 20;
@@ -263,6 +307,9 @@ public class PlayerShipController : MonoBehaviour
     {
         switch (upgradeName)
         {
+
+
+            //old upgrades
             case "FireRate":
                 _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
                 break;
@@ -286,6 +333,10 @@ public class PlayerShipController : MonoBehaviour
     {
         switch (upgradeName)
         {
+
+
+
+            //old upgrades
             case "FireRate":
                 _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
                 break;
