@@ -19,6 +19,17 @@ public class UpgradeSlot : Interactable
     public static event UpgradeEvent OnStartUpgrade;
     public static event UpgradeEvent OnEndUpgrade;
 
+    // ====================== Setup ======================
+    private void Start()
+    {
+        PlayerShipController.OnAltFire += ReduceCharge;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerShipController.OnAltFire -= ReduceCharge;
+    }
+
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
@@ -41,9 +52,6 @@ public class UpgradeSlot : Interactable
     // ====================== Function ======================
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V) && !_drains)
-            ReduceCharge(20);
-
         if (!_upgradeActive || !_drains)
             return;
 
@@ -56,12 +64,12 @@ public class UpgradeSlot : Interactable
             TestForDead();
     }
 
-    public void ReduceCharge(int ammount)
+    public void ReduceCharge()
     {
         if (!_upgradeActive)
             return;
 
-        _upgradeCharge -= ammount;
+        _upgradeCharge -= 20;
         _upgradeBattery.UpdateCharge(_upgradeCharge);
         TestForDead();
     }
