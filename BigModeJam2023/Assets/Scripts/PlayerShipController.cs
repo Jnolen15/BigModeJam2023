@@ -20,11 +20,10 @@ public class PlayerShipController : MonoBehaviour
     // Weapons
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
-    [SerializeField] private float _gunDamage = 5;
     [SerializeField] private float _shotWidth = 0.1f;
-    [SerializeField] private float _rocketDamage = 50;
-    [SerializeField] private float _rocketAOE = 3;
-    [SerializeField] private float _laserDamage = 20;
+    private bool _rocketEquipped = false;
+    private bool _laserEquipped = false;
+    private bool _shotgunEquipped = false;
 
 
     // Active Stats
@@ -191,8 +190,8 @@ public class PlayerShipController : MonoBehaviour
         {
             GameObject laser1 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
             GameObject laser2 = Instantiate(Projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
-            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
-            laser2.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
+            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+            laser2.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
             _shotTimeStamp = Time.time + _gunCoolDown;
         }
     }

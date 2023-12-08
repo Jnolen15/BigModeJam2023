@@ -6,8 +6,9 @@ public class PlayerProjectileScript : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private float _range = 20;
-
-    private float _speed = 0.001f;
+    [SerializeField] private float _damage = 5;
+    private float _ySpeed = 0.001f;
+    private float _xSpeed = 0f;
     private float _yPosition;
     private float _distanceTraveled = 0;
 
@@ -21,7 +22,7 @@ public class PlayerProjectileScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(new Vector3(0, _speed * Time.timeScale, 0));
+        transform.Translate(new Vector3(_xSpeed * Time.timeScale, _ySpeed * Time.timeScale, 0));
 
         _distanceTraveled += Mathf.Abs(transform.position.y - _yPosition);
         _yPosition = transform.position.y;
@@ -30,13 +31,19 @@ public class PlayerProjectileScript : MonoBehaviour
 
     }
 
-    public void SetSpeed(float speed)
+    public void SetSpeed(float xSpeed, float ySpeed)
     {
-        _speed = speed;
+        _xSpeed = xSpeed;
+        _ySpeed = ySpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Player shot: " + collision.name);   
+    }
+
+    public float GetDamage()
+    {
+        return _damage;
     }
 }
