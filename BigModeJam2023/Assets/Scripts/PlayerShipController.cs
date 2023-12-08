@@ -7,8 +7,6 @@ public class PlayerShipController : MonoBehaviour
     // ====================== Refrences / Variables ======================
     // Base Stats
     [SerializeField] private float _moveSpeed = 0.01f;
-    [SerializeField] private float _gunCoolDown = 0.1f;
-    [SerializeField] private float _projectileSpeed = 0.01f;
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _shieldDuration = 8;
     [SerializeField] private float _shieldRegenDelay = 3;
@@ -19,10 +17,19 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _screenShakeMagnitude = 0.001f;
 
 
+    // Weapons
+    [SerializeField] private float _gunCoolDown = 0.1f;
+    [SerializeField] private float _projectileSpeed = 0.01f;
+    [SerializeField] private float _gunDamage = 5;
+    [SerializeField] private float _shotWidth = 0.1f;
+    [SerializeField] private float _rocketDamage = 50;
+    [SerializeField] private float _rocketAOE = 3;
+    [SerializeField] private float _laserDamage = 20;
+
 
     // Active Stats
     [SerializeField] private float _currentHealth = 100;
-    [SerializeField] private float _currentShield;
+    [SerializeField] private float _currentShield = 8;
 
 
     // powerups
@@ -182,8 +189,10 @@ public class PlayerShipController : MonoBehaviour
     {
         if (_shotTimeStamp < Time.time)
         {
-            GameObject laser = Instantiate(Projectile, transform.position, Quaternion.identity); // spawn projectile
-            laser.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
+            GameObject laser1 = Instantiate(Projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
+            GameObject laser2 = Instantiate(Projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
+            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
+            laser2.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
             _shotTimeStamp = Time.time + _gunCoolDown;
         }
     }

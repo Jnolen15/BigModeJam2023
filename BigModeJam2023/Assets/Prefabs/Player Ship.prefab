@@ -100,8 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 0.1
-  _gunCoolDown: 0.2
-  _projectileSpeed: 0.2
   _maxHealth: 100
   _shieldDuration: 8
   _shieldRegenDelay: 3
@@ -110,6 +108,13 @@ MonoBehaviour:
   _invincibilityFlashRate: 0.2
   _screenShakeDuration: 0.2
   _screenShakeMagnitude: 0.1
+  _gunCoolDown: 0.2
+  _projectileSpeed: 0.2
+  _gunDamage: 5
+  _shotWidth: 0.1
+  _rocketDamage: 50
+  _rocketAOE: 3
+  _laserDamage: 20
   _currentHealth: 100
   _currentShield: 0
   _GunCoolDownUpgradeMultiplier: 0.5

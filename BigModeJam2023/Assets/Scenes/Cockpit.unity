@@ -1492,7 +1492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 10
+      value: 11.2882
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1528,7 +1528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9.4
+      value: 10.044093
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3177,6 +3177,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: _shotWidth
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _moveSpaceRect
       value: 
