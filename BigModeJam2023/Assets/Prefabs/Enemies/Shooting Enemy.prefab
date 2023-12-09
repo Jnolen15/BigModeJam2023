@@ -104,6 +104,9 @@ MonoBehaviour:
   _enemyHealth: 10
   _enemySpeed: 1
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
+  gameAreaCamera: {fileID: 0}
+  ScreenBoundariesBottomLeft: {x: 0, y: 0, z: 0}
+  ScreenBoundariesTopRight: {x: 0, y: 0, z: 0}
 --- !u!114 &4497100054785333850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +168,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
 --- !u!50 &1372142500619749371
 Rigidbody2D:
