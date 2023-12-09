@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerShipController : MonoBehaviour
 {
@@ -52,6 +53,11 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private GameObject _rocket;
     [SerializeField] private GameObject _laser;
     private GameplayManager _gameplayManager;
+
+    // Audio
+    [SerializeField] private AudioClip _shootSound;
+    [SerializeField] private AudioClip _damageSound;
+    [SerializeField] private AudioSource _audioSource;
 
     // Boundries
     private float _xLimit = 10;
@@ -186,6 +192,9 @@ public class PlayerShipController : MonoBehaviour
             StartCoroutine(ScreenShake(_screenShakeDuration, _screenShakeMagnitude));
             OnTakeDamage?.Invoke();
             _currentHealth -= damageNum;
+
+            _audioSource.PlayOneShot(_damageSound);
+
             if (_currentHealth <= 0)
             {
                 OnGameOver?.Invoke();
@@ -205,6 +214,8 @@ public class PlayerShipController : MonoBehaviour
             laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
             laser2.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
             _shotTimeStamp = Time.time + _gunCoolDown;
+
+            _audioSource.PlayOneShot(_shootSound);
         }
     }
 
@@ -228,21 +239,27 @@ public class PlayerShipController : MonoBehaviour
             GameObject laser1 = Instantiate(_projectile, transform.position, Quaternion.identity);
             laser1.GetComponent<PlayerProjectileScript>().SetSpeed(drift, _projectileSpeed - Mathf.Abs(drift)/2);
         }
+
+        _audioSource.PlayOneShot(_shootSound);
     }
 
     private void Laser()
     {
         GameObject laser1 = Instantiate(_laser, transform.position, Quaternion.identity);
+
+        _audioSource.PlayOneShot(_shootSound);
     }
     private void Rocket()
     {
         GameObject rocket1 = Instantiate(_rocket, transform.position, Quaternion.identity);
+
+        _audioSource.PlayOneShot(_shootSound);
     }
 
     #endregion
     private void Repair()
     {
-        _currentHealth += 20;
+        _currentHealth += 15;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
     }
 
