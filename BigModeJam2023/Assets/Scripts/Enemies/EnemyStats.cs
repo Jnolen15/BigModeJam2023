@@ -51,7 +51,7 @@ public class EnemyStats : MonoBehaviour
     }
     private void spawnUpgrade()
     {
-        if (Random.Range(0, 50) == 1)
+        if (Random.Range(0, 30) == 1)
         {
             Instantiate(upgrade, transform.position, Quaternion.identity);
         }
