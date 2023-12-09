@@ -7,6 +7,7 @@ public class UpgradeSlot : Interactable
     // ====================== Refrences / Variables ======================
     [SerializeField] private GameObject _upgradePref;
     [SerializeField] private Transform _upgradePos;
+    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private string _upgradeName;
     [SerializeField] private bool _drains;
     [SerializeField] private float _drainRate;
@@ -103,6 +104,8 @@ public class UpgradeSlot : Interactable
         _upgradeActive = true;
         _hasUpgrade = true;
         _upgradeCharge = 100;
+
+        _audioSource.Play();
     }
 
     public void UnslotUpgrade(CockpitController cockpitController)

@@ -8,6 +8,8 @@ public class Damage : Interactable
     [SerializeField] private ParticleSystem _vfx;
     [SerializeField] private GameObject _fixed;
     [SerializeField] private GameObject _broken;
+    [SerializeField] private AudioSource _loopingAudioSource;
+    [SerializeField] private AudioSource _fixAudioSource;
     private CockpitDamageManager _damageManager;
     private bool _isBroken;
 
@@ -44,7 +46,7 @@ public class Damage : Interactable
         _isBroken = true;
 
         _vfx.Play();
-
+        _loopingAudioSource.Play();
         if (_broken)
         {
             _fixed.SetActive(false);
@@ -58,7 +60,8 @@ public class Damage : Interactable
         _isBroken = false;
 
         _vfx.Stop();
-
+        _loopingAudioSource.Pause();
+        _fixAudioSource.Play();
         if (_broken)
         {
             _fixed.SetActive(true);

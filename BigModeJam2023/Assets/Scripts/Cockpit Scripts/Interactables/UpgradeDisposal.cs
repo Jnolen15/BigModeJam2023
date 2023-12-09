@@ -7,6 +7,7 @@ public class UpgradeDisposal : Interactable
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private Transform _doorHinge;
+    [SerializeField] private AudioSource _audioSource;
 
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
@@ -28,10 +29,13 @@ public class UpgradeDisposal : Interactable
     // ====================== Function ======================
     private void Dispose(CockpitController cockpitController)
     {
+        _doorHinge.DOKill();
+
         cockpitController.SetdownTool();
 
-        _doorHinge.localRotation = Quaternion.Euler(20, 0, 0);
+        _audioSource.Play();
 
+        _doorHinge.localRotation = Quaternion.Euler(20, 0, 0);
         _doorHinge.DOLocalRotate(Vector3.zero, 1f).SetEase(Ease.OutBounce);
     }
 }
