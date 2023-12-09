@@ -79,5 +79,6 @@ public class UpgradeTray : Interactable
 
         upgrade.transform.SetParent(transform);
         upgrade.transform.localPosition = _upgradeSlots[_upgradeList.Count-1].localPosition;
+        upgrade.transform.localRotation = _upgradeSlots[_upgradeList.Count-1].localRotation;
     }
 }
