@@ -24,7 +24,7 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _altFireCoolDown = 1f;
     [SerializeField] private float _shotgunShots = 20;
     [SerializeField] private float _shotgunSpread = 0.01f;
-    private bool _rocketEquipped = true;
+    private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
 
