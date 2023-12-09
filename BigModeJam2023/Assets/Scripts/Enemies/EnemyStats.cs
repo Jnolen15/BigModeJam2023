@@ -42,11 +42,11 @@ public class EnemyStats : MonoBehaviour
         }
         if(other.gameObject.tag == "PlayerRocket")
         {
-            _enemyTakeDamage(5);
+            _enemyTakeDamage(other.transform.parent.GetComponent<PlayerRocketScript>().GetDamage()); //this is weird need to fix
         }
         if (other.gameObject.tag == "PlayerLaser")
         {
-            _enemyTakeDamage(5);
+            _enemyTakeDamage(other.GetComponent<PlayerLaserScript>().GetDamage());
         }
     }
     private void spawnUpgrade()
