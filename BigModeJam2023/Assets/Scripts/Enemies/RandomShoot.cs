@@ -15,8 +15,11 @@ public class RandomShoot : MonoBehaviour
 
 
     private float _shotTimeStamp = 0;
+    private EnemyStats _es;
+
     void Start()
     {
+        _es = gameObject.GetComponent<EnemyStats>();
         StartCoroutine("shootRandomly");
     }
 
@@ -35,9 +38,13 @@ public class RandomShoot : MonoBehaviour
     {
         while (true)
         {
-            float waitToshoot = Random.Range(_shootTimerMin, _shootTimerMax);
-            yield return new WaitForSeconds(waitToshoot);
-            Shoot();
+            if (transform.position.y < _es.ScreenBoundariesTopRight.y)
+            {
+                float waitToshoot = Random.Range(_shootTimerMin, _shootTimerMax);
+                yield return new WaitForSeconds(waitToshoot);
+                Shoot();
+            }
+            yield return null;
         }
     }
 }

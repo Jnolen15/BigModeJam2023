@@ -5,11 +5,13 @@ using UnityEngine;
 public class SpawningAlgorithm : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject[] Enemies;
-
+    public List<Enemy> Enemies = new List<Enemy>();
     public int SpawnAmount = 0;
+    public int StopSpawningWave = 10;
+    public int spawnBreakTime = 15;
     public float SpawnCooldown = 1f;
-    
+    public Camera gameAreaCamera;
+
 
 
     [SerializeField] private RectTransform _moveSpaceRect;
@@ -21,8 +23,16 @@ public class SpawningAlgorithm : MonoBehaviour
 
     private GameObject _leftPoint;
     private GameObject _rightPoint;
+    private Vector3 _screenBoundariesBottomLeft;
+    private Vector3 _screenBoundariesTopRight;
+    private int _waveCost = 0;
+    private List<GameObject> _generatedEnemy = new List<GameObject>();
     void Start()
     {
+        gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
+        _screenBoundariesTopRight = gameAreaCamera.ScreenToWorldPoint(new Vector3(0, 0, gameAreaCamera.transform.position.z));
+        _screenBoundariesBottomLeft = gameAreaCamera.ScreenToWorldPoint(new Vector3(gameAreaCamera.pixelRect.width, gameAreaCamera.pixelRect.height, gameAreaCamera.transform.position.z));
+
         if (_moveSpaceRect != null)
         {
             _xOffset = _moveSpaceRect.position.x;
@@ -35,10 +45,10 @@ public class SpawningAlgorithm : MonoBehaviour
             Debug.LogFormat("Movement Area not set");
         }
         _leftPoint = new GameObject("LeftPoint");
-        _leftPoint.transform.position = new Vector3(-_xLimit + _xOffset, _yLimit + _yOffset + 2, 0);
+        _leftPoint.transform.position = new Vector3(_screenBoundariesBottomLeft.x, _screenBoundariesTopRight.y + 0.5f, 0);
 
         _rightPoint = new GameObject("RightPoint");
-        _rightPoint.transform.position = new Vector3(_xLimit + _xOffset, _yLimit + _yOffset + 2, 0);
+        _rightPoint.transform.position = new Vector3(_screenBoundariesTopRight.x, _screenBoundariesTopRight.y + 0.5f, 0);
 
         StartCoroutine("spawn");
     }
@@ -48,19 +58,61 @@ public class SpawningAlgorithm : MonoBehaviour
     {
         
     }
+
+    private void GenerateEnemies()
+    {
+        _waveCost = SpawnAmount * 2;
+        List<GameObject> enemiesGenerated = new List<GameObject>();
+        while(_waveCost > 0)
+        {
+            int pickedEnemy = Random.Range(0, Enemies.Count);
+            int pickedEnemyCost = Enemies[pickedEnemy].DangerLevel;
+            if(_waveCost - pickedEnemyCost >= 0)
+            {
+                enemiesGenerated.Add(Enemies[pickedEnemy].EnemyPrefab);
+                _waveCost -= pickedEnemyCost;
+            }
+            else if(_waveCost < 0)
+            {
+                break;
+            }
+        }
+        _generatedEnemy.Clear();
+        _generatedEnemy = enemiesGenerated;
+
+    }
     private IEnumerator spawn()
     {
+        int wave = 0;
         while (true)
         {
-            int i = 0;
-            while(i < SpawnAmount)
+            if (wave < StopSpawningWave)
             {
-                int choseEnemy = Random.Range(0, 2);
-                GameObject enemyToSpawn = Instantiate(Enemies[choseEnemy], Vector3.Lerp(_leftPoint.transform.position, _rightPoint.transform.position, (i + 1f) / (SpawnAmount + 1f)), new Quaternion (0,0,180,0));
-                i++;
-                yield return null;
+                int i = 0;
+                GenerateEnemies();
+                while (i < _generatedEnemy.Count)
+                {
+                    GameObject enemyToSpawn = Instantiate(_generatedEnemy[i], Vector3.Lerp(_leftPoint.transform.position, _rightPoint.transform.position, (i + 1f) / (_generatedEnemy.Count + 1f)), new Quaternion(0, 0, 180, 0));
+                    i++;
+                    yield return null;
+                }
+                wave++;
+                yield return new WaitForSeconds(SpawnCooldown);
             }
-            yield return new WaitForSeconds(SpawnCooldown);
+            else
+            {
+                wave = 0;
+                yield return new WaitForSeconds(spawnBreakTime);
+            }
+            yield return null;
         }
     }
 }
+
+[System.Serializable]
+public class Enemy
+{
+    public GameObject EnemyPrefab;
+    public int DangerLevel;
+}
+

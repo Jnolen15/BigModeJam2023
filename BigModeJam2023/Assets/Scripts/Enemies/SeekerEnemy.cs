@@ -21,9 +21,21 @@ public class SeekerEnemy : MonoBehaviour
     [SerializeField] private float _xOffset = 0;
     [SerializeField] private float _yOffset = 0;
 
+    private EnemyStats _es;
     void Start()
     {
         Player = GameObject.Find("Player Ship");
+        _es = gameObject.GetComponent<EnemyStats>();
+        int chooseSide = Random.Range(0, 2);
+        if(chooseSide == 0)
+        {
+            transform.position = new Vector3(_es.ScreenBoundariesBottomLeft.x - 1, Random.Range(_es.ScreenBoundariesBottomLeft.y, _es.ScreenBoundariesTopRight.y), 0);
+        }
+        if (chooseSide == 1)
+        {
+            transform.position = new Vector3(_es.ScreenBoundariesTopRight.x + 1, Random.Range(_es.ScreenBoundariesBottomLeft.y, _es.ScreenBoundariesTopRight.y), 0);
+        }
+
         _moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
 
         if (_moveSpaceRect != null)

@@ -17,15 +17,15 @@ public class ShootingEnemy : MonoBehaviour
     [SerializeField] private float _yOffset = 0;
 
 
-    private Vector2 _screenBoundaries;
     private float _movespeed = 2;
     private string _typeOfMovement;
     private bool _waitToGoDown = true;
+
+    private EnemyStats _es;
     void Start()
     {
-        _screenBoundaries = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         _moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
-        //_moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
+        _es = gameObject.GetComponent<EnemyStats>();
         // setting offsets and limits
         if (_moveSpaceRect != null)
         {

@@ -10,11 +10,17 @@ public class EnemyStats : MonoBehaviour
     public GameObject upgrade;
     public Camera gameAreaCamera;
 
-    private Vector3 screenBoundaries;
+
+    //Screen ScreenBoundariesBottomLeft will give the coordinates based on the cameras boundaries
+    // ScreenBoundariesBottomLeft: Gives us the Y and X of the bottom and left of the screen
+    // ScreenBoundariesTopRight: Gives the top of the screen and right side of the screen
+    public Vector3 ScreenBoundariesBottomLeft;
+    public Vector3 ScreenBoundariesTopRight;
     void Start()
     {
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
-        screenBoundaries = gameAreaCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, gameAreaCamera.transform.position.z));
+        ScreenBoundariesTopRight = gameAreaCamera.ScreenToWorldPoint(new Vector3(0, 0, gameAreaCamera.transform.position.z));
+        ScreenBoundariesBottomLeft = gameAreaCamera.ScreenToWorldPoint(new Vector3(gameAreaCamera.pixelRect.width, gameAreaCamera.pixelRect.height, gameAreaCamera.transform.position.z));
     }
 
 

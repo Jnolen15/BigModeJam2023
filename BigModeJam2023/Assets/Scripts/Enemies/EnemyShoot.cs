@@ -12,9 +12,12 @@ public class EnemyShoot : MonoBehaviour
 
 
     private float _shotTimeStamp = 0;
+    private GameObject _parent;
+    private EnemyStats _es;
     void Start()
     {
-        
+        _parent = gameObject.transform.parent.gameObject;
+        _es = _parent.GetComponent<EnemyStats>();
     }
 
     // Update is called once per frame
@@ -29,8 +32,10 @@ public class EnemyShoot : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player")
+        //Need to get parents position so script can start shooting when they show up in the screen
+        if(other.gameObject.tag == "Player" && (_parent.transform.position.y < _es.ScreenBoundariesTopRight.y))
         {
+
             Shoot();
         }
     }

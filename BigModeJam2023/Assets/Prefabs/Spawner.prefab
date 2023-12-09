@@ -45,10 +45,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemies:
-  - {fileID: 2839158116787054440, guid: a02ad6c33b8366c49bf904d98a9f9986, type: 3}
-  - {fileID: 597031016705459132, guid: 0d1425b72c9fd37478ada0281329cd85, type: 3}
+  - EnemyPrefab: {fileID: 2839158116787054440, guid: a02ad6c33b8366c49bf904d98a9f9986, type: 3}
+    DangerLevel: 2
+  - EnemyPrefab: {fileID: 5185797148128333945, guid: e82cf29d490e38b4b859b6b59f7c3c59, type: 3}
+    DangerLevel: 1
+  - EnemyPrefab: {fileID: 597031016705459132, guid: 0d1425b72c9fd37478ada0281329cd85, type: 3}
+    DangerLevel: 2
+  - EnemyPrefab: {fileID: 9195172272361898927, guid: 294eac892d1b94d4cbb305960d383aff, type: 3}
+    DangerLevel: 1
+  - EnemyPrefab: {fileID: 7839222879034198494, guid: 0a54fab83e0eadb42a49eeab0b34e2d7, type: 3}
+    DangerLevel: 6
   SpawnAmount: 15
+  StopSpawningWave: 10
+  spawnBreakTime: 15
   SpawnCooldown: 6
+  gameAreaCamera: {fileID: 0}
   _moveSpaceRect: {fileID: 0}
   _xLimit: 10
   _yLimit: 10

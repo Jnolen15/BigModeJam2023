@@ -23,8 +23,10 @@ public class ChargingEnemy : MonoBehaviour
     private bool _startCharging = false;
     private bool _reachDestination = false;
     private float _MovingSpeed;
+    private EnemyStats _es; 
     void Start()
     {
+        _es = gameObject.GetComponent<EnemyStats>();
         Player = GameObject.Find("Player Ship");
         _moveSpaceRect = GameObject.Find("ShipMovementSpace").GetComponent<RectTransform>();
 
@@ -70,12 +72,12 @@ public class ChargingEnemy : MonoBehaviour
             transform.position += transform.up  * _MovingSpeed;
         }
 
-        if(transform.position.y < (_yLimit + _yOffset) + 4 && !_reachDestination){
+        if(transform.position.y < (_es.ScreenBoundariesTopRight.y) - 1.5f && !_reachDestination){
             _reachDestination = true;
             StartCoroutine("Charge");
         }
 
-        if(transform.position.y < -_yLimit + _yOffset || transform.position.x < -_xLimit + _xOffset || transform.position.x > _xLimit + _xOffset)
+        if(transform.position.y < _es.ScreenBoundariesBottomLeft.y - 1 || transform.position.x > _es.ScreenBoundariesTopRight.x + 1|| transform.position.x < _es.ScreenBoundariesBottomLeft.x - 1)
         {
             Destroy(gameObject);
         }
