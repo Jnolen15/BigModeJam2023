@@ -25,8 +25,16 @@ public class CockpitDamageManager : MonoBehaviour
     private void OnTakeDamage()
     {
         //Debug.Log("Ship taking damage!");
-        int rand = Random.Range(0, _damageObjectList.Count);
-        _damageObjectList[rand].ActiavteDamage();
+        for (int i = 0; i < 10; i++)
+        {
+            Damage damage = _damageObjectList[Random.Range(0, _damageObjectList.Count)];
+
+            if (!damage.GetIsBroken())
+            {
+                damage.ActiavteDamage();
+                break;
+            }
+        }
     }
 
     public void OnRepair()

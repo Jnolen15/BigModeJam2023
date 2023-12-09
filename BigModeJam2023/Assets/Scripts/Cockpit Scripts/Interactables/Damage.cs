@@ -9,6 +9,7 @@ public class Damage : Interactable
     [SerializeField] private GameObject _fixed;
     [SerializeField] private GameObject _broken;
     private CockpitDamageManager _damageManager;
+    private bool _isBroken;
 
     private void Start()
     {
@@ -18,7 +19,7 @@ public class Damage : Interactable
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
-        if(heldItem == _requiredTool)
+        if(heldItem == _requiredTool && _isBroken)
             RepairDamage();
     }
 
@@ -33,8 +34,15 @@ public class Damage : Interactable
     }
 
     // ====================== Function ======================
+    public bool GetIsBroken()
+    {
+        return _isBroken;
+    }
+
     public void ActiavteDamage()
     {
+        _isBroken = true;
+
         _vfx.Play();
 
         if (_broken)
@@ -47,6 +55,8 @@ public class Damage : Interactable
     private void RepairDamage()
     {
         Debug.Log("Repairing damage " + this.name);
+        _isBroken = false;
+
         _vfx.Stop();
 
         if (_broken)
