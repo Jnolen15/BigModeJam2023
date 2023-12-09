@@ -176,4 +176,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 999
-  _lifespan: 0.5
+  _lifespan: 0.25
