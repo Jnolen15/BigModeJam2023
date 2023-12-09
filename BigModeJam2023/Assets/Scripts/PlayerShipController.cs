@@ -333,6 +333,9 @@ public class PlayerShipController : MonoBehaviour
             case "Rocket":
                 _rocketEquipped = true;
                 break;
+            case "Time Warp":
+                Time.timeScale = 0.75f;
+                break;
 
             //old upgrades
             case "FireRate":
@@ -366,6 +369,9 @@ public class PlayerShipController : MonoBehaviour
                 break;
             case "Rocket":
                 _rocketEquipped = false;
+                break;
+            case "Time Warp":
+                Time.timeScale =1;
                 break;
 
             //old upgrades
