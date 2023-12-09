@@ -27,6 +27,7 @@ public class SpawningAlgorithm : MonoBehaviour
     private Vector3 _screenBoundariesTopRight;
     private int _waveCost = 0;
     private List<GameObject> _generatedEnemy = new List<GameObject>();
+    private bool gameStarting = true;
     void Start()
     {
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
@@ -86,6 +87,11 @@ public class SpawningAlgorithm : MonoBehaviour
         int wave = 0;
         while (true)
         {
+            if (gameStarting)
+            {
+                gameStarting = false;
+                yield return new WaitForSeconds(5);
+            }
             if (wave < StopSpawningWave)
             {
                 int i = 0;
