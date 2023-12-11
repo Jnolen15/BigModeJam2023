@@ -257,7 +257,7 @@ public class PlayerShipController : MonoBehaviour
     }
 
     #endregion
-    private void Repair()
+    private void Repair(string system)
     {
         _currentHealth += 15;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;

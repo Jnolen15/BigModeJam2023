@@ -5,6 +5,7 @@ using UnityEngine;
 public class Damage : Interactable
 {
     // ====================== Refrences / Variables ======================
+    [SerializeField] private string _system;
     [SerializeField] private ParticleSystem _vfx;
     [SerializeField] private GameObject _fixed;
     [SerializeField] private GameObject _broken;
@@ -68,6 +69,6 @@ public class Damage : Interactable
             _broken.SetActive(false);
         }
 
-        _damageManager.OnRepair();
+        _damageManager.OnRepair(_system);
     }
 }

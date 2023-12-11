@@ -841,6 +841,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageFire
       objectReference: {fileID: 0}
+    - target: {fileID: 8268753434599044200, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
+      propertyPath: _system
+      value: None
+      objectReference: {fileID: 0}
     - target: {fileID: 9190755097400307937, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -914,6 +918,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1684984686}
     m_Modifications:
+    - target: {fileID: 6799582802978900719, guid: abe4fea44c4f8dd4f972b55cdcb0b485, type: 3}
+      propertyPath: _system
+      value: None
+      objectReference: {fileID: 0}
     - target: {fileID: 7009159927316751277, guid: abe4fea44c4f8dd4f972b55cdcb0b485, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1388,6 +1396,10 @@ PrefabInstance:
     - target: {fileID: 2671261790866783580, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
       propertyPath: m_Name
       value: DamageFire (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268753434599044200, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
+      propertyPath: _system
+      value: None
       objectReference: {fileID: 0}
     - target: {fileID: 9190755097400307937, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
       propertyPath: m_RootOrder
@@ -2725,6 +2737,10 @@ PrefabInstance:
     - target: {fileID: 2671261790866783580, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
       propertyPath: m_Name
       value: DamageFire (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268753434599044200, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
+      propertyPath: _system
+      value: None
       objectReference: {fileID: 0}
     - target: {fileID: 9190755097400307937, guid: 91c01785c0e38fb41a72acf2e39ad050, type: 3}
       propertyPath: m_RootOrder
@@ -4165,6 +4181,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1684984686}
     m_Modifications:
+    - target: {fileID: 6799582802978900719, guid: abe4fea44c4f8dd4f972b55cdcb0b485, type: 3}
+      propertyPath: _system
+      value: None
+      objectReference: {fileID: 0}
     - target: {fileID: 7009159927316751277, guid: abe4fea44c4f8dd4f972b55cdcb0b485, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4601,6 +4621,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1684984686}
     m_Modifications:
+    - target: {fileID: 6799582802978900719, guid: abe4fea44c4f8dd4f972b55cdcb0b485, type: 3}
+      propertyPath: _system
+      value: None
+      objectReference: {fileID: 0}
     - target: {fileID: 7009159927316751277, guid: abe4fea44c4f8dd4f972b55cdcb0b485, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -10786,7 +10810,7 @@ GameObject:
   - component: {fileID: 2130036033}
   - component: {fileID: 2130036032}
   m_Layer: 0
-  m_Name: Ship Two
+  m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

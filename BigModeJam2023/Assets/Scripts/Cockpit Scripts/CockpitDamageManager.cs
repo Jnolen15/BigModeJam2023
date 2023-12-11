@@ -7,7 +7,7 @@ public class CockpitDamageManager : MonoBehaviour
     // ====================== Refrences / Variables ======================
     [SerializeField] private List<Damage> _damageObjectList;
 
-    public delegate void DamageEvent();
+    public delegate void DamageEvent(string system);
     public static event DamageEvent OnRepairDamage;
 
     // ====================== Setup ======================
@@ -37,9 +37,9 @@ public class CockpitDamageManager : MonoBehaviour
         }
     }
 
-    public void OnRepair()
+    public void OnRepair(string system)
     {
-        Debug.Log("OnRepair");
-        OnRepairDamage?.Invoke();
+        Debug.Log("OnRepair: " + system);
+        OnRepairDamage?.Invoke(system);
     }
 }
