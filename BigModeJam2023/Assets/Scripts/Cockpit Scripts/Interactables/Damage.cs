@@ -14,11 +14,6 @@ public class Damage : Interactable
     private CockpitDamageManager _damageManager;
     private bool _isBroken;
 
-    public delegate void SystemEvent(string system);
-    public static event SystemEvent OnSystemDamaged;
-    public static event SystemEvent OnSystemRepaired;
-
-
     private void Start()
     {
         _damageManager = this.GetComponentInParent<CockpitDamageManager>();
@@ -58,7 +53,8 @@ public class Damage : Interactable
             _fixed.SetActive(false);
             _broken.SetActive(true);
         }
-        OnSystemDamaged?.Invoke(_system);
+
+        _damageManager.OnDamage(_system);
     }
 
     private void RepairDamage()
@@ -76,6 +72,5 @@ public class Damage : Interactable
         }
 
         _damageManager.OnRepair(_system);
-        OnSystemRepaired?.Invoke(_system);
     }
 }
