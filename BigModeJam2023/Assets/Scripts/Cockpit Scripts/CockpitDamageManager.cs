@@ -31,7 +31,7 @@ public class CockpitDamageManager : MonoBehaviour
 
             if (!damage.GetIsBroken())
             {
-                damage.ActiavteDamage();
+                damage.ActivateDamage();
                 break;
             }
         }
