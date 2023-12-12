@@ -7,6 +7,9 @@ public class PlayerShipController : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
     // Base Stats
+    [SerializeField] private bool _snapMovement;
+    [SerializeField] private bool _staggeredFire;
+    [SerializeField] private bool _aimMode;
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _shieldDuration = 8;
@@ -28,6 +31,7 @@ public class PlayerShipController : MonoBehaviour
     private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
+    private bool _leftShot; // Used to stagger shots
 
 
     // Active Stats
@@ -52,6 +56,7 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private GameObject _projectile;
     [SerializeField] private GameObject _rocket;
     [SerializeField] private GameObject _laser;
+    [SerializeField] private Camera _gameCam;
     private GameplayManager _gameplayManager;
 
     // Audio
@@ -111,10 +116,15 @@ public class PlayerShipController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
 
         // testing for upgrades
-        if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
-        if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
+        //if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
+        //if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
 
         if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
+
+        // Sawp move modes
+        if (Input.GetKeyDown(KeyCode.Q)) _snapMovement = !_snapMovement;
+        if (Input.GetKeyDown(KeyCode.E)) _staggeredFire = !_staggeredFire;
+        if (Input.GetKeyDown(KeyCode.R)) _aimMode = !_aimMode;
     }
     void FixedUpdate()
     {
@@ -150,8 +160,17 @@ public class PlayerShipController : MonoBehaviour
         float speed = _moveSpeed * Time.timeScale; // adjusting for slow-mo
         Vector3 translation = Vector3.zero;
 
-        translation.y += Input.GetAxis("Vertical") * speed; // Up/Down
-        translation.x += Input.GetAxis("Horizontal") * speed; // Left/Right
+        if (_snapMovement)
+        {
+            translation.y += Input.GetAxisRaw("Vertical") * speed; // Up/Down
+            translation.x += Input.GetAxisRaw("Horizontal") * speed; // Left/Right
+        }
+        else
+        {
+            translation.y += Input.GetAxis("Vertical") * speed; // Up/Down
+            translation.x += Input.GetAxis("Horizontal") * speed; // Left/Right
+        }
+
         /* old input system
         if (Input.GetKey(KeyCode.D)) translation.x += speed; // Right
         if (Input.GetKey(KeyCode.A)) translation.x -= speed; // Left 
@@ -207,16 +226,53 @@ public class PlayerShipController : MonoBehaviour
     #region Weapons
     private void Shoot()
     {
-        if (_shotTimeStamp < Time.time)
+        if (_staggeredFire)
         {
-            GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
-            GameObject laser2 = Instantiate(_projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
-            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-            laser2.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-            _shotTimeStamp = Time.time + _gunCoolDown;
+            if (_shotTimeStamp < Time.time)
+            {
+                if (_leftShot)
+                    ShootBullet(_shotWidth);
+                else
+                    ShootBullet(-_shotWidth);
 
-            _audioSource.PlayOneShot(_shootSound);
+                _leftShot = !_leftShot;
+                _shotTimeStamp = Time.time + (_gunCoolDown / 2);
+
+                _audioSource.PlayOneShot(_shootSound);
+            }
         }
+        else
+        {
+            if (_shotTimeStamp < Time.time)
+            {
+                ShootBullet(_shotWidth);
+                ShootBullet(-_shotWidth);
+
+                _shotTimeStamp = Time.time + _gunCoolDown;
+
+                _audioSource.PlayOneShot(_shootSound);
+            }
+        }
+    }
+
+    private void ShootBullet(float xPos)
+    {
+        GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xPos, 0, 0), Quaternion.identity);
+        laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+
+        // AIM MODE WIP
+        /*if (_aimMode) 
+        {
+            // Get mouse position in world coordinates
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition = (mousePosition - transform.position).normalized;
+            mousePosition.z = 0f;
+
+            // Calculate direction from player to mouse position
+            Vector3 shootDirection = (mousePosition - transform.position).normalized;
+
+            laser.GetComponent<PlayerProjectileScript>().SetRotation(shootDirection);
+        }*/
     }
 
     private void AltFire()

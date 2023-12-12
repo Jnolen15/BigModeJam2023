@@ -1176,7 +1176,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 55
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1618,11 +1618,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 826612480620726530, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 826612480620726530, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3143501973646116878, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_Enabled
@@ -1646,7 +1646,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7838937970013799075, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: SpawnAmount
-      value: 30
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838937970013799075, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
+      propertyPath: Enemies.Array.data[4].DangerLevel
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_Pivot.x
@@ -1678,11 +1682,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 17
+      value: 15.4
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 11.2882
+      value: 10.3
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1718,7 +1722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10.044093
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7881923049790427028, guid: 807ae607966897f41b76a6bae7f578ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4089,6 +4093,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 116770495008664292, guid: 0948168924fd8f04fb5e43e7b89ef901, type: 3}
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: _gameCam
+      value: 
+      objectReference: {fileID: 268593906}
+    - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: _moveSpeed
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _shotWidth
       value: 0.15
       objectReference: {fileID: 0}
@@ -4099,6 +4111,10 @@ PrefabInstance:
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _shotgunSpread
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: _projectileSpeed
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -1682967967830935502, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: _InvincibilityDuration

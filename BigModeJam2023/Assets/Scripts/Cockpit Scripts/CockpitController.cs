@@ -143,6 +143,9 @@ public class CockpitController : MonoBehaviour
     {
         OnGoToGame?.Invoke();
 
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+
         SetCockpitControls(false);
 
         transform.DOMove(_screenCamPos.position, 0.2f).SetEase(Ease.OutSine);
@@ -152,6 +155,8 @@ public class CockpitController : MonoBehaviour
     private void TransitionToCockpit()
     {
         OnGoToCockpit?.Invoke();
+
+        //LockCursor();
 
         SetMouseLook(Vector2.zero);
 

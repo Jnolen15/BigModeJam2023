@@ -11,6 +11,7 @@ public class PlayerProjectileScript : MonoBehaviour
     private float _xSpeed = 0f;
     private float _yPosition;
     private float _distanceTraveled = 0;
+    private Vector3 _direction;
 
     // ====================== Setup ======================
     void Start()
@@ -22,7 +23,10 @@ public class PlayerProjectileScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(new Vector3(_xSpeed * Time.timeScale, _ySpeed * Time.timeScale, 0));
+        if(_direction != Vector3.zero) // Aim shooting
+            transform.Translate(_direction * _ySpeed);
+        else
+            transform.Translate(new Vector3(_xSpeed * Time.timeScale, _ySpeed * Time.timeScale, 0));
 
         _distanceTraveled += Mathf.Abs(transform.position.y - _yPosition);
         _yPosition = transform.position.y;
@@ -35,6 +39,11 @@ public class PlayerProjectileScript : MonoBehaviour
     {
         _xSpeed = xSpeed;
         _ySpeed = ySpeed;
+    }
+
+    public void SetRotation(Vector3 rot)
+    {
+        _direction = rot;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
