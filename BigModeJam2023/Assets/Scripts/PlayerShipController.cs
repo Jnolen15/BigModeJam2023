@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 public class PlayerShipController : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
-    // Base Stats
+    [Header("Base Stats")]
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _shieldDuration = 8;
@@ -19,8 +19,13 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _repairHealthNum = 15;
     [SerializeField] private float _damageReceiveNum = 20;
 
+    [Header("Active Stats")]
+    [SerializeField] private float _currentHealth = 100;
+    [SerializeField] private float _currentShield = 8;
+    [SerializeField] private float _Gun1FireChance = 100;
+    [SerializeField] private float _Gun2FireChance = 100;
 
-    // Weapons
+    [Header("Weapons")]
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
     [SerializeField] private float _shotWidth = 0.1f;
@@ -31,16 +36,7 @@ public class PlayerShipController : MonoBehaviour
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
 
-
-    // Active Stats
-    [SerializeField] private float _currentHealth = 100;
-    [SerializeField] private float _currentShield = 8;
-    [SerializeField] private float _Gun1FireChance = 100;
-    [SerializeField] private float _Gun2FireChance = 100;
-
-
-
-    // powerups and Debuffs
+    [Header("Powerups/Debuffs")]
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
@@ -54,14 +50,14 @@ public class PlayerShipController : MonoBehaviour
     private bool _canControl;
 
 
-    // GameObjects
+    [Header("GameObjects")]
     [SerializeField] private RectTransform _moveSpaceRect;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private GameObject _rocket;
     [SerializeField] private GameObject _laser;
     private GameplayManager _gameplayManager;
 
-    // Audio
+    [Header("Audio")]
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _damageSound;
     [SerializeField] private AudioSource _audioSource;
