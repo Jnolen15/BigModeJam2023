@@ -35,6 +35,8 @@ public class PlayerShipController : MonoBehaviour
     private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
+    private bool _staggeredFire;
+    private bool _leftShot;
 
     [Header("Powerups/Debuffs")]
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
@@ -116,10 +118,12 @@ public class PlayerShipController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
 
         // testing for upgrades
-        if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
-        if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
+        //if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
+        //if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
 
         if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
+
+        if (Input.GetKeyDown(KeyCode.Q)) _staggeredFire = !_staggeredFire;
     }
     void FixedUpdate()
     {
@@ -210,19 +214,37 @@ public class PlayerShipController : MonoBehaviour
     #region Weapons
     private void Shoot()
     {
-        if (_shotTimeStamp < Time.time)
-        { 
-            if (_Gun1FireChance >= 100 || Random.Range(0, 100) > _Gun1FireChance) // % chance to fire gun if gun system is damaged
+        if (_staggeredFire)
+        {
+            if (_shotTimeStamp < Time.time)
             {
-                GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
-                laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+                if (_leftShot)
+                    ShootBullet(_Gun1FireChance, _shotWidth);
+                else
+                    ShootBullet(_Gun2FireChance, -_shotWidth);
+
+                _leftShot = !_leftShot;
+                _shotTimeStamp = Time.time + (_gunCoolDown / 2);
             }
-            if (_Gun2FireChance >= 100 || Random.Range(0, 100) > _Gun2FireChance)
+        }
+        else
+        {
+            if (_shotTimeStamp < Time.time)
             {
-                GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
-                laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+                ShootBullet(_Gun1FireChance, _shotWidth);
+                ShootBullet(_Gun2FireChance, -_shotWidth);
+
+                _shotTimeStamp = Time.time + _gunCoolDown;
             }
-            _shotTimeStamp = Time.time + _gunCoolDown;
+        }
+    }
+
+    private void ShootBullet(float fireChance, float xOffset)
+    {
+        if (fireChance >= 100 || Random.Range(0, 100) > fireChance) // % chance to fire gun if gun system is damaged
+        {
+            GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xOffset, 0, 0), Quaternion.identity);
+            laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
 
             _audioSource.PlayOneShot(_shootSound);
         }
