@@ -52,6 +52,7 @@ public class PlayerShipController : MonoBehaviour
 
 
     // GameObjects
+    [SerializeField] private Transform _turret;
     [SerializeField] private RectTransform _moveSpaceRect;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private GameObject _rocket;
@@ -138,6 +139,9 @@ public class PlayerShipController : MonoBehaviour
                 Shoot();
             if (Input.GetMouseButton(1))
                 AltFire();
+
+            if (_aimMode)
+                Aim();
         }
 
         // adjusting time stamped variables
@@ -188,6 +192,35 @@ public class PlayerShipController : MonoBehaviour
         if (transform.position.y > _yLimit + _yOffset) currentPos.y = _yLimit + _yOffset;
         if (transform.position.y < -_yLimit + _yOffset) currentPos.y = -_yLimit + _yOffset;
         transform.position = currentPos;
+    }
+
+    private void Aim()
+    {
+        //Get the Screen positions of the object
+        Vector2 positionOnScreen = _gameCam.WorldToViewportPoint(transform.position);
+
+        //Get the Screen position of the mouse
+        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+        //Get the angle between the points
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+
+        //Ta Daaa
+        _turret.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle+90f));
+
+        /*// Get mouse position in world coordinates
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //mousePosition = (mousePosition - transform.position);
+        mousePosition.z = 0f;
+
+        // Rotate the turret to face the direction
+        float angle = Mathf.Atan2(mousePosition.y, mousePosition.x) * Mathf.Rad2Deg;
+        _turret.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);*/
+    }
+
+    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    {
+        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
     private void ExitScreen()
@@ -257,22 +290,8 @@ public class PlayerShipController : MonoBehaviour
 
     private void ShootBullet(float xPos)
     {
-        GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xPos, 0, 0), Quaternion.identity);
+        GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xPos, 0, 0), _turret.rotation);
         laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-
-        // AIM MODE WIP
-        /*if (_aimMode) 
-        {
-            // Get mouse position in world coordinates
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition = (mousePosition - transform.position).normalized;
-            mousePosition.z = 0f;
-
-            // Calculate direction from player to mouse position
-            Vector3 shootDirection = (mousePosition - transform.position).normalized;
-
-            laser.GetComponent<PlayerProjectileScript>().SetRotation(shootDirection);
-        }*/
     }
 
     private void AltFire()

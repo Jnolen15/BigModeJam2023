@@ -143,8 +143,8 @@ public class CockpitController : MonoBehaviour
     {
         OnGoToGame?.Invoke();
 
-        //Cursor.lockState = CursorLockMode.None;
-        //Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         SetCockpitControls(false);
 
@@ -156,7 +156,7 @@ public class CockpitController : MonoBehaviour
     {
         OnGoToCockpit?.Invoke();
 
-        //LockCursor();
+        LockCursor();
 
         SetMouseLook(Vector2.zero);
 
