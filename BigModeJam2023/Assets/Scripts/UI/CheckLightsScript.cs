@@ -24,8 +24,8 @@ public class CheckLightsScript : MonoBehaviour
 
         _text.text = _systemName;
         _mesh.material = _unDamagedLight;
-        Damage.OnSystemDamaged += ActivateLight;
-        Damage.OnSystemRepaired += DeactivateLight;
+        CockpitDamageManager.OnSystemDamaged += ActivateLight;
+        CockpitDamageManager.OnSystemRepaired += DeactivateLight;
     }
 
     // ====================== Function ======================
@@ -47,8 +47,8 @@ public class CheckLightsScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        Damage.OnSystemDamaged -= ActivateLight;
-        Damage.OnSystemRepaired -= DeactivateLight;
+        CockpitDamageManager.OnSystemDamaged -= ActivateLight;
+        CockpitDamageManager.OnSystemRepaired -= DeactivateLight;
     }
 
 

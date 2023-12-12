@@ -9,7 +9,7 @@ public class CockpitDamageManager : MonoBehaviour
 
     public delegate void DamageEvent(string system);
     public static event DamageEvent OnSystemDamaged;
-    public static event DamageEvent OnRepairDamage;
+    public static event DamageEvent OnSystemRepaired;
 
     // ====================== Setup ======================
     private void Awake()

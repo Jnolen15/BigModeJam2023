@@ -100,11 +100,11 @@ public class PlayerShipController : MonoBehaviour
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
-        CockpitDamageManager.OnRepairDamage += Repair;
+
         CockpitController.OnGoToCockpit += ExitScreen;
         CockpitController.OnGoToGame += EnterScreen;
-        Damage.OnSystemDamaged += SystemDamaged;
-        Damage.OnSystemRepaired += SystemRepaired;
+        CockpitDamageManager.OnSystemDamaged += SystemDamaged;
+        CockpitDamageManager.OnSystemRepaired += SystemRepaired;
     }
 
     // ====================== Function ======================
@@ -266,13 +266,7 @@ public class PlayerShipController : MonoBehaviour
 
         _audioSource.PlayOneShot(_shootSound);
     }
-
     #endregion
-    private void Repair(string system)
-    {
-        _currentHealth += _repairHealthNum;
-        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
-    }
 
     #region Coroutines
     IEnumerator Invincibility(float time) // obselete
@@ -432,6 +426,8 @@ public class PlayerShipController : MonoBehaviour
 
     public void SystemRepaired(string damage)
     {
+        _currentHealth += _repairHealthNum;
+        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
         switch (damage)
         {
             case "Gun1":
@@ -454,6 +450,8 @@ public class PlayerShipController : MonoBehaviour
     }
 
     #endregion
+    
+
     // Floats and Bools
     public float GetHealthRatio()
     {
@@ -502,11 +500,9 @@ public class PlayerShipController : MonoBehaviour
     {
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
-        CockpitDamageManager.OnRepairDamage -= Repair;
         CockpitController.OnGoToCockpit -= ExitScreen;
         CockpitController.OnGoToGame -= EnterScreen;
-        Damage.OnSystemDamaged -= SystemDamaged;
-        Damage.OnSystemRepaired -= SystemRepaired;
-
+        CockpitDamageManager.OnSystemDamaged -= SystemDamaged;
+        CockpitDamageManager.OnSystemRepaired -= SystemRepaired;
     }
 }
