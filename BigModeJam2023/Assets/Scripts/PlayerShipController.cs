@@ -159,14 +159,14 @@ public class PlayerShipController : MonoBehaviour
         float speed = _moveSpeed * Time.timeScale; // adjusting for slow-mo
         Vector3 translation = Vector3.zero;
 
-        translation.y += Input.GetAxis("Vertical") * speed; // Up/Down
-        translation.x += Input.GetAxis("Horizontal") * speed; // Left/Right
-        /* old input system
+        // translation.y += Input.GetAxis("Vertical") * speed; // Up/Down
+        // translation.x += Input.GetAxis("Horizontal") * speed; // Left/Right
+        // old input system
         if (Input.GetKey(KeyCode.D)) translation.x += speed; // Right
         if (Input.GetKey(KeyCode.A)) translation.x -= speed; // Left 
         if (Input.GetKey(KeyCode.W)) translation.y += speed; // Up
         if (Input.GetKey(KeyCode.S)) translation.y -= speed; // Down
-        */
+        //
         if (Mathf.Abs(translation.x) >= speed && Mathf.Abs(translation.y) >= speed) // adjusting diagonal speed
             translation *= 0.7f; // 0.7 is an approximation for root 0.5 cause im lazy
         transform.Translate(translation);
