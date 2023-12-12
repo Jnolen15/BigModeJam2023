@@ -76,6 +76,6 @@ public class Damage : Interactable
         }
 
         _damageManager.OnRepair(_system);
-        OnSystemDamaged?.Invoke(_system);
+        OnSystemRepaired?.Invoke(_system);
     }
 }
