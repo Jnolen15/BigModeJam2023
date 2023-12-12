@@ -47,6 +47,6 @@ public class CockpitDamageManager : MonoBehaviour
     public void OnRepair(string system)
     {
         Debug.Log("OnRepair: " + system);
-        OnRepairDamage?.Invoke(system);
+        OnSystemRepaired?.Invoke(system);
     }
 }
