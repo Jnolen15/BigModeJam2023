@@ -42,7 +42,7 @@ public class Damage : Interactable
         return _isBroken;
     }
 
-    public void ActiavteDamage()
+    public void ActivateDamage()
     {
         _isBroken = true;
 
@@ -53,6 +53,8 @@ public class Damage : Interactable
             _fixed.SetActive(false);
             _broken.SetActive(true);
         }
+
+        _damageManager.OnDamage(_system);
     }
 
     private void RepairDamage()

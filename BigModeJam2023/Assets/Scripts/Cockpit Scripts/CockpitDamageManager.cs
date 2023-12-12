@@ -8,7 +8,8 @@ public class CockpitDamageManager : MonoBehaviour
     [SerializeField] private List<Damage> _damageObjectList;
 
     public delegate void DamageEvent(string system);
-    public static event DamageEvent OnRepairDamage;
+    public static event DamageEvent OnSystemDamaged;
+    public static event DamageEvent OnSystemRepaired;
 
     // ====================== Setup ======================
     private void Awake()
@@ -31,10 +32,16 @@ public class CockpitDamageManager : MonoBehaviour
 
             if (!damage.GetIsBroken())
             {
-                damage.ActiavteDamage();
+                damage.ActivateDamage();
                 break;
             }
         }
+    }
+
+    public void OnDamage(string system)
+    {
+        Debug.Log("OnDamage: " + system);
+        OnSystemDamaged?.Invoke(system);
     }
 
     public void OnRepair(string system)

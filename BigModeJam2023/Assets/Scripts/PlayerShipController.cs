@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 public class PlayerShipController : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
-    // Base Stats
+    [Header("Base Stats")]
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _shieldDuration = 8;
@@ -16,9 +16,16 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _invincibilityFlashRate = 0.2f;
     [SerializeField] private float _screenShakeDuration = 1;
     [SerializeField] private float _screenShakeMagnitude = 0.001f;
+    [SerializeField] private float _repairHealthNum = 15;
+    [SerializeField] private float _damageReceiveNum = 20;
 
+    [Header("Active Stats")]
+    [SerializeField] private float _currentHealth = 100;
+    [SerializeField] private float _currentShield = 8;
+    [SerializeField] private float _Gun1FireChance = 100;
+    [SerializeField] private float _Gun2FireChance = 100;
 
-    // Weapons
+    [Header("Weapons")]
     [SerializeField] private float _gunCoolDown = 0.1f;
     [SerializeField] private float _projectileSpeed = 0.01f;
     [SerializeField] private float _shotWidth = 0.1f;
@@ -29,16 +36,12 @@ public class PlayerShipController : MonoBehaviour
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
 
-
-    // Active Stats
-    [SerializeField] private float _currentHealth = 100;
-    [SerializeField] private float _currentShield = 8;
-
-
-    // powerups
+    [Header("Powerups/Debuffs")]
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
+    [SerializeField] float _gunDamagedMultiplier = 0.5f;
+    [SerializeField] float _engineDamagedMultiplier = 0.8f;
 
     private float _shotTimeStamp = 0;
     private float _altFireTimeStamp = 0;
@@ -47,14 +50,14 @@ public class PlayerShipController : MonoBehaviour
     private bool _canControl;
 
 
-    // GameObjects
+    [Header("GameObjects")]
     [SerializeField] private RectTransform _moveSpaceRect;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private GameObject _rocket;
     [SerializeField] private GameObject _laser;
     private GameplayManager _gameplayManager;
 
-    // Audio
+    [Header("Audio")]
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _damageSound;
     [SerializeField] private AudioSource _audioSource;
@@ -97,9 +100,11 @@ public class PlayerShipController : MonoBehaviour
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade += EndUpgrade;
-        CockpitDamageManager.OnRepairDamage += Repair;
+
         CockpitController.OnGoToCockpit += ExitScreen;
         CockpitController.OnGoToGame += EnterScreen;
+        CockpitDamageManager.OnSystemDamaged += SystemDamaged;
+        CockpitDamageManager.OnSystemRepaired += SystemRepaired;
     }
 
     // ====================== Function ======================
@@ -150,14 +155,14 @@ public class PlayerShipController : MonoBehaviour
         float speed = _moveSpeed * Time.timeScale; // adjusting for slow-mo
         Vector3 translation = Vector3.zero;
 
-        translation.y += Input.GetAxis("Vertical") * speed; // Up/Down
-        translation.x += Input.GetAxis("Horizontal") * speed; // Left/Right
-        /* old input system
+        // translation.y += Input.GetAxis("Vertical") * speed; // Up/Down
+        // translation.x += Input.GetAxis("Horizontal") * speed; // Left/Right
+        // old input system
         if (Input.GetKey(KeyCode.D)) translation.x += speed; // Right
         if (Input.GetKey(KeyCode.A)) translation.x -= speed; // Left 
         if (Input.GetKey(KeyCode.W)) translation.y += speed; // Up
         if (Input.GetKey(KeyCode.S)) translation.y -= speed; // Down
-        */
+        //
         if (Mathf.Abs(translation.x) >= speed && Mathf.Abs(translation.y) >= speed) // adjusting diagonal speed
             translation *= 0.7f; // 0.7 is an approximation for root 0.5 cause im lazy
         transform.Translate(translation);
@@ -208,11 +213,17 @@ public class PlayerShipController : MonoBehaviour
     private void Shoot()
     {
         if (_shotTimeStamp < Time.time)
-        {
-            GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
-            GameObject laser2 = Instantiate(_projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
-            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
-            laser2.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+        { 
+            if (_Gun1FireChance >= 100 || Random.Range(0, 100) > _Gun1FireChance) // % chance to fire gun if gun system is damaged
+            {
+                GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(_shotWidth, 0, 0), Quaternion.identity);
+                laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+            }
+            if (_Gun2FireChance >= 100 || Random.Range(0, 100) > _Gun2FireChance)
+            {
+                GameObject laser1 = Instantiate(_projectile, transform.position + new Vector3(-_shotWidth, 0, 0), Quaternion.identity);
+                laser1.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+            }
             _shotTimeStamp = Time.time + _gunCoolDown;
 
             _audioSource.PlayOneShot(_shootSound);
@@ -255,13 +266,7 @@ public class PlayerShipController : MonoBehaviour
 
         _audioSource.PlayOneShot(_shootSound);
     }
-
     #endregion
-    private void Repair(string system)
-    {
-        _currentHealth += 15;
-        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
-    }
 
     #region Coroutines
     IEnumerator Invincibility(float time) // obselete
@@ -319,6 +324,8 @@ public class PlayerShipController : MonoBehaviour
     }
     #endregion
 
+
+    #region Upgrade/Debuff Switch functions
     // Event Functions
     public void ActivateUpgrade(string upgradeName)
     {
@@ -394,6 +401,57 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
+    public void SystemDamaged(string damage)
+    {
+        switch (damage)
+        {
+            case "Gun1":
+                _Gun1FireChance *= _gunDamagedMultiplier;
+                break;
+            case "Gun2":
+                _Gun2FireChance *= _gunDamagedMultiplier;
+                break;
+            case "Engine1":
+                _moveSpeed *= _engineDamagedMultiplier;
+                break;
+            case "Engine2":
+                _moveSpeed *= _engineDamagedMultiplier;
+                break;
+
+            default:
+                Debug.Log("Invalid system name");
+                break;
+        }
+    }
+
+    public void SystemRepaired(string damage)
+    {
+        _currentHealth += _repairHealthNum;
+        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
+        switch (damage)
+        {
+            case "Gun1":
+                _Gun1FireChance /= _gunDamagedMultiplier;
+                break;
+            case "Gun2":
+                _Gun2FireChance /= _gunDamagedMultiplier;
+                break;
+            case "Engine1":
+                _moveSpeed /= _engineDamagedMultiplier;
+                break;
+            case "Engine2":
+                _moveSpeed /= _engineDamagedMultiplier;
+                break;
+
+            default:
+                Debug.Log("Invalid system name");
+                break;
+        }
+    }
+
+    #endregion
+    
+
     // Floats and Bools
     public float GetHealthRatio()
     {
@@ -424,7 +482,7 @@ public class PlayerShipController : MonoBehaviour
         Debug.Log("Ship Collided with: " + other.name);
         if (collision.tag == "Hostile")
         {
-            TakeDamage(20);
+            TakeDamage(_damageReceiveNum);
             if (other.GetComponent<SeekerEnemy>() == null)
             {
                 Destroy(other.gameObject);
@@ -442,9 +500,9 @@ public class PlayerShipController : MonoBehaviour
     {
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
-        CockpitDamageManager.OnRepairDamage -= Repair;
         CockpitController.OnGoToCockpit -= ExitScreen;
         CockpitController.OnGoToGame -= EnterScreen;
-
+        CockpitDamageManager.OnSystemDamaged -= SystemDamaged;
+        CockpitDamageManager.OnSystemRepaired -= SystemRepaired;
     }
 }
