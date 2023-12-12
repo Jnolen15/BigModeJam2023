@@ -53,6 +53,8 @@ public class PlayerShipController : MonoBehaviour
 
     // GameObjects
     [SerializeField] private Transform _turret;
+    [SerializeField] private Transform _turretLeftGun;
+    [SerializeField] private Transform _turretRightGun;
     [SerializeField] private RectTransform _moveSpaceRect;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private GameObject _rocket;
@@ -125,7 +127,11 @@ public class PlayerShipController : MonoBehaviour
         // Sawp move modes
         if (Input.GetKeyDown(KeyCode.Q)) _snapMovement = !_snapMovement;
         if (Input.GetKeyDown(KeyCode.E)) _staggeredFire = !_staggeredFire;
-        if (Input.GetKeyDown(KeyCode.R)) _aimMode = !_aimMode;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _aimMode = !_aimMode;
+            _turret.rotation = Quaternion.identity;
+        }
     }
     void FixedUpdate()
     {
@@ -205,17 +211,7 @@ public class PlayerShipController : MonoBehaviour
         //Get the angle between the points
         float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
 
-        //Ta Daaa
         _turret.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle+90f));
-
-        /*// Get mouse position in world coordinates
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //mousePosition = (mousePosition - transform.position);
-        mousePosition.z = 0f;
-
-        // Rotate the turret to face the direction
-        float angle = Mathf.Atan2(mousePosition.y, mousePosition.x) * Mathf.Rad2Deg;
-        _turret.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);*/
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
@@ -264,9 +260,9 @@ public class PlayerShipController : MonoBehaviour
             if (_shotTimeStamp < Time.time)
             {
                 if (_leftShot)
-                    ShootBullet(_shotWidth);
+                    ShootBullet(_turretLeftGun);
                 else
-                    ShootBullet(-_shotWidth);
+                    ShootBullet(_turretRightGun);
 
                 _leftShot = !_leftShot;
                 _shotTimeStamp = Time.time + (_gunCoolDown / 2);
@@ -278,8 +274,8 @@ public class PlayerShipController : MonoBehaviour
         {
             if (_shotTimeStamp < Time.time)
             {
-                ShootBullet(_shotWidth);
-                ShootBullet(-_shotWidth);
+                ShootBullet(_turretLeftGun);
+                ShootBullet(_turretRightGun);
 
                 _shotTimeStamp = Time.time + _gunCoolDown;
 
@@ -288,9 +284,9 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
-    private void ShootBullet(float xPos)
+    private void ShootBullet(Transform pos)
     {
-        GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xPos, 0, 0), _turret.rotation);
+        GameObject laser = Instantiate(_projectile, pos.position, _turret.rotation);
         laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
     }
 
