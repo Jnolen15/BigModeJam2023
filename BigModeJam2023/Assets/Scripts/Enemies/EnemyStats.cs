@@ -9,6 +9,7 @@ public class EnemyStats : MonoBehaviour
     public float _enemySpeed = 1;
     public GameObject upgrade;
     public Camera gameAreaCamera;
+    public string EnemyName;
 
 
     //Screen ScreenBoundariesBottomLeft will give the coordinates based on the cameras boundaries
@@ -16,6 +17,11 @@ public class EnemyStats : MonoBehaviour
     // ScreenBoundariesTopRight: Gives the top of the screen and right side of the screen
     public Vector3 ScreenBoundariesBottomLeft;
     public Vector3 ScreenBoundariesTopRight;
+
+
+    //Events
+    public delegate void EnemyEvent(string enemyName);
+    public static event EnemyEvent OnDeath;
     void Start()
     {
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
@@ -30,6 +36,7 @@ public class EnemyStats : MonoBehaviour
         if (_enemyHealth <= 0)
         {
             spawnUpgrade();
+            OnDeath?.Invoke(EnemyName);
             Destroy(gameObject);
         }
     }

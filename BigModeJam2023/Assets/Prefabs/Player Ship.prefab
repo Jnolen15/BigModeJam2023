@@ -109,7 +109,7 @@ MonoBehaviour:
   _shieldDuration: 8
   _shieldRegenDelay: 3
   _shieldGracePeriod: 0.5
-  _invincibilityDuration: 0.6
+  _invincibilityDuration: 1
   _invincibilityFlashRate: 0.2
   _screenShakeDuration: 0.2
   _screenShakeMagnitude: 0.1

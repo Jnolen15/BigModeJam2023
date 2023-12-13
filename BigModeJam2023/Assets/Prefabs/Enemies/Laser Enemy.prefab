@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!212 &4292926718364367676
 SpriteRenderer:
@@ -104,6 +104,7 @@ MonoBehaviour:
   _enemySpeed: 1
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
   gameAreaCamera: {fileID: 0}
+  EnemyName: LaserEnemy
   ScreenBoundariesBottomLeft: {x: 0, y: 0, z: 0}
   ScreenBoundariesTopRight: {x: 0, y: 0, z: 0}
 --- !u!114 &446583795525391339

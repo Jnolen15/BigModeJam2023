@@ -10,6 +10,7 @@ public class SpawningAlgorithm : MonoBehaviour
     public int StopSpawningWave = 10;
     public int spawnBreakTime = 15;
     public float SpawnCooldown = 1f;
+    public bool CanSpawnOnceAgain = true;
     public Camera gameAreaCamera;
 
 
@@ -28,8 +29,12 @@ public class SpawningAlgorithm : MonoBehaviour
     private int _waveCost = 0;
     private List<GameObject> _generatedEnemy = new List<GameObject>();
     private bool gameStarting = true;
+    private GameObject laserEnemyClone;
+    
     void Start()
     {
+
+        EnemyStats.OnDeath += EnemyKill;
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
         _screenBoundariesTopRight = gameAreaCamera.ScreenToWorldPoint(new Vector3(0, 0, gameAreaCamera.transform.position.z));
         _screenBoundariesBottomLeft = gameAreaCamera.ScreenToWorldPoint(new Vector3(gameAreaCamera.pixelRect.width, gameAreaCamera.pixelRect.height, gameAreaCamera.transform.position.z));
@@ -54,12 +59,19 @@ public class SpawningAlgorithm : MonoBehaviour
         StartCoroutine("spawn");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        EnemyStats.OnDeath -= EnemyKill;
     }
 
+
+    private void EnemyKill(string nameOfEnemy)
+    {
+        if (nameOfEnemy == "LaserEnemy")
+        {
+            CanSpawnOnceAgain = true;
+        }
+    }
     private void GenerateEnemies()
     {
         _waveCost = SpawnAmount * 2;
@@ -70,8 +82,21 @@ public class SpawningAlgorithm : MonoBehaviour
             int pickedEnemyCost = Enemies[pickedEnemy].DangerLevel;
             if(_waveCost - pickedEnemyCost >= 0)
             {
-                enemiesGenerated.Add(Enemies[pickedEnemy].EnemyPrefab);
-                _waveCost -= pickedEnemyCost;
+                
+                if (Enemies[pickedEnemy].Name == "LaserEnemy")
+                {
+                    if (CanSpawnOnceAgain)
+                    {
+                        enemiesGenerated.Add(Enemies[pickedEnemy].EnemyPrefab);
+                        _waveCost -= pickedEnemyCost;
+                        CanSpawnOnceAgain = false;
+                    }
+                }
+                else
+                {
+                    enemiesGenerated.Add(Enemies[pickedEnemy].EnemyPrefab);
+                    _waveCost -= pickedEnemyCost;
+                }
             }
             else if(_waveCost < 0)
             {
@@ -118,7 +143,9 @@ public class SpawningAlgorithm : MonoBehaviour
 [System.Serializable]
 public class Enemy
 {
+    public string Name;
     public GameObject EnemyPrefab;
     public int DangerLevel;
+    
 }
 

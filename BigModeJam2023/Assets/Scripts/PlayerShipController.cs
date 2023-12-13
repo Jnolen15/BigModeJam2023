@@ -307,6 +307,7 @@ public class PlayerShipController : MonoBehaviour
     // may result in longer invincibility if flash timer is not divisible by invincibility timer
     IEnumerator TempInvincibility(float time, float flashTime)
     {
+        _invincible = true;
         SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
         Color baseColor = sprite.color;
         Color transparentColor = new Color(baseColor.r, baseColor.g, baseColor.b, 0.5f);
@@ -509,14 +510,14 @@ public class PlayerShipController : MonoBehaviour
 
     // ====================== Collisions ======================
     // TODO make sure this works
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         GameObject other = collision.gameObject;
         Debug.Log("Ship Collided with: " + other.name);
         if (collision.tag == "Hostile")
         {
             TakeDamage(_damageReceiveNum);
-            if (other.GetComponent<SeekerEnemy>() == null)
+            if (other.GetComponent<SeekerEnemy>() == null && other.GetComponent<EnemyLaserCode>() == null)
             {
                 Destroy(other.gameObject);
             }
