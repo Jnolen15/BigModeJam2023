@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _requiredTool: 0
   _tool: 2
-  _toolObj: {fileID: 0}
+  _toolObj: {fileID: 1020165061541641546}
 --- !u!65 &4809122127881573735
 BoxCollider:
   m_ObjectHideFlags: 0

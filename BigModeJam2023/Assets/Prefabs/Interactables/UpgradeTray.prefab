@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470771182117724110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.28, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0.063, z: -0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -138,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985014076814414181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: -0.5}
+  m_LocalPosition: {x: 0, y: -1.263, z: -0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -169,7 +169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2412043613165174589}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -0.5}
+  m_LocalPosition: {x: 0, y: 1.263, z: -0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -418,6 +418,6 @@ MonoBehaviour:
   _upgradePref: {fileID: 3943243609787084380, guid: 96b8f2e89d4076044a135c8c2e69874f, type: 3}
   _upgradeSlots:
   - {fileID: 2012713675822444121}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6794951546371150735}
+  - {fileID: 7776757389834339482}
   _upgradeList: []
