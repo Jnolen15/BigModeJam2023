@@ -11,6 +11,7 @@ public class PlayerProjectileScript : MonoBehaviour
     private float _xSpeed = 0f;
     private float _yPosition;
     private float _distanceTraveled = 0;
+    [SerializeField] private GameObject _impactParticle;
 
     // ====================== Setup ======================
     void Start()
@@ -39,7 +40,8 @@ public class PlayerProjectileScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Player shot: " + collision.name);   
+        Debug.Log("Player shot: " + collision.name);
+        Instantiate(_impactParticle, transform.position, transform.rotation);
     }
 
     public float GetDamage()

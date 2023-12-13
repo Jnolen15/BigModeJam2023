@@ -109,15 +109,6 @@ public class ShootingEnemy : MonoBehaviour
         _typeOfMovement = "GoRight";
 
     }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "PlayerBullet")
-        {
-            spawnUpgrade();
-            Destroy(gameObject);
-            Destroy(other.gameObject);
-        }
-    }
 
     private void spawnUpgrade()
     {

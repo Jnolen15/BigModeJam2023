@@ -12,6 +12,8 @@ public class EnemyStats : MonoBehaviour
     public Camera gameAreaCamera;
     public string EnemyName;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private GameObject _explodeFireFX;
+    [SerializeField] private GameObject _explodeSmokeFX;
 
     //Screen ScreenBoundariesBottomLeft will give the coordinates based on the cameras boundaries
     // ScreenBoundariesBottomLeft: Gives us the Y and X of the bottom and left of the screen
@@ -39,6 +41,9 @@ public class EnemyStats : MonoBehaviour
 
         if (_enemyHealth <= 0)
         {
+            Instantiate(_explodeFireFX, transform.position, Quaternion.identity);
+            Instantiate(_explodeSmokeFX, transform.position, Quaternion.identity);
+
             spawnUpgrade();
             OnDeath?.Invoke(EnemyName);
             Destroy(gameObject);

@@ -61,6 +61,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private ParticleSystem _gunSparkLeft;
     [SerializeField] private ParticleSystem _engineSmokeRight;
     [SerializeField] private ParticleSystem _engineSmokeLeft;
+    [SerializeField] private ParticleSystem _laserShootRight;
+    [SerializeField] private ParticleSystem _laserShootLeft;
 
 
     private GameplayManager _gameplayManager;
@@ -253,6 +255,11 @@ public class PlayerShipController : MonoBehaviour
             laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
 
             _audioSource.PlayOneShot(_shootSound);
+
+            if (xOffset > 0)
+                _laserShootRight.Emit(2);
+            else
+                _laserShootLeft.Emit(2);
         }
     }
 

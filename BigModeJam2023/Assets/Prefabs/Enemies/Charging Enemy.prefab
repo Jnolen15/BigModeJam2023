@@ -54,6 +54,8 @@ MonoBehaviour:
   gameAreaCamera: {fileID: 0}
   EnemyName: ChargingEnemy
   _spriteRenderer: {fileID: 5992426517360650842}
+  _explodeFireFX: {fileID: 2491752651957803031, guid: efe20d06988ee3a4aab5aace6c92fb94, type: 3}
+  _explodeSmokeFX: {fileID: 9210323538527659929, guid: 03db32dfcc41367449df7ded90def4ba, type: 3}
   ScreenBoundariesBottomLeft: {x: 0, y: 0, z: 0}
   ScreenBoundariesTopRight: {x: 0, y: 0, z: 0}
 --- !u!114 &1677778851687429495
