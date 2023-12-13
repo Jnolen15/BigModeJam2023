@@ -308,7 +308,7 @@ public class PlayerShipController : MonoBehaviour
     IEnumerator TempInvincibility(float time, float flashTime)
     {
         _invincible = true;
-        SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
+        SpriteRenderer sprite = this.GetComponentInChildren<SpriteRenderer>();
         Color baseColor = sprite.color;
         Color transparentColor = new Color(baseColor.r, baseColor.g, baseColor.b, 0.5f);
         float t = time;

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f224408f7b7544f91a60845cac7ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyHealth: 10
+  _enemyHealth: 80
   _enemySpeed: 1
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
   gameAreaCamera: {fileID: 0}
