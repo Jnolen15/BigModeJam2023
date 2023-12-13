@@ -5646,6 +5646,10 @@ PrefabInstance:
       propertyPath: _InvincibilityDuration
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1426388848166310724, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5606288736438084422, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: m_Enabled
       value: 1

@@ -9,6 +9,7 @@ TagManager:
   - Hostile
   - PlayerRocket
   - PlayerLaser
+  - Shield
   layers:
   - Default
   - TransparentFX
