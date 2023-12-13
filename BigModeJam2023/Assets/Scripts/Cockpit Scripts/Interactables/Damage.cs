@@ -7,6 +7,7 @@ public class Damage : Interactable
     // ====================== Refrences / Variables ======================
     [SerializeField] private string _system;
     [SerializeField] private ParticleSystem _vfx;
+    [SerializeField] private ParticleSystem _toolVFX;
     [SerializeField] private GameObject _fixed;
     [SerializeField] private GameObject _broken;
     [SerializeField] private AudioSource _loopingAudioSource;
@@ -63,6 +64,7 @@ public class Damage : Interactable
         _isBroken = false;
 
         _vfx.Stop();
+        RepairVFX();
         _loopingAudioSource.Pause();
         _fixAudioSource.Play();
         if (_broken)
@@ -72,5 +74,11 @@ public class Damage : Interactable
         }
 
         _damageManager.OnRepair(_system);
+    }
+
+    private void RepairVFX()
+    {
+        if(_toolVFX != null)
+            _toolVFX.Emit(40);
     }
 }

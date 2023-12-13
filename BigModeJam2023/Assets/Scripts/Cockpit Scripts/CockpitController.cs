@@ -120,6 +120,7 @@ public class CockpitController : MonoBehaviour
     #endregion
 
     // ====================== Function ======================
+    #region Function
     private void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -198,4 +199,5 @@ public class CockpitController : MonoBehaviour
         _upgrade.SetActive(false);
         _deadUpgrade.SetActive(false);
     }
+    #endregion
 }
