@@ -11,12 +11,16 @@ public class ShieldBar : MonoBehaviour
 
     private PlayerShipController _shipController;
     private MeshRenderer _mesh;
+    private float _startingScale;
+    private float _previousScale;
 
     // ====================== Setup ======================
     void Start()
     {
         _shipController = GameObject.Find("Player Ship").GetComponent<PlayerShipController>();
         _mesh = GetComponent<MeshRenderer>();
+        _startingScale = transform.localScale.y;
+        _previousScale = _startingScale;
     }
 
     // ====================== Function ======================
@@ -24,8 +28,12 @@ public class ShieldBar : MonoBehaviour
     void Update()
     {
         Vector3 scale = transform.localScale;
-        scale.y = _shipController.GetShieldRatio();
+        scale.y = _shipController.GetShieldRatio() * _startingScale;
+
+        transform.Translate(new Vector3(0, (scale.y - _previousScale) / 2, 0));
         transform.localScale = scale;
+
+        _previousScale = scale.y;
 
         if (_shipController.ShieldActive())
         {
