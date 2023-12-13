@@ -57,6 +57,12 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private GameObject _projectile;
     [SerializeField] private GameObject _rocket;
     [SerializeField] private GameObject _laser;
+    [SerializeField] private ParticleSystem _gunSparkRight;
+    [SerializeField] private ParticleSystem _gunSparkLeft;
+    [SerializeField] private ParticleSystem _engineSmokeRight;
+    [SerializeField] private ParticleSystem _engineSmokeLeft;
+
+
     private GameplayManager _gameplayManager;
 
     [Header("Audio")]
@@ -212,16 +218,16 @@ public class PlayerShipController : MonoBehaviour
     }
 
     #region Weapons
-    private void Shoot()
+    private void Shoot() // Gun1 is left gun, gun 2 is right gun
     {
         if (_staggeredFire)
         {
             if (_shotTimeStamp < Time.time)
             {
                 if (_leftShot)
-                    ShootBullet(_Gun1FireChance, _shotWidth);
+                    ShootBullet(_Gun1FireChance, -_shotWidth);
                 else
-                    ShootBullet(_Gun2FireChance, -_shotWidth);
+                    ShootBullet(_Gun2FireChance, _shotWidth);
 
                 _leftShot = !_leftShot;
                 _shotTimeStamp = Time.time + (_gunCoolDown / 2);
@@ -231,8 +237,8 @@ public class PlayerShipController : MonoBehaviour
         {
             if (_shotTimeStamp < Time.time)
             {
-                ShootBullet(_Gun1FireChance, _shotWidth);
-                ShootBullet(_Gun2FireChance, -_shotWidth);
+                ShootBullet(_Gun1FireChance, -_shotWidth);
+                ShootBullet(_Gun2FireChance, _shotWidth);
 
                 _shotTimeStamp = Time.time + _gunCoolDown;
             }
@@ -344,7 +350,6 @@ public class PlayerShipController : MonoBehaviour
     }
     #endregion
 
-
     #region Upgrade/Debuff Switch functions
     // Event Functions
     public void ActivateUpgrade(string upgradeName)
@@ -427,15 +432,19 @@ public class PlayerShipController : MonoBehaviour
         {
             case "Gun1":
                 _Gun1FireChance *= _gunDamagedMultiplier;
+                _gunSparkLeft.Play();
                 break;
             case "Gun2":
                 _Gun2FireChance *= _gunDamagedMultiplier;
+                _gunSparkRight.Play();
                 break;
             case "Engine1":
                 _moveSpeed *= _engineDamagedMultiplier;
+                _engineSmokeLeft.Play();
                 break;
             case "Engine2":
                 _moveSpeed *= _engineDamagedMultiplier;
+                _engineSmokeRight.Play();
                 break;
 
             default:
@@ -452,15 +461,19 @@ public class PlayerShipController : MonoBehaviour
         {
             case "Gun1":
                 _Gun1FireChance /= _gunDamagedMultiplier;
+                _gunSparkLeft.Stop();
                 break;
             case "Gun2":
                 _Gun2FireChance /= _gunDamagedMultiplier;
+                _gunSparkRight.Stop();
                 break;
             case "Engine1":
                 _moveSpeed /= _engineDamagedMultiplier;
+                _engineSmokeLeft.Stop();
                 break;
             case "Engine2":
                 _moveSpeed /= _engineDamagedMultiplier;
+                _engineSmokeRight.Stop();
                 break;
 
             default:

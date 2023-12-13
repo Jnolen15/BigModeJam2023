@@ -134,6 +134,10 @@ MonoBehaviour:
   _projectile: {fileID: 1091817720086394234, guid: 7bd9e04b963254d458c051d3295abb2f, type: 3}
   _rocket: {fileID: 1091817720086394234, guid: 2b612398cfd3246479596087a8061e21, type: 3}
   _laser: {fileID: 1091817720086394234, guid: 0948168924fd8f04fb5e43e7b89ef901, type: 3}
+  _gunSparkRight: {fileID: 1661778828952233246}
+  _gunSparkLeft: {fileID: 8381425700672560141}
+  _engineSmokeRight: {fileID: 7883819314322832920}
+  _engineSmokeLeft: {fileID: 6043013477101864917}
   _shootSound: {fileID: 8300000, guid: ae7dd9902aa63bb458d67f34d2ba56d4, type: 3}
   _damageSound: {fileID: 8300000, guid: bb4eb7ffd36902b4b88755d87c3f0c21, type: 3}
   _audioSource: {fileID: 4950467417142679430}
@@ -359,7 +363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7120297365290032369, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
       propertyPath: m_Name
-      value: Engine Particles (1)
+      value: Engine Particles L
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -369,6 +373,11 @@ PrefabInstance:
 --- !u!4 &5517729011794571195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5537318372188087094, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
+  m_PrefabInstance: {fileID: 20944553584495757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6043013477101864917 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6023406483854330712, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
   m_PrefabInstance: {fileID: 20944553584495757}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3976442140278472603
@@ -381,7 +390,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1069372953821685616, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
       propertyPath: m_Name
-      value: Gun1 Particles
+      value: Gun1 Particles R
       objectReference: {fileID: 0}
     - target: {fileID: 2812756813206662487, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
       propertyPath: m_RootOrder
@@ -435,6 +444,11 @@ PrefabInstance:
 --- !u!4 &1164112770892763852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2812756813206662487, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
+  m_PrefabInstance: {fileID: 3976442140278472603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1661778828952233246 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2315125106302999173, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
   m_PrefabInstance: {fileID: 3976442140278472603}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4539491732634432832
@@ -491,13 +505,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7120297365290032369, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
       propertyPath: m_Name
-      value: Engine Particles
+      value: Engine Particles R
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
+--- !u!198 &7883819314322832920 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6023406483854330712, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
+  m_PrefabInstance: {fileID: 4539491732634432832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8225545534958245494 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5537318372188087094, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
@@ -513,7 +532,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1069372953821685616, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
       propertyPath: m_Name
-      value: Gun1 Particles (1)
+      value: Gun1 Particles L
       objectReference: {fileID: 0}
     - target: {fileID: 2812756813206662487, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
       propertyPath: m_RootOrder
@@ -567,5 +586,10 @@ PrefabInstance:
 --- !u!4 &8320645689467186143 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2812756813206662487, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
+  m_PrefabInstance: {fileID: 6084420547069707912}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8381425700672560141 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2315125106302999173, guid: f52324642a3c7d84eb3c4de630494b09, type: 3}
   m_PrefabInstance: {fileID: 6084420547069707912}
   m_PrefabAsset: {fileID: 0}
