@@ -37,6 +37,7 @@ Transform:
   - {fileID: 8320645689467186143}
   - {fileID: 8225545534958245494}
   - {fileID: 5517729011794571195}
+  - {fileID: 5156343466932645412}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -233,7 +234,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.9970665
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -379,6 +380,76 @@ Transform:
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6023406483854330712, guid: 2ccaa2c7c6d0add47a273908def3966c, type: 3}
   m_PrefabInstance: {fileID: 20944553584495757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1884102830351375474
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6684327394188025021}
+    m_Modifications:
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125823892566977170, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660001993355984636, guid: 0cd969304cd656341af3322517da633b, type: 3}
+      propertyPath: m_Name
+      value: Rotating Shield
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0cd969304cd656341af3322517da633b, type: 3}
+--- !u!4 &5156343466932645412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6749398972261724758, guid: 0cd969304cd656341af3322517da633b, type: 3}
+  m_PrefabInstance: {fileID: 1884102830351375474}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3976442140278472603
 PrefabInstance:

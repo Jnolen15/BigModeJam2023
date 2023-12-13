@@ -55,6 +55,10 @@ public class EnemyStats : MonoBehaviour
         {
             _enemyTakeDamage(other.GetComponent<PlayerLaserScript>().GetDamage());
         }
+        if (other.gameObject.tag == "PlayerShield" )
+        {
+            _enemyTakeDamage(other.transform.parent.GetComponent<RotatingShieldScript>().GetDamage());
+        }
     }
     private void spawnUpgrade()
     {

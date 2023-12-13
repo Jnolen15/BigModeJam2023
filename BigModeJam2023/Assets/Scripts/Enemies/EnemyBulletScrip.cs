@@ -36,5 +36,12 @@ public class EnemyBulletScrip : MonoBehaviour
         _speed = speed;
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "shield")
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
