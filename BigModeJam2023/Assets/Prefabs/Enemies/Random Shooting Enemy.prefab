@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6523037841946402770}
   - component: {fileID: 5602866409851968598}
   - component: {fileID: 3751233512749081686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Random Shooting Enemy
   m_TagString: Hostile
   m_Icon: {fileID: 0}

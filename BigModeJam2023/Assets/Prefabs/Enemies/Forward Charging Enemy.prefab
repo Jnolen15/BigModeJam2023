@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6684311446904835227}
   - component: {fileID: 6813792859338735193}
   - component: {fileID: 713345357861375826}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Forward Charging Enemy
   m_TagString: Hostile
   m_Icon: {fileID: 0}

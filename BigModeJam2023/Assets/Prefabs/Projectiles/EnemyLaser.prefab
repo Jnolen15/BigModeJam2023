@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2027285864223198337}
   - component: {fileID: 2691976056737592290}
   - component: {fileID: 8318709030185431778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4841,7 +4841,7 @@ GameObject:
   - component: {fileID: 7945958729984593019}
   - component: {fileID: 7004147987056014930}
   - component: {fileID: 8254937394088453955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyLaser
   m_TagString: Hostile
   m_Icon: {fileID: 0}
