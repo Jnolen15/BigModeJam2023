@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class EnemyStats : MonoBehaviour
     public GameObject upgrade;
     public Camera gameAreaCamera;
     public string EnemyName;
-
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     //Screen ScreenBoundariesBottomLeft will give the coordinates based on the cameras boundaries
     // ScreenBoundariesBottomLeft: Gives us the Y and X of the bottom and left of the screen
@@ -18,10 +19,11 @@ public class EnemyStats : MonoBehaviour
     public Vector3 ScreenBoundariesBottomLeft;
     public Vector3 ScreenBoundariesTopRight;
 
-
     //Events
     public delegate void EnemyEvent(string enemyName);
     public static event EnemyEvent OnDeath;
+
+
     void Start()
     {
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
@@ -29,10 +31,12 @@ public class EnemyStats : MonoBehaviour
         ScreenBoundariesBottomLeft = gameAreaCamera.ScreenToWorldPoint(new Vector3(gameAreaCamera.pixelRect.width, gameAreaCamera.pixelRect.height, gameAreaCamera.transform.position.z));
     }
 
-
     public void _enemyTakeDamage(float damageTaken)
     {
         _enemyHealth -= damageTaken;
+
+        _spriteRenderer.DOColor(Color.red, 0.1f).OnComplete(() => _spriteRenderer.DOColor(Color.white, 0.1f));
+
         if (_enemyHealth <= 0)
         {
             spawnUpgrade();
@@ -40,6 +44,7 @@ public class EnemyStats : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "PlayerBullet")
@@ -60,6 +65,7 @@ public class EnemyStats : MonoBehaviour
             _enemyTakeDamage(other.transform.parent.GetComponent<RotatingShieldScript>().GetDamage());
         }
     }
+
     private void spawnUpgrade()
     {
         if (Random.Range(0, 30) == 1)

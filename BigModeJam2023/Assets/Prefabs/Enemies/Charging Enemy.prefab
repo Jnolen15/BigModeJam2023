@@ -53,6 +53,7 @@ MonoBehaviour:
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
   gameAreaCamera: {fileID: 0}
   EnemyName: ChargingEnemy
+  _spriteRenderer: {fileID: 5992426517360650842}
   ScreenBoundariesBottomLeft: {x: 0, y: 0, z: 0}
   ScreenBoundariesTopRight: {x: 0, y: 0, z: 0}
 --- !u!114 &1677778851687429495
@@ -146,7 +147,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &5199688485580880167
 GameObject:

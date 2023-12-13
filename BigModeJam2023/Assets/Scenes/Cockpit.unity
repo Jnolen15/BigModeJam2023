@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.021404414, g: 0.055150125, b: 0.122641504, a: 1}
+  m_AmbientSkyColor: {r: 0.41509432, g: 0.26824492, b: 0.2738231, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -5712,11 +5712,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7064789251074728590, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8091876910152940267, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
       propertyPath: m_Name
       value: Player Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091876910152940267, guid: 17fc8ea75d0753045a14759a8657f438, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

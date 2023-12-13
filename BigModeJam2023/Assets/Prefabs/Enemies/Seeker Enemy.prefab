@@ -137,6 +137,7 @@ MonoBehaviour:
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
   gameAreaCamera: {fileID: 0}
   EnemyName: SeekerEnemy
+  _spriteRenderer: {fileID: 2508151476815933523}
   ScreenBoundariesBottomLeft: {x: 0, y: 0, z: 0}
   ScreenBoundariesTopRight: {x: 0, y: 0, z: 0}
 --- !u!50 &5410787123395166897
@@ -209,7 +210,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.43, y: 0.61}
+  m_Size: {x: 0.35, y: 0.35}
   m_EdgeRadius: 0
 --- !u!114 &5610884747319381974
 MonoBehaviour:

@@ -53,6 +53,7 @@ MonoBehaviour:
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
   gameAreaCamera: {fileID: 0}
   EnemyName: LaserEnemy
+  _spriteRenderer: {fileID: 5281674802426565870}
   ScreenBoundariesBottomLeft: {x: 0, y: 0, z: 0}
   ScreenBoundariesTopRight: {x: 0, y: 0, z: 0}
 --- !u!114 &446583795525391339
