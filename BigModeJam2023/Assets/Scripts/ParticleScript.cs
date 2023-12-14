@@ -8,6 +8,7 @@ public class ParticleScript : MonoBehaviour
     [SerializeField] private float _destroyTime;
     [SerializeField] private bool _emitOnStart;
     [SerializeField] private int _emitNum;
+    [SerializeField] private AudioSource _audioSource;
     private ParticleSystem _ps;
 
     // ====================== Setup ======================
@@ -20,6 +21,9 @@ public class ParticleScript : MonoBehaviour
 
         if (_emitOnStart)
             _ps.Emit(_emitNum);
+
+        if (_audioSource != null)
+            _audioSource.Play();
 
         Destroy(gameObject, _destroyTime);
     }

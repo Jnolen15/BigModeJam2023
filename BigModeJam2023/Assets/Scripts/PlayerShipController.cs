@@ -69,9 +69,14 @@ public class PlayerShipController : MonoBehaviour
     private GameplayManager _gameplayManager;
 
     [Header("Audio")]
+    [SerializeField] private AudioSource _shipAudioSource;
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _damageSound;
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _shieldAudioSource;
+    [SerializeField] private AudioClip _startChargeShield;
+    [SerializeField] private AudioClip _endChargeShield;
+    private bool _isCharging;
+    private bool _playingChargeSound;
 
     // Boundries
     private float _xLimit = 10;
@@ -155,7 +160,31 @@ public class PlayerShipController : MonoBehaviour
         // recharging and using shield
         if (_canControl)
         {
-            if (_currentShield < _shieldDuration && Time.time > _shieldRechargeTimeStamp) _currentShield += Time.deltaTime;
+            if (_currentShield < _shieldDuration && Time.time > _shieldRechargeTimeStamp)
+            {
+                if (!_isCharging)
+                {
+                    _shipAudioSource.PlayOneShot(_startChargeShield);
+                    _isCharging = true;
+                }
+                else if (!_playingChargeSound)
+                {
+                    _shieldAudioSource.Play();
+                    _playingChargeSound = true;
+                }
+
+                _currentShield += Time.deltaTime;
+            }
+            else
+            {
+                if (_isCharging)
+                {
+                    _shieldAudioSource.Stop();
+                    _shipAudioSource.PlayOneShot(_endChargeShield);
+                    _isCharging = false;
+                    _playingChargeSound = false;
+                }
+            }
 
             if (_shieldVisual.activeSelf) _shieldVisual.SetActive(false);
 
@@ -215,7 +244,7 @@ public class PlayerShipController : MonoBehaviour
             OnTakeDamage?.Invoke();
             _currentHealth -= damageNum;
 
-            _audioSource.PlayOneShot(_damageSound);
+            _shipAudioSource.PlayOneShot(_damageSound);
 
             if (_currentHealth <= 0)
             {
@@ -261,7 +290,7 @@ public class PlayerShipController : MonoBehaviour
             GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xOffset, 0, 0), Quaternion.identity);
             laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
 
-            _audioSource.PlayOneShot(_shootSound);
+            _shipAudioSource.PlayOneShot(_shootSound);
 
             if (xOffset > 0)
                 _laserShootRight.Emit(2);
@@ -291,20 +320,20 @@ public class PlayerShipController : MonoBehaviour
             laser1.GetComponent<PlayerProjectileScript>().SetSpeed(drift, _projectileSpeed - Mathf.Abs(drift)/2);
         }
 
-        _audioSource.PlayOneShot(_shootSound);
+        _shipAudioSource.PlayOneShot(_shootSound);
     }
 
     private void Laser()
     {
         GameObject laser1 = Instantiate(_laser, transform.position, Quaternion.identity);
 
-        _audioSource.PlayOneShot(_shootSound);
+        _shipAudioSource.PlayOneShot(_shootSound);
     }
     private void Rocket()
     {
         GameObject rocket1 = Instantiate(_rocket, transform.position, Quaternion.identity);
 
-        _audioSource.PlayOneShot(_shootSound);
+        _shipAudioSource.PlayOneShot(_shootSound);
     }
     #endregion
 
