@@ -19,7 +19,7 @@ public class GameplayManager : MonoBehaviour
 
     void Update()
     {
-        Time.timeScale = 0;
+
     }
 
     public bool GameSuspended()

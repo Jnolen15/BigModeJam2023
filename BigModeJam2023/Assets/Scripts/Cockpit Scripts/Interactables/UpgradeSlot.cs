@@ -11,6 +11,7 @@ public class UpgradeSlot : Interactable
     [SerializeField] private string _upgradeName;
     [SerializeField] private bool _drains;
     [SerializeField] private float _drainRate;
+    [SerializeField] private float _useDrainNum;
     private float _upgradeCharge;
     private UpgradeBattery _upgradeBattery;
     private bool _upgradeActive;
@@ -70,7 +71,7 @@ public class UpgradeSlot : Interactable
         if (!_upgradeActive)
             return;
 
-        _upgradeCharge -= 20;
+        _upgradeCharge -= _useDrainNum;
         _upgradeBattery.UpdateCharge(_upgradeCharge);
         TestForDead();
     }
