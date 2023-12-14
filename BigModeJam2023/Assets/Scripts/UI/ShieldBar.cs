@@ -14,6 +14,11 @@ public class ShieldBar : MonoBehaviour
     private float _startingScale;
     private float _previousScale;
 
+    [SerializeField] private AudioSource _shieldAudioSource;
+    [SerializeField] private AudioClip _startChargeShield;
+    [SerializeField] private AudioClip _endChargeShield;
+    private bool _usingShield;
+
     // ====================== Setup ======================
     void Start()
     {
@@ -37,10 +42,23 @@ public class ShieldBar : MonoBehaviour
 
         if (_shipController.ShieldActive())
         {
-            if (_mesh.material != Active) _mesh.material = Active;
+            if (!_usingShield)
+            {
+                _usingShield = true;
+                _mesh.material = Active;
+                _shieldAudioSource.PlayOneShot(_startChargeShield);
+            }
         } else
         {
-            if (_mesh.material != Inactive) _mesh.material = Inactive;
+            if (_usingShield)
+            {
+                _usingShield = false;
+                _mesh.material = Inactive;
+                _shieldAudioSource.PlayOneShot(_endChargeShield);
+            }
         }
+
+        //Start use shield
+        
     }
 }

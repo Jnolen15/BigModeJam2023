@@ -177,7 +177,7 @@ public class PlayerShipController : MonoBehaviour
             }
             else
             {
-                if (_isCharging)
+                if (_isCharging && _currentShield >= _shieldDuration)
                 {
                     _shieldAudioSource.Stop();
                     _shipAudioSource.PlayOneShot(_endChargeShield);
@@ -191,6 +191,13 @@ public class PlayerShipController : MonoBehaviour
         } else
         {
             if (_currentShield > 0) _currentShield -= Time.deltaTime;
+
+            if (_shieldAudioSource.isPlaying)
+            {
+                _isCharging = false;
+                _playingChargeSound = false;
+                _shieldAudioSource.Stop();
+            }
 
             if (_currentShield > 0 && !_shieldVisual.activeSelf) _shieldVisual.SetActive(true);
             else if (_currentShield <- 0 && _shieldVisual.activeSelf) _shieldVisual.SetActive(false);
