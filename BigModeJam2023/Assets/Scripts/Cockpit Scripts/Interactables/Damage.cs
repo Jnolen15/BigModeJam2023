@@ -79,6 +79,6 @@ public class Damage : Interactable
     private void RepairVFX()
     {
         if(_toolVFX != null)
-            _toolVFX.Emit(40);
+            _toolVFX.Emit(20);
     }
 }

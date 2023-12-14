@@ -19,12 +19,12 @@ public class PlayerRocketScript : MonoBehaviour
 
     private bool _exploded = false;
 
-    private GameObject _explosion;
+    [SerializeField] private GameObject _rocketSprite;
+    [SerializeField] private GameObject _explosion;
 
     // ====================== Setup ======================
     void Start()
     {
-        _explosion = transform.GetChild(0).gameObject;
         _yPosition = transform.position.y;
     }
 
@@ -55,8 +55,8 @@ public class PlayerRocketScript : MonoBehaviour
     {
         _exploded = true;
         _explosion.SetActive(true);
-        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0); // making rocket invisible
-        SpriteRenderer _sprite = _explosion.GetComponent<SpriteRenderer>();
+        _rocketSprite.SetActive(false);
+        SpriteRenderer _sprite = _explosion.GetComponentInChildren<SpriteRenderer>();
         _sprite.DOFade(0, _explosionDuration).SetEase(Ease.OutSine).OnComplete(() => Destroy(gameObject));
     }
 

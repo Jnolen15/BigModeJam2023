@@ -63,6 +63,7 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private ParticleSystem _engineSmokeLeft;
     [SerializeField] private ParticleSystem _laserShootRight;
     [SerializeField] private ParticleSystem _laserShootLeft;
+    [SerializeField] private GameObject _shieldVisual;
 
 
     private GameplayManager _gameplayManager;
@@ -155,10 +156,15 @@ public class PlayerShipController : MonoBehaviour
         if (_canControl)
         {
             if (_currentShield < _shieldDuration && Time.time > _shieldRechargeTimeStamp) _currentShield += Time.deltaTime;
-            
+
+            if (_shieldVisual.activeSelf) _shieldVisual.SetActive(false);
+
         } else
         {
             if (_currentShield > 0) _currentShield -= Time.deltaTime;
+
+            if (_currentShield > 0 && !_shieldVisual.activeSelf) _shieldVisual.SetActive(true);
+            else if (_currentShield <- 0 && _shieldVisual.activeSelf) _shieldVisual.SetActive(false);
         }            
     }
 
@@ -195,6 +201,7 @@ public class PlayerShipController : MonoBehaviour
     {
         _canControl = true;
         _shieldRechargeTimeStamp = Time.time + _shieldRegenDelay;
+
         StartCoroutine(Invincibility(_shieldGracePeriod));
     }
 

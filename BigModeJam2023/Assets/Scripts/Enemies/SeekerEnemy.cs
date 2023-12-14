@@ -12,6 +12,7 @@ public class SeekerEnemy : MonoBehaviour
     public float TimeBeforeLaunchingMax = 5;
     public float ChargeSpeed = 1f;
     public float _movingSpeed;
+    private bool _following;
 
     [SerializeField] public RectTransform _moveSpaceRect;
     // Boundries
@@ -24,6 +25,10 @@ public class SeekerEnemy : MonoBehaviour
     private EnemyStats _es;
     void Start()
     {
+        _following = true;
+        CockpitController.OnGoToCockpit += SetFollowFalse;
+        CockpitController.OnGoToGame += SetFollowTrue;
+
         Player = GameObject.Find("Player Ship");
         _es = gameObject.GetComponent<EnemyStats>();
         int chooseSide = Random.Range(0, 2);
@@ -51,13 +56,32 @@ public class SeekerEnemy : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        CockpitController.OnGoToCockpit -= SetFollowFalse;
+        CockpitController.OnGoToGame -= SetFollowTrue;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!_following)
+            return;
+
         Quaternion rotation = Quaternion.LookRotation
                 (Player.transform.position - transform.position, transform.TransformDirection(Vector3.forward));
                 transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, _movingSpeed * Time.deltaTime);
+    }
+
+    private void SetFollowFalse()
+    {
+        _following = false;
+    }
+
+    private void SetFollowTrue()
+    {
+        _following = true;
     }
 }
