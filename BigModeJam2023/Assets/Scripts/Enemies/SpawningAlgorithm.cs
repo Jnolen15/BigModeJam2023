@@ -6,9 +6,10 @@ public class SpawningAlgorithm : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<Enemy> Enemies = new List<Enemy>();
-    public int SpawnAmount = 0;
+    public int SpawnAmount = 5;
     public int StopSpawningWave = 10;
     public int spawnBreakTime = 15;
+    public int DifficultyTimer = 12;
     public float SpawnCooldown = 1f;
     public bool CanSpawnOnceAgain = true;
     public Camera gameAreaCamera;
@@ -57,6 +58,7 @@ public class SpawningAlgorithm : MonoBehaviour
         _rightPoint.transform.position = new Vector3(_screenBoundariesTopRight.x, _screenBoundariesTopRight.y + 0.5f, 0);
 
         StartCoroutine("spawn");
+        StartCoroutine("DiffilcultyScale");
     }
 
     private void OnDestroy()
@@ -80,7 +82,7 @@ public class SpawningAlgorithm : MonoBehaviour
         {
             int pickedEnemy = Random.Range(0, Enemies.Count);
             int pickedEnemyCost = Enemies[pickedEnemy].DangerLevel;
-            if(_waveCost - pickedEnemyCost >= 0)
+            if(_waveCost - pickedEnemyCost >= 0 && Enemies[pickedEnemy].SpawnCheck)
             {
                 
                 if (Enemies[pickedEnemy].Name == "LaserEnemy")
@@ -138,6 +140,35 @@ public class SpawningAlgorithm : MonoBehaviour
             yield return null;
         }
     }
+    IEnumerator DiffilcultyScale()
+    {
+
+        while(SpawnAmount < 30)
+        {
+            if (gameStarting)
+            {
+                gameStarting = false;
+                yield return new WaitForSeconds(5);
+            }
+            yield return new WaitForSeconds(DifficultyTimer);
+            SpawnAmount += 1;
+            //At diffilctuy seven we add charging enemy
+            //At difficulty 9 we add seeker
+            //At difficulty 11 we add laser enemy
+            switch (SpawnAmount)
+            {
+                case 7:
+                    Enemies[0].SpawnCheck = true;
+                    break;
+                case 9:
+                    Enemies[4].SpawnCheck = true;
+                    break;
+                case 11:
+                    Enemies[5].SpawnCheck = true;
+                    break;
+            }
+        }
+    }
 }
 
 [System.Serializable]
@@ -146,6 +177,7 @@ public class Enemy
     public string Name;
     public GameObject EnemyPrefab;
     public int DangerLevel;
+    public bool SpawnCheck;
     
 }
 

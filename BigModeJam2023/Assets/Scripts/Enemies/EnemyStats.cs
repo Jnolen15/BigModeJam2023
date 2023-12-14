@@ -11,6 +11,7 @@ public class EnemyStats : MonoBehaviour
     public GameObject upgrade;
     public Camera gameAreaCamera;
     public string EnemyName;
+    public int Score = 0;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private GameObject _explodeFireFX;
     [SerializeField] private GameObject _explodeSmokeFX;

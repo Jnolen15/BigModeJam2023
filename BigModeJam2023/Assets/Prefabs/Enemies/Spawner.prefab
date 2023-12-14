@@ -48,24 +48,31 @@ MonoBehaviour:
   - Name: ChargingEnemy
     EnemyPrefab: {fileID: 2839158116787054440, guid: a02ad6c33b8366c49bf904d98a9f9986, type: 3}
     DangerLevel: 2
+    SpawnCheck: 0
   - Name: ForwardChargingEnemy
     EnemyPrefab: {fileID: 5185797148128333945, guid: e82cf29d490e38b4b859b6b59f7c3c59, type: 3}
     DangerLevel: 1
+    SpawnCheck: 1
   - Name: ShootingEnemy
     EnemyPrefab: {fileID: 597031016705459132, guid: 0d1425b72c9fd37478ada0281329cd85, type: 3}
     DangerLevel: 2
+    SpawnCheck: 1
   - Name: RandomShootingEnemy
     EnemyPrefab: {fileID: 9195172272361898927, guid: 294eac892d1b94d4cbb305960d383aff, type: 3}
     DangerLevel: 1
+    SpawnCheck: 1
   - Name: SeekerEnemy
     EnemyPrefab: {fileID: 7839222879034198494, guid: 0a54fab83e0eadb42a49eeab0b34e2d7, type: 3}
     DangerLevel: 6
+    SpawnCheck: 0
   - Name: LaserEnemy
     EnemyPrefab: {fileID: 5817803231404458132, guid: 40382055f6ceeae4d8d91e2f81aaddff, type: 3}
     DangerLevel: 6
-  SpawnAmount: 15
+    SpawnCheck: 0
+  SpawnAmount: 5
   StopSpawningWave: 10
   spawnBreakTime: 15
+  DifficultyTimer: 12
   SpawnCooldown: 6
   CanSpawnOnceAgain: 1
   gameAreaCamera: {fileID: 0}
