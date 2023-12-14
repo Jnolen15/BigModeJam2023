@@ -97,6 +97,8 @@ public class PlayerShipController : MonoBehaviour
     // ====================== Setup ======================
     void Start()
     {
+        MainMenuUI.OnGameStarted += SetGameStart;
+
         _gameplayManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
         _currentShield = _shieldDuration;
 
@@ -123,6 +125,15 @@ public class PlayerShipController : MonoBehaviour
         CockpitDamageManager.OnSystemRepaired += SystemRepaired;
     }
 
+    // Start function
+    private bool _gameStarted;
+    private void SetGameStart()
+    {
+        Debug.Log("PlayerShipController Start");
+
+        _gameStarted = true;
+    }
+
     // ====================== Function ======================
 
     private void Update()
@@ -141,6 +152,9 @@ public class PlayerShipController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (!_gameStarted)
+            return;
+
         if (_canControl)
         {
             // Movement
@@ -582,6 +596,7 @@ public class PlayerShipController : MonoBehaviour
 
     private void OnDestroy()
     {
+        MainMenuUI.OnGameStarted -= SetGameStart;
         UpgradeSlot.OnStartUpgrade -= ActivateUpgrade;
         UpgradeSlot.OnEndUpgrade -= EndUpgrade;
         CockpitController.OnGoToCockpit -= ExitScreen;

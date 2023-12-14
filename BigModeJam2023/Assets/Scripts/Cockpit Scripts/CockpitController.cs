@@ -40,6 +40,7 @@ public class CockpitController : MonoBehaviour
     {
         cam = this.GetComponent<Camera>();
 
+        MainMenuUI.OnGameStarted += SetGameStart;
         ShipScreen.OnInteractWithScreen += ChangePerspective;
         PlayerShipController.OnGameOver += UnlockCursor;
 
@@ -48,8 +49,19 @@ public class CockpitController : MonoBehaviour
 
     private void OnDestroy()
     {
+        MainMenuUI.OnGameStarted -= SetGameStart;
         ShipScreen.OnInteractWithScreen -= ChangePerspective;
         PlayerShipController.OnGameOver -= UnlockCursor;
+    }
+
+    // Start function
+    private bool _gameStarted;
+    private void SetGameStart()
+    {
+        Debug.Log("CockiptController Start");
+
+        _gameStarted = true;
+        LockCursor();
     }
 
     // ====================== Update ======================
@@ -148,6 +160,13 @@ public class CockpitController : MonoBehaviour
 
         transform.DOMove(_screenCamPos.position, 0.2f).SetEase(Ease.OutSine);
         transform.DORotate(_screenCamPos.rotation.eulerAngles, 0.2f).SetEase(Ease.OutSine);
+
+        // Make sure cursor is unlocked on game start
+        if (!_gameStarted)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     private void TransitionToCockpit()

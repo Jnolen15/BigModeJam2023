@@ -34,6 +34,7 @@ public class SpawningAlgorithm : MonoBehaviour
     
     void Start()
     {
+        MainMenuUI.OnGameStarted += SetGameStart;
 
         EnemyStats.OnDeath += EnemyKill;
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
@@ -56,16 +57,24 @@ public class SpawningAlgorithm : MonoBehaviour
 
         _rightPoint = new GameObject("RightPoint");
         _rightPoint.transform.position = new Vector3(_screenBoundariesTopRight.x, _screenBoundariesTopRight.y + 0.5f, 0);
-
-        StartCoroutine("spawn");
-        StartCoroutine("DiffilcultyScale");
     }
 
     private void OnDestroy()
     {
+        MainMenuUI.OnGameStarted -= SetGameStart;
         EnemyStats.OnDeath -= EnemyKill;
     }
 
+    // Start function
+    private bool _gameStarted;
+    private void SetGameStart()
+    {
+        Debug.Log("SpawningAlgorithm Start");
+
+        _gameStarted = true;
+        StartCoroutine("spawn");
+        StartCoroutine("DiffilcultyScale");
+    }
 
     private void EnemyKill(string nameOfEnemy)
     {

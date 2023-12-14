@@ -11,8 +11,10 @@ public class ShipScreen : Interactable
     // ====================== Override Functions ======================
     public override void OnPlayerInteact(CockpitController.Tool heldItem, CockpitController cockpitController)
     {
-        if (heldItem == _requiredTool)
-            OnInteractWithScreen?.Invoke();
+        OnInteractWithScreen?.Invoke();
+
+        //if (heldItem == _requiredTool)
+        //    OnInteractWithScreen?.Invoke();
     }
 
     public override void OnPlayerLookAt()
