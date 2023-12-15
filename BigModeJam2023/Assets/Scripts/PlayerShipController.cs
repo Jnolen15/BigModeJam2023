@@ -145,14 +145,14 @@ public class PlayerShipController : MonoBehaviour
     private void Update()
     {
         // temp fun with timescales
-        if (Input.GetKeyDown(KeyCode.F)) Time.timeScale = 0.5f;
-        if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
+        //if (Input.GetKeyDown(KeyCode.F)) Time.timeScale = 0.5f;
+        //if (Input.GetKeyDown(KeyCode.G)) Time.timeScale = 1;
 
         // testing for upgrades
         //if (Input.GetKeyDown(KeyCode.Q)) _gunCoolDown *= _GunCoolDownUpgradeMultiplier;
         //if (Input.GetKeyDown(KeyCode.E)) _gunCoolDown /= _GunCoolDownUpgradeMultiplier;
 
-        if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
+        //if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
 
         if (Input.GetKeyDown(KeyCode.Q)) _staggeredFire = !_staggeredFire;
     }
