@@ -364,7 +364,12 @@ public class PlayerShipController : MonoBehaviour
     }
     private void Rocket()
     {
-        GameObject rocket1 = Instantiate(_rocket, transform.position, Quaternion.identity);
+        float rocketSpread = _shotWidth * 2;
+        GameObject rocket1 = Instantiate(_rocket, transform.position + new Vector3(-rocketSpread, 0, 0), Quaternion.identity);
+        GameObject rocket2 = Instantiate(_rocket, transform.position + new Vector3(rocketSpread, 0, 0), Quaternion.identity);
+        rocket1.GetComponent<PlayerRocketScript>().SetDirection(true);
+        rocket2.GetComponent<PlayerRocketScript>().SetDirection(false);
+
 
         _shipAudioSource.PlayOneShot(_shootSound);
     }

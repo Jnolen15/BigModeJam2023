@@ -9,7 +9,8 @@ public class PlayerRocketScript : MonoBehaviour
     [SerializeField] private float _range = 20;
     [SerializeField] private float _damage = 100;
     [SerializeField] private float _explosionDuration = 1;
-    [SerializeField] private float _acceleration = 0f;
+    [SerializeField] private float _yAcceleration = 0f;
+    [SerializeField] private float _xDecay = 0.9f;
     [SerializeField] private float _ySpeed = 0f;
     [SerializeField] private float _xSpeed = 0f;
 
@@ -34,7 +35,9 @@ public class PlayerRocketScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!_exploded) _ySpeed += _acceleration;
+        if (!_exploded) _ySpeed += _yAcceleration;
+        if (!_exploded && Mathf.Abs(_xSpeed) > 0.0001f) _xSpeed *= _xDecay;
+
         if (!_exploded) transform.Translate(new Vector3(_xSpeed * Time.timeScale, _ySpeed * Time.timeScale, 0));
 
         _distanceTraveled += Mathf.Abs(transform.position.y - _yPosition);
@@ -63,9 +66,9 @@ public class PlayerRocketScript : MonoBehaviour
         _sprite.DOFade(0, _explosionDuration).SetEase(Ease.OutSine).OnComplete(() => Destroy(gameObject));
     }
 
-    public void SetDrift(float drift)
+    public void SetDirection(bool direction) // true = right, false = left
     {
-        _xSpeed = drift;
+        _xSpeed *= (direction ? -1 : 1);
     }
 
     public float GetDamage()

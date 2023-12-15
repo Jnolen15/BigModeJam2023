@@ -264,9 +264,10 @@ MonoBehaviour:
   _range: 20
   _damage: 100
   _explosionDuration: 1
-  _acceleration: 0.005
-  _ySpeed: 0
-  _xSpeed: 0
+  _yAcceleration: 0.01
+  _xDecay: 0.95
+  _ySpeed: -0.1
+  _xSpeed: 0.05
   _endColor: {r: 0.13333334, g: 0.5137255, b: 0.37254903, a: 0}
   _rocketSprite: {fileID: 431922457051873966}
   _explosion: {fileID: 9148454884763011166}
