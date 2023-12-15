@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class CheckLightsScript : MonoBehaviour
+public class GeneralDamageLightScript : MonoBehaviour
 {
     // ====================== Refrences / Variables ======================
     [SerializeField] private string _systemName;
@@ -13,7 +13,7 @@ public class CheckLightsScript : MonoBehaviour
     [SerializeField] private GameObject _cubeLight;
     private MeshRenderer _mesh;
     private TMP_Text _text;
-    private bool _systemDamaged;
+    private float _hullDamage;
 
     [SerializeField] private Material _unDamagedLight;
     [SerializeField] private Material _damagedLight;
@@ -28,7 +28,7 @@ public class CheckLightsScript : MonoBehaviour
     {
         _mesh = _cubeLight.GetComponent<MeshRenderer>();
         _text = GetComponentInChildren<TMP_Text>();
-    
+
 
         _text.text = _systemName;
         _mesh.material = _unDamagedLight;
@@ -36,22 +36,19 @@ public class CheckLightsScript : MonoBehaviour
         CockpitDamageManager.OnSystemRepaired += DeactivateLight;
     }
 
-    private void FixedUpdate()
-    {
-       if (_systemDamaged)
-        {
-            
-        }
-    }
-
     // ====================== Function ======================
     public void ActivateLight(string system)
     {
         if (system == _systemName)
         {
-            _systemDamaged = true;
-            _mesh.material = _damagedLight;
-            _mesh.material.DOColor(color2, _flashFrequency).OnComplete(() => _mesh.material.DOColor(color1, _flashFrequency)).SetLoops(-1, LoopType.Yoyo);
+            _hullDamage += 1;
+            // start flashing if its the first system damaged
+            if (_hullDamage == 1)
+            {
+                _mesh.material = _damagedLight;
+                _mesh.material.DOColor(color2, _flashFrequency).OnComplete(() => _mesh.material.DOColor(color1, _flashFrequency)).SetLoops(-1, LoopType.Yoyo);
+            }
+            
         }
     }
 
@@ -59,9 +56,13 @@ public class CheckLightsScript : MonoBehaviour
     {
         if (system == _systemName)
         {
-            _systemDamaged = false;
-            _mesh.material.DOKill();
-            _mesh.material = _unDamagedLight;
+            _hullDamage -= 1;
+            // stops flashing if all systems are fixed
+            if (_hullDamage == 0)
+            {
+                _mesh.material.DOKill();
+                _mesh.material = _unDamagedLight;
+            }
         }
     }
 
