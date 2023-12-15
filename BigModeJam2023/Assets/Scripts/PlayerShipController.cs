@@ -156,7 +156,7 @@ public class PlayerShipController : MonoBehaviour
 
         //if (Input.GetKeyDown(KeyCode.X)) TakeDamage(20);
 
-        if (Input.GetKeyDown(KeyCode.Q)) _staggeredFire = !_staggeredFire;
+        //if (Input.GetKeyDown(KeyCode.Q)) _staggeredFire = !_staggeredFire;
     }
     void FixedUpdate()
     {
