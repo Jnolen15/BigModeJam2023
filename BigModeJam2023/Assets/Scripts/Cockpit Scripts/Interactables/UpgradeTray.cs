@@ -9,6 +9,9 @@ public class UpgradeTray : Interactable
     [SerializeField] private List<Transform> _upgradeSlots;
     [SerializeField] private List<GameObject> _upgradeList;
 
+    public delegate void UpgradeTrayEvent(int num);
+    public static event UpgradeTrayEvent OnUpgradeNumChanged;
+
     // ====================== Setup ======================
     private void Awake()
     {
@@ -57,6 +60,8 @@ public class UpgradeTray : Interactable
         Destroy(_upgradeList[index]);
         _upgradeList.RemoveAt(index);
         cockpitController.PickupTool(CockpitController.Tool.Upgrade);
+
+        OnUpgradeNumChanged?.Invoke(_upgradeList.Count);
     }
 
     public void PlaceUpgrade(CockpitController cockpitController)
@@ -80,5 +85,7 @@ public class UpgradeTray : Interactable
         upgrade.transform.SetParent(transform);
         upgrade.transform.localPosition = _upgradeSlots[_upgradeList.Count-1].localPosition;
         upgrade.transform.localRotation = _upgradeSlots[_upgradeList.Count-1].localRotation;
+
+        OnUpgradeNumChanged?.Invoke(_upgradeList.Count);
     }
 }
