@@ -34,14 +34,14 @@ public class EnemyStats : MonoBehaviour
     {
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
         enemyCollider = gameObject.GetComponent<BoxCollider2D>();
-        enemyCollider.enabled = false;
+        //enemyCollider.enabled = false;
         ScreenBoundariesTopRight = gameAreaCamera.ScreenToWorldPoint(new Vector3(0, 0, gameAreaCamera.transform.position.z));
         ScreenBoundariesBottomLeft = gameAreaCamera.ScreenToWorldPoint(new Vector3(gameAreaCamera.pixelRect.width, gameAreaCamera.pixelRect.height, gameAreaCamera.transform.position.z));
     }
 
     private void FixedUpdate()
     {
-        if(transform.position.y < ScreenBoundariesTopRight.y || transform.position.x > ScreenBoundariesBottomLeft.x || transform.position.x < ScreenBoundariesTopRight.x)
+        if(transform.position.y < ScreenBoundariesTopRight.y && transform.position.x > ScreenBoundariesBottomLeft.x && transform.position.x < ScreenBoundariesTopRight.x)
         {
             enemyCollider.enabled = true;
         }

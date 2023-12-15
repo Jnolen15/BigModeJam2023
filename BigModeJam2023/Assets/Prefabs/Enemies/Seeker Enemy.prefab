@@ -134,9 +134,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyHealth: 30
   _enemySpeed: 1
+  _collisionDamage: 5
   upgrade: {fileID: 1091817720086394234, guid: ae756ec68bee2ec41bebfc6b14fd8419, type: 3}
   gameAreaCamera: {fileID: 0}
   EnemyName: SeekerEnemy
+  Score: 0
   _spriteRenderer: {fileID: 2508151476815933523}
   _explodeFireFX: {fileID: 2491752651957803031, guid: efe20d06988ee3a4aab5aace6c92fb94, type: 3}
   _explodeSmokeFX: {fileID: 9210323538527659929, guid: 03db32dfcc41367449df7ded90def4ba, type: 3}
@@ -176,7 +178,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7839222879034198494}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
