@@ -8,10 +8,12 @@ public class RotatingShieldScript : MonoBehaviour
     [SerializeField] private float _rotationAmount = 1; // Rotation in Degrees
     [SerializeField] private float _damage = 5;
 
+    private GameObject _playerShip;
+
     // ====================== Setup ======================
     void Start()
     {
-        
+        _playerShip = GameObject.FindGameObjectWithTag("Player");
     }
 
     // ====================== Function ======================
@@ -19,6 +21,7 @@ public class RotatingShieldScript : MonoBehaviour
     private void FixedUpdate()
     {
         transform.Rotate(0, 0, -_rotationAmount);
+        transform.position = _playerShip.transform.position;
     }
 
     public float GetDamage()
@@ -39,6 +42,6 @@ public class RotatingShieldScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        Destroy(transform.parent.gameObject);
+        Destroy(gameObject);
     }
 }

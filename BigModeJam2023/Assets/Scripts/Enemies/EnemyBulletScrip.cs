@@ -38,7 +38,8 @@ public class EnemyBulletScrip : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "shield")
+        Debug.Log("enemyBullet collided with:" + collision.gameObject.name);
+        if (collision.gameObject.tag == "Shield")
         {
             Destroy(gameObject);
         }
