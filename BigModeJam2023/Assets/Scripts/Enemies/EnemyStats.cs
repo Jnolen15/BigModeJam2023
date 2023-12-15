@@ -66,7 +66,7 @@ public class EnemyStats : MonoBehaviour
         {
             _enemyTakeDamage(other.GetComponent<PlayerLaserScript>().GetDamage());
         }
-        if (other.gameObject.tag == "PlayerShield" )
+        if (other.gameObject.tag == "Shield" )
         {
             _enemyTakeDamage(other.transform.parent.GetComponent<RotatingShieldScript>().GetDamage());
         }
