@@ -42,7 +42,9 @@ public class CockpitController : MonoBehaviour
 
         MainMenuUI.OnGameStarted += SetGameStart;
         ShipScreen.OnInteractWithScreen += ChangePerspective;
-        PlayerShipController.OnGameOver += UnlockCursor;
+        PlayerShipController.OnGameOver += OnGameEnd;
+        GameOverUI.OffPause += OnUnpause;
+        GameOverUI.OnPause += OnGameEnd;
 
         LockCursor();
     }
@@ -51,7 +53,9 @@ public class CockpitController : MonoBehaviour
     {
         MainMenuUI.OnGameStarted -= SetGameStart;
         ShipScreen.OnInteractWithScreen -= ChangePerspective;
-        PlayerShipController.OnGameOver -= UnlockCursor;
+        PlayerShipController.OnGameOver -= OnGameEnd;
+        GameOverUI.OffPause -= OnUnpause;
+        GameOverUI.OnPause -= OnGameEnd;
     }
 
     // Start function
@@ -143,8 +147,18 @@ public class CockpitController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
 
+    private void OnGameEnd()
+    {
+        UnlockCursor();
         SetCockpitControls(false);
+    }
+
+    private void OnUnpause()
+    {
+        LockCursor();
+        SetCockpitControls(true);
     }
 
     private void SetCockpitControls(bool canLook)

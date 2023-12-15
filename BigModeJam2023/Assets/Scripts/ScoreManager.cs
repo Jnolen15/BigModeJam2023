@@ -17,7 +17,6 @@ public class ScoreManager : MonoBehaviour
     {
         PlayerShipController.OnGameOver += GiveFinalScore;
         EnemyStats.OnDeath += GiveScore;
-        ScoreScreen = GameObject.Find("ScoreText");
     }
 
     // Update is called once per frame
