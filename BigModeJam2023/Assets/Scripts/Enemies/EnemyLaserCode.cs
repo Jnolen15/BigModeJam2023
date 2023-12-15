@@ -17,7 +17,9 @@ public class EnemyLaserCode : MonoBehaviour
     public bool isShooting = false;
     public Sprite TopPivotSprite;
 
-
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _laserChargeSound;
+    [SerializeField] private AudioClip _laserBeamSound;
 
     // ====================== Setup ======================
     void Start()
@@ -28,6 +30,8 @@ public class EnemyLaserCode : MonoBehaviour
 
         //start charge up of beam and then make it nothing
         gameObject.transform.DOScale(0.02f, 2).OnComplete(() => circleToNothing());
+
+        _audioSource.PlayOneShot(_laserChargeSound);
     }
 
     // ====================== Function ======================
@@ -40,6 +44,8 @@ public class EnemyLaserCode : MonoBehaviour
 
     private void changeSprite()
     {
+        _audioSource.PlayOneShot(_laserBeamSound);
+
         gameObject.GetComponent<SpriteRenderer>().sprite = TopPivotSprite;
         wobbleAnimationPart1();
         gameObject.transform.DOScaleY(2, 1).OnComplete(() => keepLaserGoing());

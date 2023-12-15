@@ -18,6 +18,8 @@ public class ChargeForwardEnemy : MonoBehaviour
     [SerializeField] private float _xOffset = 0;
     [SerializeField] private float _yOffset = 0;
 
+    [SerializeField] private AudioSource _audioSource;
+
     private bool _stopLooking = false;
     private bool _startCharging = false;
     private bool _reachDestination = false;
@@ -84,5 +86,6 @@ public class ChargeForwardEnemy : MonoBehaviour
         _stopLooking = true;
         _startCharging = true;
 
+        _audioSource.Play();
     }
 }
