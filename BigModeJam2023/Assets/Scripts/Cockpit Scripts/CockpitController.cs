@@ -16,6 +16,7 @@ public class CockpitController : MonoBehaviour
     [SerializeField] private GameObject _deadUpgrade;
     [SerializeField] private Tool _heldItem;
 
+    private bool _inCockpit = true;
     private bool _cockpitControls = true;
     private float _verticalRotation = 0;
     private float _horizontalRotation = 0;
@@ -158,7 +159,9 @@ public class CockpitController : MonoBehaviour
     private void OnUnpause()
     {
         LockCursor();
-        SetCockpitControls(true);
+
+        if(_inCockpit)
+            SetCockpitControls(true);
     }
 
     private void SetCockpitControls(bool canLook)
@@ -170,6 +173,7 @@ public class CockpitController : MonoBehaviour
     {
         OnGoToGame?.Invoke();
 
+        _inCockpit = false;
         SetCockpitControls(false);
 
         transform.DOMove(_screenCamPos.position, 0.2f).SetEase(Ease.OutSine);
@@ -187,6 +191,7 @@ public class CockpitController : MonoBehaviour
     {
         OnGoToCockpit?.Invoke();
 
+        _inCockpit = true;
         SetMouseLook(Vector2.zero);
 
         transform.DOMove(_playerCamPos.position, 0.2f).SetEase(Ease.OutSine);

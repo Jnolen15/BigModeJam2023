@@ -9,7 +9,7 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private GameObject _pauseUI;
 
-    private bool _gamePause = false;
+    [SerializeField] private bool _gamePause = false;
 
     public delegate void UIEvent();
     public static event UIEvent OnPause;
@@ -32,15 +32,9 @@ public class GameOverUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!_gamePause)
-            {
-                _gamePause = true;
                 ShowPause();
-            }
             else
-            {
-                _gamePause = false;
                 HidePause();
-            }
         }
     }
 
@@ -50,22 +44,24 @@ public class GameOverUI : MonoBehaviour
         _gameOverUI.SetActive(true);
     }
 
+    private void Hide()
+    {
+        _gameOverUI.SetActive(false);
+    }
+
     public void ShowPause()
     {
         OnPause?.Invoke();
         _pauseUI.SetActive(true);
+        _gamePause = true;
         Time.timeScale = 0;
     }
     public void HidePause()
     {
         OffPause?.Invoke();
         _pauseUI.SetActive(false);
+        _gamePause = false;
         Time.timeScale = 1;
-    }
-
-    private void Hide()
-    {
-        _gameOverUI.SetActive(false);
     }
 
     public void RestartGame()
