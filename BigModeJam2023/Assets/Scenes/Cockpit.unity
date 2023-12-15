@@ -21224,6 +21224,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 686831352253009075, guid: 21621398bd851e440a227398029d0a00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 737136342}
+    - target: {fileID: 686831352253009075, guid: 21621398bd851e440a227398029d0a00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1816427965778805283, guid: 21621398bd851e440a227398029d0a00, type: 3}
       propertyPath: m_Type
       value: 1
@@ -21239,6 +21247,14 @@ PrefabInstance:
     - target: {fileID: 1975801748969698387, guid: 21621398bd851e440a227398029d0a00, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447048516058164931, guid: 21621398bd851e440a227398029d0a00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 737136342}
+    - target: {fileID: 3447048516058164931, guid: 21621398bd851e440a227398029d0a00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
       objectReference: {fileID: 0}
     - target: {fileID: 4702510162486125903, guid: 21621398bd851e440a227398029d0a00, type: 3}
       propertyPath: m_fontAsset
