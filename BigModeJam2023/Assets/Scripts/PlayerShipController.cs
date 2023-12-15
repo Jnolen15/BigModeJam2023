@@ -51,6 +51,7 @@ public class PlayerShipController : MonoBehaviour
     private float _shieldRechargeTimeStamp = 0;
     private bool _invincible = false;
     private bool _canControl;
+    private float _shipDamage = 0;
 
 
     [Header("GameObjects")]
@@ -511,6 +512,7 @@ public class PlayerShipController : MonoBehaviour
 
     public void SystemDamaged(string damage)
     {
+        _shipDamage += 1;
         switch (damage)
         {
             case "Gun1":
@@ -539,6 +541,7 @@ public class PlayerShipController : MonoBehaviour
     public void SystemRepaired(string damage)
     {
         _currentHealth += _repairHealthNum;
+        _shipDamage -= 1;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
         switch (damage)
         {
@@ -588,6 +591,11 @@ public class PlayerShipController : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public bool ShipDamaged()
+    {
+        return _shipDamage == 0 ? true : false;
     }
 
     // ====================== Collisions ======================
