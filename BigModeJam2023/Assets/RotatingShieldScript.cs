@@ -29,17 +29,6 @@ public class RotatingShieldScript : MonoBehaviour
         return _damage;
     }
 
-    /*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        GameObject other = collision.gameObject;
-        if (other.tag == "Hostile")
-        {
-            Destroy(other);
-        }
-    }
-    */
-
     private void OnDestroy()
     {
         Destroy(gameObject);

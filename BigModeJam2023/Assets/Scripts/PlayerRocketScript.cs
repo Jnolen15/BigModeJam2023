@@ -13,6 +13,8 @@ public class PlayerRocketScript : MonoBehaviour
     [SerializeField] private float _ySpeed = 0f;
     [SerializeField] private float _xSpeed = 0f;
 
+    [SerializeField] private Color _endColor;
+
 
     private float _yPosition;
     private float _distanceTraveled = 0;
@@ -57,6 +59,7 @@ public class PlayerRocketScript : MonoBehaviour
         _explosion.SetActive(true);
         _rocketSprite.SetActive(false);
         SpriteRenderer _sprite = _explosion.GetComponentInChildren<SpriteRenderer>();
+        _sprite.DOColor(_endColor, _explosionDuration);
         _sprite.DOFade(0, _explosionDuration).SetEase(Ease.OutSine).OnComplete(() => Destroy(gameObject));
     }
 

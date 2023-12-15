@@ -43,6 +43,10 @@ public class EnemyBulletScrip : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (collision.gameObject.tag == "PlayerRocket")
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

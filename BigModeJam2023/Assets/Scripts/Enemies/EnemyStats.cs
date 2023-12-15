@@ -8,6 +8,7 @@ public class EnemyStats : MonoBehaviour
     // Start is called before the first frame update
     public float _enemyHealth = 10;
     public float _enemySpeed = 1;
+    public float _collisionDamage = 5;
     public GameObject upgrade;
     public Camera gameAreaCamera;
     public string EnemyName;
@@ -69,6 +70,10 @@ public class EnemyStats : MonoBehaviour
         if (other.gameObject.tag == "Shield" )
         {
             _enemyTakeDamage(other.transform.parent.GetComponent<RotatingShieldScript>().GetDamage());
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            _enemyTakeDamage(_collisionDamage);
         }
     }
 
