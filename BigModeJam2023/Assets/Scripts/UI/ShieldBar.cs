@@ -22,16 +22,34 @@ public class ShieldBar : MonoBehaviour
     // ====================== Setup ======================
     void Start()
     {
+        MainMenuUI.OnGameStarted += SetGameStart;
         _shipController = GameObject.Find("Player Ship").GetComponent<PlayerShipController>();
         _mesh = GetComponent<MeshRenderer>();
         _startingScale = transform.localScale.y;
         _previousScale = _startingScale;
     }
 
+    private void OnDestroy()
+    {
+        MainMenuUI.OnGameStarted -= SetGameStart;
+    }
+
+    // Start function
+    private bool _gameStarted;
+    private void SetGameStart()
+    {
+        Debug.Log("ShieldBar Start");
+
+        _gameStarted = true;
+    }
+
     // ====================== Function ======================
 
     void Update()
     {
+        if (!_gameStarted)
+            return;
+
         Vector3 scale = transform.localScale;
         scale.y = _shipController.GetShieldRatio() * _startingScale;
 

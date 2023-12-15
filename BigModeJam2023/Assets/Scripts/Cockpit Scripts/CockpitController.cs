@@ -177,6 +177,8 @@ public class CockpitController : MonoBehaviour
 
         transform.DOMove(_playerCamPos.position, 0.2f).SetEase(Ease.OutSine);
         transform.DORotate(_playerCamPos.rotation.eulerAngles, 0.2f).SetEase(Ease.OutSine).OnComplete( () => SetCockpitControls(true) );
+
+        LockCursor();
     }
 
     public void PickupTool(Tool toolName)
