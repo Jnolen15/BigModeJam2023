@@ -64,6 +64,7 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private ParticleSystem _laserShootRight;
     [SerializeField] private ParticleSystem _laserShootLeft;
     [SerializeField] private GameObject _shieldVisual;
+    [SerializeField] private GameObject _rotatingShield;
 
 
     private GameplayManager _gameplayManager;
@@ -114,6 +115,10 @@ public class PlayerShipController : MonoBehaviour
         {
             Debug.LogFormat("Movement Area not set");
         }
+
+        //instantiating shield
+        _rotatingShield = Instantiate(_rotatingShield);
+        _rotatingShield.SetActive(false);
 
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
@@ -433,6 +438,9 @@ public class PlayerShipController : MonoBehaviour
             case "Time Warp":
                 Time.timeScale = 0.75f;
                 break;
+            case "Shield":
+                _rotatingShield.SetActive(true);
+                break;
 
             //old upgrades
             case "FireRate":
@@ -444,9 +452,7 @@ public class PlayerShipController : MonoBehaviour
             case "ProjectileSpeed":
                 _projectileSpeed *= _projectileSpeedUpgradeMultiplier;
                 break;
-            case "Shield":
-                // whatever the shield upgrade does here
-                break;
+
 
             default:
                 Debug.Log("Invalid upgrade name");
@@ -470,6 +476,9 @@ public class PlayerShipController : MonoBehaviour
             case "Time Warp":
                 Time.timeScale =1;
                 break;
+            case "Shield":
+                _rotatingShield.SetActive(false);
+                break;
 
             //old upgrades
             case "FireRate":
@@ -480,9 +489,6 @@ public class PlayerShipController : MonoBehaviour
                 break;
             case "ProjectileSpeed":
                 _projectileSpeed /= _projectileSpeedUpgradeMultiplier;
-                break;
-            case "Shield":
-                // whatever the shield upgrade does here
                 break;
 
             default:
