@@ -11695,6 +11695,7 @@ MonoBehaviour:
   _deadUpgrade: {fileID: 919132149180634804}
   _heldItem: 0
   _screenLight: {fileID: 914996034}
+  _mouseDot: {fileID: 1042047434}
 --- !u!4 &1383147432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7222427781778957360, guid: 6827d4392aed5a347a284fd210e5c504, type: 3}

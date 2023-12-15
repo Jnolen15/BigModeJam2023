@@ -16,6 +16,7 @@ public class CockpitController : MonoBehaviour
     [SerializeField] private GameObject _deadUpgrade;
     [SerializeField] private Tool _heldItem;
     [SerializeField] private GameObject _screenLight;
+    [SerializeField] private GameObject _mouseDot;
 
     private bool _inCockpit = true;
     private bool _cockpitControls = true;
@@ -188,6 +189,7 @@ public class CockpitController : MonoBehaviour
         }
 
         _screenLight.SetActive(true);
+        _mouseDot.SetActive(false);
     }
 
     private void TransitionToCockpit()
@@ -203,6 +205,7 @@ public class CockpitController : MonoBehaviour
         LockCursor();
 
         _screenLight.SetActive(false);
+        _mouseDot.SetActive(true);
     }
 
     public void PickupTool(Tool toolName)
