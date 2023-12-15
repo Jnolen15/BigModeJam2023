@@ -31,7 +31,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _shotWidth = 0.1f;
     [SerializeField] private float _altFireCoolDown = 1f;
     [SerializeField] private float _shotgunShots = 20;
-    [SerializeField] private float _shotgunSpread = 0.01f;
+    [SerializeField] private float _shotgunSpread = 45; // degrees
+    [SerializeField] private float _shotgunRange = 10;
     private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
@@ -73,6 +74,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private AudioSource _shipAudioSource;
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _damageSound;
+    [SerializeField] private AudioClip _dieSound;
+    [SerializeField] private AudioClip _laserSound;
     [SerializeField] private AudioSource _shieldAudioSource;
     [SerializeField] private AudioClip _startChargeShield;
     [SerializeField] private AudioClip _endChargeShield;
@@ -275,6 +278,7 @@ public class PlayerShipController : MonoBehaviour
             if (_currentHealth <= 0)
             {
                 OnGameOver?.Invoke();
+                _shipAudioSource.PlayOneShot(_dieSound);
                 //Time.timeScale = 0;
                 _gameplayManager.GameOver = true;
             }
@@ -314,7 +318,7 @@ public class PlayerShipController : MonoBehaviour
         if (fireChance >= 100 || Random.Range(0, 100) > fireChance) // % chance to fire gun if gun system is damaged
         {
             GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xOffset, 0, 0), Quaternion.identity);
-            laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+            laser.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
 
             _shipAudioSource.PlayOneShot(_shootSound);
 
@@ -341,9 +345,12 @@ public class PlayerShipController : MonoBehaviour
     {
         for (float i = 0; i < _shotgunShots; i++)
         {
-            float drift = Random.Range(-_shotgunSpread, _shotgunSpread);
+            float angle = Random.Range(-_shotgunSpread, _shotgunSpread);
             GameObject laser1 = Instantiate(_projectile, transform.position, Quaternion.identity);
-            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(drift, _projectileSpeed - Mathf.Abs(drift)/2);
+            PlayerProjectileScript temp = laser1.GetComponent<PlayerProjectileScript>();
+            temp.SetAngle(angle);
+            temp.SetSpeed(_projectileSpeed);
+            temp.SetRange(_shotgunRange);
         }
 
         _shipAudioSource.PlayOneShot(_shootSound);
@@ -353,7 +360,7 @@ public class PlayerShipController : MonoBehaviour
     {
         GameObject laser1 = Instantiate(_laser, transform.position, Quaternion.identity);
 
-        _shipAudioSource.PlayOneShot(_shootSound);
+        _shipAudioSource.PlayOneShot(_laserSound);
     }
     private void Rocket()
     {
@@ -407,9 +414,9 @@ public class PlayerShipController : MonoBehaviour
         float TimeStamp = Time.time + time;
         while (TimeStamp > Time.time)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-            float z = Random.Range(-1f, 1f) * magnitude;
+            float x = Random.Range(-1f, 1f) * magnitude * Time.timeScale;
+            float y = Random.Range(-1f, 1f) * magnitude * Time.timeScale;
+            float z = Random.Range(-1f, 1f) * magnitude* Time.timeScale;
             // undo last transform, add new transform, save new transform as old
             t.position -= lastPos;
             t.position += new Vector3(x, y, z);

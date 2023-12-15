@@ -266,7 +266,8 @@ MonoBehaviour:
   _shotWidth: 0.15
   _altFireCoolDown: 1
   _shotgunShots: 20
-  _shotgunSpread: 0.2
+  _shotgunSpread: 60
+  _shotgunRange: 20
   _GunCoolDownUpgradeMultiplier: 0.5
   _moveSpeedUpgradeMultiplier: 1.5
   _projectileSpeedUpgradeMultiplier: 1.5
@@ -275,7 +276,7 @@ MonoBehaviour:
   _moveSpaceRect: {fileID: 0}
   _projectile: {fileID: 1091817720086394234, guid: 7bd9e04b963254d458c051d3295abb2f, type: 3}
   _rocket: {fileID: 1091817720086394234, guid: 2b612398cfd3246479596087a8061e21, type: 3}
-  _laser: {fileID: 1091817720086394234, guid: 0948168924fd8f04fb5e43e7b89ef901, type: 3}
+  _laser: {fileID: 116770495008664292, guid: 0948168924fd8f04fb5e43e7b89ef901, type: 3}
   _gunSparkRight: {fileID: 1661778828952233246}
   _gunSparkLeft: {fileID: 8381425700672560141}
   _engineSmokeRight: {fileID: 7883819314322832920}
@@ -287,6 +288,8 @@ MonoBehaviour:
   _shipAudioSource: {fileID: 4950467417142679430}
   _shootSound: {fileID: 8300000, guid: ae7dd9902aa63bb458d67f34d2ba56d4, type: 3}
   _damageSound: {fileID: 8300000, guid: bb4eb7ffd36902b4b88755d87c3f0c21, type: 3}
+  _dieSound: {fileID: 8300000, guid: 51a1be9b146457a4e9a0309e9a8beba9, type: 3}
+  _laserSound: {fileID: 8300000, guid: fc7b3c88ba1920341be2f9a99508ed42, type: 3}
   _shieldAudioSource: {fileID: 7962024103603049774}
   _startChargeShield: {fileID: 8300000, guid: 28719daf17481d84fa4dfbf1fd480254, type: 3}
   _endChargeShield: {fileID: 8300000, guid: baab51eb45e58ef4fb1e16aa06567bb1, type: 3}

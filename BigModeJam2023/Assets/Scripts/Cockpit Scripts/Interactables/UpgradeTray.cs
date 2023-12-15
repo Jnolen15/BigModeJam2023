@@ -8,6 +8,7 @@ public class UpgradeTray : Interactable
     [SerializeField] private GameObject _upgradePref;
     [SerializeField] private List<Transform> _upgradeSlots;
     [SerializeField] private List<GameObject> _upgradeList;
+    [SerializeField] private AudioSource _audioSource;
 
     public delegate void UpgradeTrayEvent(int num);
     public static event UpgradeTrayEvent OnUpgradeNumChanged;
@@ -81,6 +82,8 @@ public class UpgradeTray : Interactable
 
         GameObject upgrade = Instantiate(_upgradePref);
         _upgradeList.Add(upgrade);
+
+        _audioSource.Play();
 
         upgrade.transform.SetParent(transform);
         upgrade.transform.localPosition = _upgradeSlots[_upgradeList.Count-1].localPosition;
