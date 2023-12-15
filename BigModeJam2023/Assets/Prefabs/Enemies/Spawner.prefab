@@ -71,7 +71,7 @@ MonoBehaviour:
     SpawnCheck: 0
   SpawnAmount: 5
   StopSpawningWave: 5
-  spawnBreakTime: 7
+  spawnBreakTime: 15
   DifficultyTimer: 12
   SpawnCooldown: 6
   CanSpawnOnceAgain: 1

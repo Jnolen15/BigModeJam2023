@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpawningAlgorithm : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SpawningAlgorithm : MonoBehaviour
     public float SpawnCooldown = 1f;
     public bool CanSpawnOnceAgain = true;
     public Camera gameAreaCamera;
+    public GameObject NumberOfWaves;
 
 
 
@@ -28,11 +30,12 @@ public class SpawningAlgorithm : MonoBehaviour
     private Vector3 _screenBoundariesBottomLeft;
     private Vector3 _screenBoundariesTopRight;
     private int _waveCost = 0;
+    private int _waveNum = 0;
     private List<GameObject> _generatedEnemy = new List<GameObject>();
     private bool gameStarting = true;
     private bool _onBreak = false;
-    private GameObject laserEnemyClone;
     
+
     void Start()
     {
         MainMenuUI.OnGameStarted += SetGameStart;
@@ -124,10 +127,13 @@ public class SpawningAlgorithm : MonoBehaviour
         int wave = 0;
         while (true)
         {
+            
             if (gameStarting)
             {
                 gameStarting = false;
                 yield return new WaitForSeconds(5);
+                _waveNum += 1;
+                NumberOfWaves.GetComponent<TextMeshPro>().text = _waveNum.ToString();
             }
             if (wave < StopSpawningWave)
             {
@@ -148,6 +154,8 @@ public class SpawningAlgorithm : MonoBehaviour
                 _onBreak = true;
                 yield return new WaitForSeconds(spawnBreakTime);
                 _onBreak = false;
+                _waveNum += 1;
+                NumberOfWaves.GetComponent<TextMeshPro>().text = _waveNum.ToString();
             }
             yield return null;
         }
