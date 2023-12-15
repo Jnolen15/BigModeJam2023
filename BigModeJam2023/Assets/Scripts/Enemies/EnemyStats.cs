@@ -27,12 +27,24 @@ public class EnemyStats : MonoBehaviour
     public delegate void EnemyEvent(string enemyName);
     public static event EnemyEvent OnDeath;
 
+    private BoxCollider2D enemyCollider;
+
 
     void Start()
     {
         gameAreaCamera = GameObject.Find("GameCam").GetComponent<Camera>();
+        enemyCollider = gameObject.GetComponent<BoxCollider2D>();
+        enemyCollider.enabled = false;
         ScreenBoundariesTopRight = gameAreaCamera.ScreenToWorldPoint(new Vector3(0, 0, gameAreaCamera.transform.position.z));
         ScreenBoundariesBottomLeft = gameAreaCamera.ScreenToWorldPoint(new Vector3(gameAreaCamera.pixelRect.width, gameAreaCamera.pixelRect.height, gameAreaCamera.transform.position.z));
+    }
+
+    private void FixedUpdate()
+    {
+        if(transform.position.y < ScreenBoundariesTopRight.y || transform.position.x > ScreenBoundariesBottomLeft.x || transform.position.x < ScreenBoundariesTopRight.x)
+        {
+            enemyCollider.enabled = true;
+        }
     }
 
     public void _enemyTakeDamage(float damageTaken)
@@ -79,7 +91,7 @@ public class EnemyStats : MonoBehaviour
 
     private void spawnUpgrade()
     {
-        if (Random.Range(0, 30) == 1)
+        if (Random.Range(0, 45) == 1)
         {
             Instantiate(upgrade, transform.position, Quaternion.identity);
         }
