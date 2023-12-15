@@ -13,6 +13,12 @@ public class ScoreManager : MonoBehaviour
     public GameObject ScoreScreen;
     public GameObject GameOverFinalScore;
     public GameObject HighestScore;
+
+    public delegate void ScoreEvent();
+    public static event ScoreEvent OnReachSecret;
+    [SerializeField] private int _secretScore;
+    private bool _secretScoreReached;
+
     void Start()
     {
         PlayerShipController.OnGameOver += GiveFinalScore;
@@ -25,6 +31,13 @@ public class ScoreManager : MonoBehaviour
         if (!isGameOver)
         {
             ScoreScreen.GetComponent<TextMeshPro>().text = _score.ToString();
+        }
+
+        // Medals stuff
+        if (_score > _secretScore && !_secretScoreReached)
+        {
+            _secretScoreReached = true;
+            OnReachSecret?.Invoke();
         }
     }
 
