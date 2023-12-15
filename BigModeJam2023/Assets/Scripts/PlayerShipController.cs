@@ -414,9 +414,9 @@ public class PlayerShipController : MonoBehaviour
         float TimeStamp = Time.time + time;
         while (TimeStamp > Time.time)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-            float z = Random.Range(-1f, 1f) * magnitude;
+            float x = Random.Range(-1f, 1f) * magnitude * Time.timeScale;
+            float y = Random.Range(-1f, 1f) * magnitude * Time.timeScale;
+            float z = Random.Range(-1f, 1f) * magnitude* Time.timeScale;
             // undo last transform, add new transform, save new transform as old
             t.position -= lastPos;
             t.position += new Vector3(x, y, z);
