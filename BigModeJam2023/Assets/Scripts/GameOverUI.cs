@@ -21,6 +21,11 @@ public class GameOverUI : MonoBehaviour
         PlayerShipController.OnGameOver += Show;
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     private void OnDestroy()
     {
         PlayerShipController.OnGameOver -= Show;
@@ -41,6 +46,7 @@ public class GameOverUI : MonoBehaviour
     // ====================== Function ======================
     private void Show()
     {
+        Time.timeScale = 0;
         _gameOverUI.SetActive(true);
     }
 

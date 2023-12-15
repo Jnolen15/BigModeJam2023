@@ -288,6 +288,8 @@ MonoBehaviour:
   _shipAudioSource: {fileID: 4950467417142679430}
   _shootSound: {fileID: 8300000, guid: ae7dd9902aa63bb458d67f34d2ba56d4, type: 3}
   _damageSound: {fileID: 8300000, guid: bb4eb7ffd36902b4b88755d87c3f0c21, type: 3}
+  _dieSound: {fileID: 8300000, guid: 51a1be9b146457a4e9a0309e9a8beba9, type: 3}
+  _laserSound: {fileID: 8300000, guid: fc7b3c88ba1920341be2f9a99508ed42, type: 3}
   _shieldAudioSource: {fileID: 7962024103603049774}
   _startChargeShield: {fileID: 8300000, guid: 28719daf17481d84fa4dfbf1fd480254, type: 3}
   _endChargeShield: {fileID: 8300000, guid: baab51eb45e58ef4fb1e16aa06567bb1, type: 3}

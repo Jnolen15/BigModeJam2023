@@ -74,6 +74,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private AudioSource _shipAudioSource;
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _damageSound;
+    [SerializeField] private AudioClip _dieSound;
+    [SerializeField] private AudioClip _laserSound;
     [SerializeField] private AudioSource _shieldAudioSource;
     [SerializeField] private AudioClip _startChargeShield;
     [SerializeField] private AudioClip _endChargeShield;
@@ -276,6 +278,7 @@ public class PlayerShipController : MonoBehaviour
             if (_currentHealth <= 0)
             {
                 OnGameOver?.Invoke();
+                _shipAudioSource.PlayOneShot(_dieSound);
                 //Time.timeScale = 0;
                 _gameplayManager.GameOver = true;
             }
@@ -357,7 +360,7 @@ public class PlayerShipController : MonoBehaviour
     {
         GameObject laser1 = Instantiate(_laser, transform.position, Quaternion.identity);
 
-        _shipAudioSource.PlayOneShot(_shootSound);
+        _shipAudioSource.PlayOneShot(_laserSound);
     }
     private void Rocket()
     {
