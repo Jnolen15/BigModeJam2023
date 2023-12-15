@@ -22,7 +22,7 @@ public class AudioControl : MonoBehaviour
     {
         CockpitController.OnGoToCockpit -= TransitionCockpit;
         CockpitController.OnGoToGame -= TransitionGame;
-        MainMenuUI.OnGameStarted += SwapMusic;
+        MainMenuUI.OnGameStarted -= SwapMusic;
     }
 
     // ====================== Function ======================
