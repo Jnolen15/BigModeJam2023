@@ -68,7 +68,7 @@ public class EnemyStats : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerBullet")
         {
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<PlayerProjectileScript>().HitEnemy();
             _enemyTakeDamage(other.GetComponent<PlayerProjectileScript>().GetDamage());
         }
         if(other.gameObject.tag == "PlayerRocket")

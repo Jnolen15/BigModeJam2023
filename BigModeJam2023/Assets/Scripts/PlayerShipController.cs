@@ -32,7 +32,9 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _altFireCoolDown = 1f;
     [SerializeField] private float _shotgunShots = 20;
     [SerializeField] private float _shotgunSpread = 45; // degrees
-    [SerializeField] private float _shotgunRange = 10;
+    [SerializeField] private float _shotgunPenetrations = 1;
+    [SerializeField] private float _shotgunRange = 10; // not used rn
+    
     private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
@@ -356,6 +358,7 @@ public class PlayerShipController : MonoBehaviour
             temp.SetAngle(angle);
             temp.SetSpeed(_projectileSpeed);
             temp.SetRange(_shotgunRange);
+            temp.SetPiercing(_shotgunPenetrations);
         }
 
         _shipAudioSource.PlayOneShot(_shootSound);

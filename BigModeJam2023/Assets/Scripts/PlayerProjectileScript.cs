@@ -7,6 +7,8 @@ public class PlayerProjectileScript : MonoBehaviour
     // ====================== Refrences / Variables ======================
     [SerializeField] private float _range = 20;
     [SerializeField] private float _damage = 5;
+    [SerializeField] private float _penetrations = 0;
+
     private float _ySpeed = 0.001f;
     private float _yPosition;
     private float _distanceTraveled = 0;
@@ -42,6 +44,17 @@ public class PlayerProjectileScript : MonoBehaviour
     public void SetRange(float range)
     {
         _range = range;
+    }
+    
+    public void SetPiercing(float num)
+    {
+        _penetrations = num;
+    }
+
+    public void HitEnemy()
+    {
+        if (_penetrations <= 0) Destroy(gameObject);
+        _penetrations -= 1;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
