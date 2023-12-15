@@ -31,7 +31,8 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float _shotWidth = 0.1f;
     [SerializeField] private float _altFireCoolDown = 1f;
     [SerializeField] private float _shotgunShots = 20;
-    [SerializeField] private float _shotgunSpread = 0.01f;
+    [SerializeField] private float _shotgunSpread = 45; // degrees
+    [SerializeField] private float _shotgunRange = 10;
     private bool _rocketEquipped = false;
     private bool _laserEquipped = false;
     private bool _shotgunEquipped = false;
@@ -314,7 +315,7 @@ public class PlayerShipController : MonoBehaviour
         if (fireChance >= 100 || Random.Range(0, 100) > fireChance) // % chance to fire gun if gun system is damaged
         {
             GameObject laser = Instantiate(_projectile, transform.position + new Vector3(xOffset, 0, 0), Quaternion.identity);
-            laser.GetComponent<PlayerProjectileScript>().SetSpeed(0, _projectileSpeed);
+            laser.GetComponent<PlayerProjectileScript>().SetSpeed(_projectileSpeed);
 
             _shipAudioSource.PlayOneShot(_shootSound);
 
@@ -341,9 +342,12 @@ public class PlayerShipController : MonoBehaviour
     {
         for (float i = 0; i < _shotgunShots; i++)
         {
-            float drift = Random.Range(-_shotgunSpread, _shotgunSpread);
+            float angle = Random.Range(-_shotgunSpread, _shotgunSpread);
             GameObject laser1 = Instantiate(_projectile, transform.position, Quaternion.identity);
-            laser1.GetComponent<PlayerProjectileScript>().SetSpeed(drift, _projectileSpeed - Mathf.Abs(drift)/2);
+            PlayerProjectileScript temp = laser1.GetComponent<PlayerProjectileScript>();
+            temp.SetAngle(angle);
+            temp.SetSpeed(_projectileSpeed);
+            temp.SetRange(_shotgunRange);
         }
 
         _shipAudioSource.PlayOneShot(_shootSound);

@@ -266,7 +266,8 @@ MonoBehaviour:
   _shotWidth: 0.15
   _altFireCoolDown: 1
   _shotgunShots: 20
-  _shotgunSpread: 0.2
+  _shotgunSpread: 45
+  _shotgunRange: 4
   _GunCoolDownUpgradeMultiplier: 0.5
   _moveSpeedUpgradeMultiplier: 1.5
   _projectileSpeedUpgradeMultiplier: 1.5
@@ -275,7 +276,7 @@ MonoBehaviour:
   _moveSpaceRect: {fileID: 0}
   _projectile: {fileID: 1091817720086394234, guid: 7bd9e04b963254d458c051d3295abb2f, type: 3}
   _rocket: {fileID: 1091817720086394234, guid: 2b612398cfd3246479596087a8061e21, type: 3}
-  _laser: {fileID: 1091817720086394234, guid: 0948168924fd8f04fb5e43e7b89ef901, type: 3}
+  _laser: {fileID: 116770495008664292, guid: 0948168924fd8f04fb5e43e7b89ef901, type: 3}
   _gunSparkRight: {fileID: 1661778828952233246}
   _gunSparkLeft: {fileID: 8381425700672560141}
   _engineSmokeRight: {fileID: 7883819314322832920}

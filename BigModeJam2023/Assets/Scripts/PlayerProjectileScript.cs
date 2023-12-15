@@ -8,7 +8,6 @@ public class PlayerProjectileScript : MonoBehaviour
     [SerializeField] private float _range = 20;
     [SerializeField] private float _damage = 5;
     private float _ySpeed = 0.001f;
-    private float _xSpeed = 0f;
     private float _yPosition;
     private float _distanceTraveled = 0;
     [SerializeField] private GameObject _impactParticle;
@@ -23,19 +22,26 @@ public class PlayerProjectileScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(new Vector3(_xSpeed * Time.timeScale, _ySpeed * Time.timeScale, 0));
+        transform.Translate(new Vector3(0, _ySpeed * Time.timeScale, 0));
 
         _distanceTraveled += Mathf.Abs(transform.position.y - _yPosition);
         _yPosition = transform.position.y;
         if (_distanceTraveled > _range) // destroying
             Destroy(gameObject);
-
     }
 
-    public void SetSpeed(float xSpeed, float ySpeed)
+    public void SetAngle(float angle)
     {
-        _xSpeed = xSpeed;
-        _ySpeed = ySpeed;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _ySpeed = speed;
+    }
+    public void SetRange(float range)
+    {
+        _range = range;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
