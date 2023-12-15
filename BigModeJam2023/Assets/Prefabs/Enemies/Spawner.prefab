@@ -63,15 +63,15 @@ MonoBehaviour:
     SpawnCheck: 1
   - Name: SeekerEnemy
     EnemyPrefab: {fileID: 7839222879034198494, guid: 0a54fab83e0eadb42a49eeab0b34e2d7, type: 3}
-    DangerLevel: 6
+    DangerLevel: 10
     SpawnCheck: 0
   - Name: LaserEnemy
     EnemyPrefab: {fileID: 5817803231404458132, guid: 40382055f6ceeae4d8d91e2f81aaddff, type: 3}
     DangerLevel: 6
     SpawnCheck: 0
   SpawnAmount: 5
-  StopSpawningWave: 10
-  spawnBreakTime: 15
+  StopSpawningWave: 5
+  spawnBreakTime: 7
   DifficultyTimer: 12
   SpawnCooldown: 6
   CanSpawnOnceAgain: 1

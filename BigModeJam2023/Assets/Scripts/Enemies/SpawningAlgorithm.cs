@@ -30,6 +30,7 @@ public class SpawningAlgorithm : MonoBehaviour
     private int _waveCost = 0;
     private List<GameObject> _generatedEnemy = new List<GameObject>();
     private bool gameStarting = true;
+    private bool _onBreak = false;
     private GameObject laserEnemyClone;
     
     void Start()
@@ -144,7 +145,9 @@ public class SpawningAlgorithm : MonoBehaviour
             else
             {
                 wave = 0;
+                _onBreak = true;
                 yield return new WaitForSeconds(spawnBreakTime);
+                _onBreak = false;
             }
             yield return null;
         }
@@ -159,23 +162,27 @@ public class SpawningAlgorithm : MonoBehaviour
                 gameStarting = false;
                 yield return new WaitForSeconds(5);
             }
-            yield return new WaitForSeconds(DifficultyTimer);
-            SpawnAmount += 1;
-            //At diffilctuy seven we add charging enemy
-            //At difficulty 9 we add seeker
-            //At difficulty 11 we add laser enemy
-            switch (SpawnAmount)
+            if (!_onBreak)
             {
-                case 7:
-                    Enemies[0].SpawnCheck = true;
-                    break;
-                case 9:
-                    Enemies[4].SpawnCheck = true;
-                    break;
-                case 11:
-                    Enemies[5].SpawnCheck = true;
-                    break;
+                yield return new WaitForSeconds(DifficultyTimer);
+                SpawnAmount += 1;
+                //At diffilctuy seven we add charging enemy
+                //At difficulty 9 we add seeker
+                //At difficulty 11 we add laser enemy
+                switch (SpawnAmount)
+                {
+                    case 7:
+                        Enemies[0].SpawnCheck = true;
+                        break;
+                    case 9:
+                        Enemies[4].SpawnCheck = true;
+                        break;
+                    case 11:
+                        Enemies[5].SpawnCheck = true;
+                        break;
+                }
             }
+            yield return null;
         }
     }
 }
