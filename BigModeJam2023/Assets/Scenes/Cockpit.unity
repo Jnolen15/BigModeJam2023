@@ -2313,6 +2313,56 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &177614942 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 50468160850591241, guid: 21621398bd851e440a227398029d0a00, type: 3}
+  m_PrefabInstance: {fileID: 1900160541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &177614947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177614942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &189324499
 GameObject:
   m_ObjectHideFlags: 0
@@ -8068,6 +8118,7 @@ GameObject:
   - component: {fileID: 737136339}
   - component: {fileID: 737136338}
   - component: {fileID: 737136342}
+  - component: {fileID: 737136343}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8177,6 +8228,105 @@ MonoBehaviour:
   _gameOverUI: {fileID: 1894574337}
   _pauseUI: {fileID: 1323521015}
   _gamePause: 0
+  _audioSource: {fileID: 737136343}
+  _beepSound1: {fileID: 8300000, guid: 399644079a0867a49a98e160e436e9fa, type: 3}
+  _beepSound2: {fileID: 8300000, guid: b5cfcce50f55cec42803daa919f3d482, type: 3}
+--- !u!82 &737136343
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737136337}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -7782125399167678244, guid: 132f678f3291c2a47b49a3de1e17464e, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &751356163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8090808395039399682, guid: 4a16cb7df2bb68e4a9dcfa5c51c8121f, type: 3}
@@ -9985,6 +10135,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042047434}
   m_CullTransparentMesh: 1
+--- !u!1 &1050271533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4014505590992729405, guid: 21621398bd851e440a227398029d0a00, type: 3}
+  m_PrefabInstance: {fileID: 1900160541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1050271538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050271533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1084205086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13675,6 +13875,7 @@ GameObject:
   - component: {fileID: 1558194605}
   - component: {fileID: 1558194604}
   - component: {fileID: 1558194603}
+  - component: {fileID: 1558194606}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -13797,6 +13998,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558194601}
   m_CullTransparentMesh: 1
+--- !u!114 &1558194606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558194601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1588570971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20462,6 +20708,7 @@ GameObject:
   - component: {fileID: 1737029963}
   - component: {fileID: 1737029962}
   - component: {fileID: 1737029961}
+  - component: {fileID: 1737029964}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -20584,6 +20831,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737029959}
   m_CullTransparentMesh: 1
+--- !u!114 &1737029964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737029959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1757771065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22071,7 +22363,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4014505590992729405, guid: 21621398bd851e440a227398029d0a00, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1050271538}
+    - targetCorrespondingSourceObject: {fileID: 50468160850591241, guid: 21621398bd851e440a227398029d0a00, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 177614947}
   m_SourcePrefab: {fileID: 100100000, guid: 21621398bd851e440a227398029d0a00, type: 3}
 --- !u!1 &1935549736
 GameObject:
@@ -27647,6 +27945,7 @@ GameObject:
   - component: {fileID: 2059325045}
   - component: {fileID: 2059325044}
   - component: {fileID: 2059325043}
+  - component: {fileID: 2059325046}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -27769,6 +28068,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059325041}
   m_CullTransparentMesh: 1
+--- !u!114 &2059325046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059325041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 737136342}
+          m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+          m_MethodName: PlayRandBeep
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2075110560
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,10 @@ public class GameOverUI : MonoBehaviour
 
     [SerializeField] private bool _gamePause = false;
 
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _beepSound1;
+    [SerializeField] private AudioClip _beepSound2;
+
     public delegate void UIEvent();
     public static event UIEvent OnPause;
     public static event UIEvent OffPause;
@@ -78,5 +82,15 @@ public class GameOverUI : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void PlayRandBeep()
+    {
+        int rand = Random.Range(0, 2);
+
+        if (rand == 0)
+            _audioSource.PlayOneShot(_beepSound1);
+        else if (rand == 1)
+            _audioSource.PlayOneShot(_beepSound2);
     }
 }
