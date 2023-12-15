@@ -26,8 +26,8 @@ public class UpgradeTray : Interactable
     // FOR TESTING
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-            GetUpgrade();
+        //if (Input.GetKeyDown(KeyCode.U))
+        //    GetUpgrade();
     }
 
     // ====================== Override Functions ======================
