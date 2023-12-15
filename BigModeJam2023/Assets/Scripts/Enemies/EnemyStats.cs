@@ -87,6 +87,10 @@ public class EnemyStats : MonoBehaviour
         {
             _enemyTakeDamage(_collisionDamage);
         }
+        if (other.gameObject.tag == "BuzzSaw")
+        {
+            _enemyTakeDamage(other.transform.parent.GetComponent<RotatingShieldScript>().GetDamage());
+        }
     }
 
     private void spawnUpgrade()

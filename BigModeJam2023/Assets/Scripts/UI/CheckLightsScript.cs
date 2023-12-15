@@ -36,14 +36,6 @@ public class CheckLightsScript : MonoBehaviour
         CockpitDamageManager.OnSystemRepaired += DeactivateLight;
     }
 
-    private void FixedUpdate()
-    {
-       if (_systemDamaged)
-        {
-            
-        }
-    }
-
     // ====================== Function ======================
     public void ActivateLight(string system)
     {

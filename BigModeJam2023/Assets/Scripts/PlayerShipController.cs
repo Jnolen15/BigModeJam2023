@@ -42,6 +42,7 @@ public class PlayerShipController : MonoBehaviour
     [Header("Powerups/Debuffs")]
     [SerializeField] float _GunCoolDownUpgradeMultiplier = 0.5f;
     [SerializeField] float _moveSpeedUpgradeMultiplier = 1.5f;
+    [SerializeField] float _buzzSawSpeedMultiplier = 1.2f;
     [SerializeField] float _projectileSpeedUpgradeMultiplier = 1.5f;
     [SerializeField] float _gunDamagedMultiplier = 0.5f;
     [SerializeField] float _engineDamagedMultiplier = 0.8f;
@@ -67,6 +68,7 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private ParticleSystem _laserShootLeft;
     [SerializeField] private GameObject _shieldVisual;
     [SerializeField] private GameObject _rotatingShield;
+    [SerializeField] private GameObject _razorShield;
 
 
     private GameplayManager _gameplayManager;
@@ -122,7 +124,9 @@ public class PlayerShipController : MonoBehaviour
 
         //instantiating shield
         _rotatingShield = Instantiate(_rotatingShield);
-        _rotatingShield.SetActive(false);
+        _rotatingShield.SetActive(false); // temp true for testing
+        _razorShield = Instantiate(_razorShield);
+        _razorShield.SetActive(false);
 
         // subscribing to upgrade events
         UpgradeSlot.OnStartUpgrade += ActivateUpgrade;
@@ -448,11 +452,12 @@ public class PlayerShipController : MonoBehaviour
             case "Rocket":
                 _rocketEquipped = true;
                 break;
-            case "Time Warp":
-                Time.timeScale = 0.75f;
-                break;
             case "Shield":
                 _rotatingShield.SetActive(true);
+                break;
+            case "BuzzSaw":
+                _razorShield.SetActive(true);
+                _moveSpeed *= _buzzSawSpeedMultiplier;
                 break;
 
             //old upgrades
@@ -464,6 +469,9 @@ public class PlayerShipController : MonoBehaviour
                 break;
             case "ProjectileSpeed":
                 _projectileSpeed *= _projectileSpeedUpgradeMultiplier;
+                break;
+            case "Time Warp":
+                Time.timeScale = 0.75f;
                 break;
 
 
@@ -486,12 +494,14 @@ public class PlayerShipController : MonoBehaviour
             case "Rocket":
                 _rocketEquipped = false;
                 break;
-            case "Time Warp":
-                Time.timeScale =1;
-                break;
             case "Shield":
                 _rotatingShield.SetActive(false);
                 break;
+            case "BuzzSaw":
+                _razorShield.SetActive(false);
+                _moveSpeed /= _buzzSawSpeedMultiplier;
+                break;
+
 
             //old upgrades
             case "FireRate":
@@ -502,6 +512,9 @@ public class PlayerShipController : MonoBehaviour
                 break;
             case "ProjectileSpeed":
                 _projectileSpeed /= _projectileSpeedUpgradeMultiplier;
+                break;
+            case "Time Warp":
+                Time.timeScale = 1;
                 break;
 
             default:

@@ -285,6 +285,7 @@ MonoBehaviour:
   _laserShootLeft: {fileID: 5012760180086944734}
   _shieldVisual: {fileID: 1911006414304270059}
   _rotatingShield: {fileID: 8660001993355984636, guid: 0cd969304cd656341af3322517da633b, type: 3}
+  _razorShield: {fileID: 8660001993355984636, guid: 307ab607046201d4483a85c042ac4061, type: 3}
   _shipAudioSource: {fileID: 4950467417142679430}
   _shootSound: {fileID: 8300000, guid: ae7dd9902aa63bb458d67f34d2ba56d4, type: 3}
   _damageSound: {fileID: 8300000, guid: bb4eb7ffd36902b4b88755d87c3f0c21, type: 3}
