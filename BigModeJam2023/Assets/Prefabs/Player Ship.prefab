@@ -266,7 +266,7 @@ MonoBehaviour:
   _shotWidth: 0.15
   _altFireCoolDown: 1
   _shotgunShots: 20
-  _shotgunSpread: 45
+  _shotgunSpread: 60
   _shotgunRange: 4
   _GunCoolDownUpgradeMultiplier: 0.5
   _moveSpeedUpgradeMultiplier: 1.5
