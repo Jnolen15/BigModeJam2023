@@ -352,7 +352,8 @@ public class PlayerShipController : MonoBehaviour
     {
         for (float i = 0; i < _shotgunShots; i++)
         {
-            float angle = Random.Range(-_shotgunSpread, _shotgunSpread);
+            // float angle = Random.Range(-_shotgunSpread, _shotgunSpread); Random
+            float angle = ((_shotgunSpread * 2) * (i/_shotgunShots))  - _shotgunSpread; 
             GameObject laser1 = Instantiate(_projectile, transform.position, Quaternion.identity);
             PlayerProjectileScript temp = laser1.GetComponent<PlayerProjectileScript>();
             temp.SetAngle(angle);
