@@ -17,9 +17,11 @@ public class CockpitController : MonoBehaviour
     [SerializeField] private Tool _heldItem;
     [SerializeField] private GameObject _screenLight;
     [SerializeField] private GameObject _mouseDot;
+    [SerializeField] private GameObject _gameOverCutscene;
 
     private bool _inCockpit = true;
     private bool _cockpitControls = true;
+    private bool _gameOver = false;
     private float _verticalRotation = 0;
     private float _horizontalRotation = 0;
 
@@ -48,6 +50,7 @@ public class CockpitController : MonoBehaviour
         PlayerShipController.OnGameOver += OnGameEnd;
         GameOverUI.OffPause += OnUnpause;
         GameOverUI.OnPause += OnGameEnd;
+        GameOverUI.GameOverStarting += PrepareForCutscene;
 
         LockCursor();
     }
@@ -59,6 +62,7 @@ public class CockpitController : MonoBehaviour
         PlayerShipController.OnGameOver -= OnGameEnd;
         GameOverUI.OffPause -= OnUnpause;
         GameOverUI.OnPause -= OnGameEnd;
+        GameOverUI.GameOverStarting -= PrepareForCutscene;
     }
 
     // Start function
@@ -69,12 +73,16 @@ public class CockpitController : MonoBehaviour
 
         _gameStarted = true;
         LockCursor();
+        StartCoroutine("startingShake");
     }
 
     // ====================== Update ======================
     #region Update
     void Update()
     {
+        if (_gameOver)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Space))
             ChangePerspective();
 
@@ -85,6 +93,8 @@ public class CockpitController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
             MouseRaycast();
+
+        
     }
 
     private void ChangePerspective()
@@ -165,6 +175,22 @@ public class CockpitController : MonoBehaviour
         if(_inCockpit)
             SetCockpitControls(true);
     }
+    private void PrepareForCutscene()
+    {
+        _gameOver = true;
+        if (!_inCockpit)
+        {
+            SetMouseLook(Vector2.zero);
+
+            transform.DOMove(_playerCamPos.position, 0.2f).SetEase(Ease.OutSine);
+            transform.DORotate(_playerCamPos.rotation.eulerAngles, 0.2f).SetEase(Ease.OutSine).OnComplete(() => SetCockpitControls(true));
+
+            LockCursor();
+
+            _screenLight.SetActive(false);
+        }
+        _gameOverCutscene.SetActive(true);
+    }
 
     private void SetCockpitControls(bool canLook)
     {
@@ -236,6 +262,27 @@ public class CockpitController : MonoBehaviour
                 _heldItem = Tool.None;
                 break;
         }
+    }
+
+    IEnumerator startingShake()
+    {
+        float time = 3F;
+        float magnitude = 0.01F;
+        Transform t = Camera.main.transform;
+        Vector3 lastPos = Vector3.zero;
+        float TimeStamp = Time.time + time;
+        while (TimeStamp > Time.time)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude * Time.timeScale;
+            float y = Random.Range(-1f, 1f) * magnitude * Time.timeScale;
+            float z = Random.Range(-1f, 1f) * magnitude * Time.timeScale;
+            // undo last transform, add new transform, save new transform as old
+            t.position -= lastPos;
+            t.position += new Vector3(x, y, z);
+            lastPos = new Vector3(x, y, z);
+            yield return null;
+        }
+        t.position -= lastPos;
     }
 
     public void SetdownTool()

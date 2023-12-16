@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class GameOverUI : MonoBehaviour
 {
@@ -21,14 +23,18 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private AudioClip _beepSound1;
     [SerializeField] private AudioClip _beepSound2;
 
+    public GameObject Director;
+    public PlayableDirector PlayableDirector;
+
     public delegate void UIEvent();
     public static event UIEvent OnPause;
     public static event UIEvent OffPause;
+    public static event UIEvent GameOverStarting;
 
     // ====================== Setup ======================
     private void Awake()
     {
-        PlayerShipController.OnGameOver += Show;
+        PlayerShipController.OnGameOver += GameOverShow;
     }
 
     private void Start()
@@ -38,7 +44,7 @@ public class GameOverUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerShipController.OnGameOver -= Show;
+        PlayerShipController.OnGameOver -= GameOverShow;
     }
 
     private void Update()
@@ -51,14 +57,33 @@ public class GameOverUI : MonoBehaviour
             else
                 HidePause();
         }
+
+        if (Director.GetComponent<PlayableDirector>().state != PlayState.Playing && Director.activeInHierarchy)
+        {
+                GameOverIsOver();
+
+            
+        }
+        
     }
 
     // ====================== Function ======================
-    private void Show()
+    private void GameOverShow()
     {
-        Time.timeScale = 0;
-        _gameOverUI.SetActive(true);
+        
+        GameOverStarting?.Invoke();
+        
+        
     }
+
+    private void GameOverIsOver()
+    {
+        
+        _gameOverUI.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+
 
     private void Hide()
     {
