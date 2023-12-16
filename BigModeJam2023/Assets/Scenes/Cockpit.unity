@@ -1174,7 +1174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5973951181755899378, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: m_text
-      value: BuzzSaw
+      value: Shield
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _drains
@@ -1186,7 +1186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _upgradeName
-      value: BuzzSaw
+      value: Shield
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _upgradeDuration
@@ -8935,7 +8935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5973951181755899378, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: m_text
-      value: Move Speed
+      value: BuzzSaw
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _drains
@@ -8943,11 +8943,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _drainRate
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _upgradeName
-      value: MoveSpeed
+      value: BuzzSaw
       objectReference: {fileID: 0}
     - target: {fileID: 6092069398664713980, guid: 2220ce81bfaa7934fb4cde991922d961, type: 3}
       propertyPath: _upgradeDuration

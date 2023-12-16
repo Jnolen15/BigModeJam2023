@@ -95,7 +95,8 @@ public class EnemyStats : MonoBehaviour
 
     private void spawnUpgrade()
     {
-        if (Random.Range(0, 35) == 1)
+        int upgradesPerEnemies = 32;
+        if (Random.Range(1, upgradesPerEnemies - 1) == 1)
         {
             Instantiate(upgrade, transform.position, Quaternion.identity);
         }
