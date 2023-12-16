@@ -11,6 +11,12 @@ public class GameOverUI : MonoBehaviour
 
     [SerializeField] private bool _gamePause = false;
 
+    [SerializeField] private GameObject _bronzeMedal;
+    [SerializeField] private GameObject _silverMedal;
+    [SerializeField] private GameObject _goldMedal;
+    [SerializeField] private GameObject _coboltMedal;
+    [SerializeField] private GameObject _unobtaniumMedal;
+
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _beepSound1;
     [SerializeField] private AudioClip _beepSound2;
@@ -57,6 +63,20 @@ public class GameOverUI : MonoBehaviour
     private void Hide()
     {
         _gameOverUI.SetActive(false);
+    }
+
+    public void ShowMedals()
+    {
+        if (PlayerPrefs.GetInt("Bronze") == 1)
+            _bronzeMedal.SetActive(true);
+        if (PlayerPrefs.GetInt("Silver") == 1)
+            _silverMedal.SetActive(true);
+        if (PlayerPrefs.GetInt("Gold") == 1)
+            _goldMedal.SetActive(true);
+        if (PlayerPrefs.GetInt("Cobolt") == 1)
+            _coboltMedal.SetActive(true);
+        if (PlayerPrefs.GetInt("Unobtanium") == 1)
+            _unobtaniumMedal.SetActive(true);
     }
 
     public void ShowPause()

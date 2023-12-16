@@ -47,4 +47,14 @@ MonoBehaviour:
   ScoreScreen: {fileID: 0}
   GameOverFinalScore: {fileID: 0}
   HighestScore: {fileID: 0}
-  _secretScore: 300000
+  _medalThresholds:
+  - Threshold: 10000
+    MedalName: Bronze
+  - Threshold: 50000
+    MedalName: Silver
+  - Threshold: 100000
+    MedalName: Gold
+  - Threshold: 200000
+    MedalName: Cobolt
+  - Threshold: 300000
+    MedalName: Unobtanium

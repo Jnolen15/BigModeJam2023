@@ -10,13 +10,14 @@ public class ScoreManager : MonoBehaviour
     private int _score;
     private bool isGameOver = false;
     
-    public GameObject ScoreScreen;
-    public GameObject GameOverFinalScore;
-    public GameObject HighestScore;
+    public TextMeshPro ScoreScreen;
+    public TextMeshProUGUI GameOverFinalScore;
+    public TextMeshProUGUI HighestScore;
+    [SerializeField] private GameOverUI _gameOverUI;
 
     public delegate void ScoreEvent();
     public static event ScoreEvent OnReachSecret;
-    [SerializeField] private int _secretScore;
+    [SerializeField] private List<MedalEntry> _medalThresholds;
     private bool _secretScoreReached;
 
     void Start()
@@ -25,16 +26,21 @@ public class ScoreManager : MonoBehaviour
         EnemyStats.OnDeath += GiveScore;
     }
 
-    // Update is called once per frame
+    private void OnDestroy()
+    {
+        EnemyStats.OnDeath -= GiveScore;
+        PlayerShipController.OnGameOver -= GiveFinalScore;
+    }
+
     void Update()
     {
         if (!isGameOver)
         {
-            ScoreScreen.GetComponent<TextMeshPro>().text = _score.ToString();
+            ScoreScreen.text = _score.ToString();
         }
 
         // Medals stuff
-        if (_score > _secretScore && !_secretScoreReached)
+        if (_score > _medalThresholds[_medalThresholds.Count-1].Threshold && !_secretScoreReached)
         {
             _secretScoreReached = true;
             OnReachSecret?.Invoke();
@@ -73,12 +79,32 @@ public class ScoreManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighScore", (int)_score);
         }
-        GameOverFinalScore.GetComponent<TextMeshProUGUI>().text = Mathf.Floor(_score).ToString();
-        HighestScore.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("HighScore", (int)_score).ToString();
+        GameOverFinalScore.text = Mathf.Floor(_score).ToString();
+        HighestScore.text = PlayerPrefs.GetInt("HighScore", (int)_score).ToString();
+
+        // Medals stuff
+        foreach (MedalEntry entry in _medalThresholds)
+        {
+            Debug.Log($"Testing medal {entry.MedalName} {entry.Threshold} against {_score}");
+
+            if(_score >= entry.Threshold)
+            {
+                if (PlayerPrefs.GetInt(entry.MedalName) != 1) // Give medal{
+                {
+                    Debug.Log(entry.MedalName + " medal earned!");
+                    PlayerPrefs.SetInt(entry.MedalName, 1);
+                }
+            }
+        }
+
+        if(_gameOverUI != null)
+            _gameOverUI.ShowMedals();
     }
-    private void OnDestroy()
+
+    [System.Serializable]
+    public class MedalEntry
     {
-        EnemyStats.OnDeath -= GiveScore;
-        PlayerShipController.OnGameOver -= GiveFinalScore;
+        public int Threshold;
+        public string MedalName;
     }
 }
