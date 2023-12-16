@@ -681,4 +681,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationAmount: 12
-  _damage: 2
+  _damage: 3
